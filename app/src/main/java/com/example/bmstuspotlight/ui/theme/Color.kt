@@ -1,4 +1,4 @@
-package com.example.bmstu_spotlight.ui.theme
+package com.example.bmstuspotlight.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

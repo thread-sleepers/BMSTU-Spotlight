@@ -1,4 +1,4 @@
-package com.example.bmstu_spotlight
+package com.example.bmstuspotlight
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
