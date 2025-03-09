@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BMSTUSpotlight"
+rootProject.name = "BMSTU_Spotlight"
 include(":app")
  
