@@ -16,11 +16,11 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
       - name: 🔐 Set up permission
-        run: chmod +x ./BMSTUSpotlight/gradlew
+        run: chmod +x gradlew
       - name: 🔨 Build debug
-        run: ./BMSTUSpotlight/gradlew assembleDebug
+        run: ./gradlew assembleDebug
       - name: 🛠️ Unit-test
-        run: ./BMSTUSpotlight/gradlew test
+        run: ./gradlew test
   static_analysis:
     runs-on: ubuntu-latest
     steps:
@@ -52,9 +52,9 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
       - name: 🔐 Set up permission
-        run: chmod +x ./BMSTUSpotlight/gradlew
+        run: chmod +x gradlew
       - name: 🔨 Build internal release
-        run: ./BMSTUSpotlight/gradlew assembleDebug
+        run: ./gradlew assembleDebug
       - name: 🔄 Upload debug apk
         uses: actions/upload-artifact@v4
         with:
