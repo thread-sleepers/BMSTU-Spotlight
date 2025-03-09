@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.bmstu_spotlight"
+    namespace = "com.example.bmstuspotlight"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.bmstu_spotlight"
+        applicationId = "com.example.bmstuspotlight"
         minSdk = 25
         targetSdk = 35
         versionCode = 1
