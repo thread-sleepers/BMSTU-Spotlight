@@ -1,4 +1,4 @@
-package com.example.bmstu_spotlight
+package com.example.bmstuspotlight
 
 import org.junit.Test
 
