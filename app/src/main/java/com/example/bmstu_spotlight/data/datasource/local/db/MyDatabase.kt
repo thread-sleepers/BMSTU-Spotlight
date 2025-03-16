@@ -8,11 +8,13 @@ import com.example.bmstu_spotlight.data.datasource.local.dao.FloorDao
 import com.example.bmstu_spotlight.data.datasource.local.dao.NodeDao
 import com.example.bmstu_spotlight.data.datasource.local.entities.BuildingEntity
 import com.example.bmstu_spotlight.data.datasource.local.entities.FloorEntity
+import com.example.bmstu_spotlight.data.datasource.local.entities.NodeEntity
 
 @Database(
     entities = [
         BuildingEntity::class,
-        FloorEntity::class
+        FloorEntity::class,
+        NodeEntity::class
     ],
     version = 1,
     exportSchema = true
