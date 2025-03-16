@@ -6,9 +6,10 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import java.util.UUID
 
-@Entity(tableName = "nodes",
+@Entity(
+    tableName = "nodes",
     foreignKeys = [ForeignKey(
-        entity = NodeEntity::class,
+        entity = FloorEntity::class,
         parentColumns = ["floor_id"],
         childColumns = ["foreign_floor_id"],
         onUpdate = ForeignKey.CASCADE
