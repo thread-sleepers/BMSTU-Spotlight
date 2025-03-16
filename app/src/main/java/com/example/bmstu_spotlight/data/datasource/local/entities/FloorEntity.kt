@@ -3,11 +3,13 @@ package com.example.bmstu_spotlight.data.datasource.local.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.util.UUID
 
 @Entity(
     tableName = "floors",
+    indices = [Index("foreign_building_id")],
     foreignKeys = [ForeignKey(
         entity = BuildingEntity::class,
         parentColumns = ["building_id"],
