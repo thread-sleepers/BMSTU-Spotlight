@@ -6,10 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.bmstu_spotlight.data.datasource.local.entities.BuildingWithFloors
 import com.example.bmstu_spotlight.data.datasource.local.entities.FloorEntity
 import com.example.bmstu_spotlight.data.datasource.local.entities.FloorWithNodes
-import com.example.bmstu_spotlight.datasource.local.entities.floorEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
