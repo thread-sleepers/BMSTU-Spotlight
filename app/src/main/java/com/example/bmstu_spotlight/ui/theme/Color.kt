@@ -12,6 +12,7 @@ val Pink40 = Color(0xFF7D5260)
 
 val ColorBack1 = Color(0xFFCFBAF0)
 val ColorBack2 = Color(0xFFFDE4CF)
+val ColorBack3 = Color(0xFFCCC2DC)
 val ColorInput1 = Color(0xFFFFFFFF)
 val ColorButton1 = Color(0xFF6EB5FF)
 val ColorButton2 = Color(0xFFFFABAB)
