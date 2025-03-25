@@ -174,7 +174,7 @@ fun MenuSection() { // Отображение кнопок из меню
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Coferences",
+                Text("Conferences",
                     color = ColorText1,
                     fontSize = 28.sp,
                     textAlign = TextAlign.Center
