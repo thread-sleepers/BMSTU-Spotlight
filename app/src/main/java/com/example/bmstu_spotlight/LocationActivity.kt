@@ -21,6 +21,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.unit.toSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.LocationOn
@@ -70,6 +72,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.draw.scale
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 
 
@@ -88,7 +91,7 @@ class LocationActivity : ComponentActivity() {
 @Composable
 fun LocationScreen() { // Экран отображения маршрута или локации
     val showNewTopSection = remember { mutableStateOf(DataHolder.showNewTopSection) }
-    val backgroundImage = painterResource(id = R.drawable.ic_launcher_background)
+    val backgroundImage = painterResource(id = R.drawable.plan)
 
     // Box для наложения элементов друг на друга
     Box(
@@ -137,6 +140,9 @@ fun InteractiveImageBackground(image: Painter) {
     var offsetX by remember { mutableStateOf(0f) }
     var offsetY by remember { mutableStateOf(0f) }
 
+    val imageSize = remember { mutableStateOf(Size.Zero) }
+    val screenSize = remember { mutableStateOf(Size.Zero) }
+
     // Если выбран маркер, автоматически приближаемся к нему
     LaunchedEffect(DataHolder.targetMarkerIndex) {
         DataHolder.targetMarkerIndex?.let { index ->
@@ -152,9 +158,16 @@ fun InteractiveImageBackground(image: Painter) {
             .fillMaxSize()
             .pointerInput(Unit) {
                 detectTransformGestures { _, pan, zoom, _ ->
-                    scale *= zoom
-                    offsetX += pan.x
-                    offsetY += pan.y
+                    // Обновляем масштаб
+                    val newScale = (scale * zoom).coerceIn(1f, 3f) // Ограничиваем масштаб от 1x до 3x
+                    scale = newScale
+
+                    // Ограничение перемещения
+                    val maxX = (imageSize.value.width * scale - screenSize.value.width) / 2
+                    val maxY = (imageSize.value.height * scale - screenSize.value.height) / 2
+
+                    offsetX = (offsetX + pan.x).coerceIn(-maxX, maxX)
+                    offsetY = (offsetY + pan.y).coerceIn(-maxY, maxY)
                 }
             }
     ) {
@@ -162,19 +175,30 @@ fun InteractiveImageBackground(image: Painter) {
         Image(
             painter = image,
             contentDescription = null,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.Fit,
             modifier = Modifier
                 .fillMaxSize()
+                .padding(top = 64.dp)
                 .graphicsLayer(
                     scaleX = scale,
                     scaleY = scale,
                     translationX = offsetX,
                     translationY = offsetY
                 )
+                .onGloballyPositioned { coordinates ->
+                    screenSize.value = coordinates.size.toSize()
+                    imageSize.value = Size(
+                        coordinates.size.width.toFloat(),
+                        coordinates.size.height.toFloat()
+                    )
+                }
         )
 
-        // Добавление маркеров
-        DataHolder.markerPositions.forEachIndexed { index, (x, y) ->
+        /* Добавление маркеров - проставление меток на карте, закоментировано,
+            потому что не настроено, то чтобы маркеры отображались в нужных, а
+            не случайных местоах */
+
+        /*DataHolder.markerPositions.forEachIndexed { index, (x, y) ->
             Box(
                 modifier = Modifier
                     .graphicsLayer(
@@ -191,14 +215,9 @@ fun InteractiveImageBackground(image: Painter) {
                     fontSize = 16.sp
                 )
             }
-        }
+        }*/
     }
 }
-
-
-
-
-
 
 @Composable
 fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко ввода начальной и конечной локации
