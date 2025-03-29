@@ -1,78 +1,37 @@
-package com.example.bmstu_spotlight
+package com.example.bmstu_spotlight.ui.screens
 
-import android.annotation.SuppressLint
-
-
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.material.icons.Icons
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.foundation.background
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.compose.ui.Alignment
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.draw.shadow
-import androidx.compose.foundation.shape.CircleShape
-import com.example.bmstu_spotlight.ui.theme.*
-import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightTheme
-import kotlin.random.Random
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.clickable
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.compose.runtime.livedata.observeAsState
-
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightTheme
-import androidx.compose.ui.platform.LocalContext
-
-
-class HomeActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            BMSTUSpotlightTheme {
-                HomeScreen()
-            }
-        }
-    }
-}
+import com.example.bmstu_spotlight.Route
+import com.example.bmstu_spotlight.ui.theme.ColorBack2
+import com.example.bmstu_spotlight.ui.theme.ColorBack3
+import com.example.bmstu_spotlight.ui.theme.ColorText1
+import com.example.bmstu_spotlight.ui.theme.ColorText2
 
 @Composable
-fun HomeScreen( ) { // Экран меню
-    val context = LocalContext.current
+fun HomeScreen(onHomeClicked: () -> Unit,
+               onLocationClicked: () -> Unit,
+               onFavoritesClicked : () -> Unit,
+               onNotificationClicked : () -> Unit,
+               onAccountClicked: () -> Unit) { // Экран меню
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -81,7 +40,9 @@ fun HomeScreen( ) { // Экран меню
     ) {
         Text(text = "Menu Screen", fontSize = 28.sp)
         MenuSection()
-        BottomSection(context = context, currentRoute = Route.Home)
+        BottomSection(currentRoute = Route.Home, onHomeClicked = onHomeClicked,
+            onLocationClicked = onLocationClicked, onFavoritesClicked = onFavoritesClicked,
+            onNotificationClicked = onNotificationClicked, onAccountClicked = onAccountClicked)
     }
 }
 

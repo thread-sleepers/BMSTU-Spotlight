@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.material3.android)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
