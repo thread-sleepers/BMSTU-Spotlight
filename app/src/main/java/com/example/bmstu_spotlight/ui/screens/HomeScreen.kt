@@ -20,18 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bmstu_spotlight.Route
 import com.example.bmstu_spotlight.ui.theme.ColorBack2
 import com.example.bmstu_spotlight.ui.theme.ColorBack3
 import com.example.bmstu_spotlight.ui.theme.ColorText1
 import com.example.bmstu_spotlight.ui.theme.ColorText2
 
 @Composable
-fun HomeScreen(onHomeClicked: () -> Unit,
-               onLocationClicked: () -> Unit,
-               onFavoritesClicked : () -> Unit,
-               onNotificationClicked : () -> Unit,
-               onAccountClicked: () -> Unit) { // Экран меню
+fun HomeScreen() { // Экран меню
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,9 +35,7 @@ fun HomeScreen(onHomeClicked: () -> Unit,
     ) {
         Text(text = "Menu Screen", fontSize = 28.sp)
         MenuSection()
-        BottomSection(currentRoute = Route.Home, onHomeClicked = onHomeClicked,
-            onLocationClicked = onLocationClicked, onFavoritesClicked = onFavoritesClicked,
-            onNotificationClicked = onNotificationClicked, onAccountClicked = onAccountClicked)
+        //BottomSection(currentRoute = Route.Home)
     }
 }
 

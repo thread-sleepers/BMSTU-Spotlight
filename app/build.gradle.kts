@@ -79,4 +79,7 @@ dependencies {
     implementation(libs.androidx.room.rxjava2)
     testImplementation(libs.androidx.room.testing)
 
+    implementation(libs.navigation.compose)
+    implementation(libs.androidx.material)
+
 }

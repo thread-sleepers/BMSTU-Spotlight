@@ -10,14 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bmstu_spotlight.DataHolder
-import com.example.bmstu_spotlight.Route
 
 @Composable
-fun FavoritesScreen(onHomeClicked: () -> Unit,
-                    onLocationClicked: () -> Unit,
-                    onFavoritesClicked : () -> Unit,
-                    onNotificationClicked : () -> Unit,
-                    onAccountClicked: () -> Unit) { // Экран любимых мест
+fun FavoritesScreen() { // Экран любимых мест
 
     // Пример получения данных из датахолдера
     val location1 = DataHolder.location1
@@ -33,9 +28,6 @@ fun FavoritesScreen(onHomeClicked: () -> Unit,
 
         Text(text = "Location 1: $location1", fontSize = 18.sp)
         Text(text = "Location 2: $location2", fontSize = 18.sp)
-        BottomSection(currentRoute = Route.Favorites, onHomeClicked = onHomeClicked,
-            onLocationClicked = onLocationClicked, onFavoritesClicked = onFavoritesClicked,
-            onNotificationClicked = onNotificationClicked, onAccountClicked = onAccountClicked)
     }
 
 }

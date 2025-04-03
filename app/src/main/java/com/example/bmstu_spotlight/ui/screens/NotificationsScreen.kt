@@ -9,14 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bmstu_spotlight.Route
 
 @Composable
-fun NotificationsScreen(onHomeClicked: () -> Unit,
-                        onLocationClicked: () -> Unit,
-                        onFavoritesClicked : () -> Unit,
-                        onNotificationClicked : () -> Unit,
-                        onAccountClicked: () -> Unit) { // Экран с уведомлением или расписанием
+fun NotificationsScreen() { // Экран с уведомлением или расписанием
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -24,9 +19,6 @@ fun NotificationsScreen(onHomeClicked: () -> Unit,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Text(text = "Notifications Screen", fontSize = 28.sp)
-        BottomSection(currentRoute = Route.Notifications, onHomeClicked = onHomeClicked,
-            onLocationClicked = onLocationClicked, onFavoritesClicked = onFavoritesClicked,
-            onNotificationClicked = onNotificationClicked, onAccountClicked = onAccountClicked)
     }
 
 }

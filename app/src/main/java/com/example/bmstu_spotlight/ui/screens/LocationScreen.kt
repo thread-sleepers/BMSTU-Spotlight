@@ -42,7 +42,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import com.example.bmstu_spotlight.DataHolder
 import com.example.bmstu_spotlight.R
-import com.example.bmstu_spotlight.Route
 import com.example.bmstu_spotlight.ui.theme.ColorBack1
 import com.example.bmstu_spotlight.ui.theme.ColorBack2
 import com.example.bmstu_spotlight.ui.theme.ColorButton1
@@ -51,11 +50,7 @@ import com.example.bmstu_spotlight.ui.theme.ColorInput1
 import com.example.bmstu_spotlight.ui.theme.ColorText2
 
 @Composable
-fun LocationScreen(onHomeClicked: () -> Unit,
-                   onLocationClicked: () -> Unit,
-                   onFavoritesClicked : () -> Unit,
-                   onNotificationClicked : () -> Unit,
-                   onAccountClicked: () -> Unit) { // Экран отображения маршрута или локации
+fun LocationScreen() { // Экран отображения маршрута или локации
     val showNewTopSection = remember { mutableStateOf(DataHolder.showNewTopSection) }
     val backgroundImage = painterResource(id = R.drawable.plan)
 
@@ -95,9 +90,6 @@ fun LocationScreen(onHomeClicked: () -> Unit,
                     showNewTopSection.value = true
                 }
             }
-            BottomSection(currentRoute = Route.Location, onHomeClicked = onHomeClicked,
-                onLocationClicked = onLocationClicked, onFavoritesClicked = onFavoritesClicked,
-                onNotificationClicked = onNotificationClicked, onAccountClicked = onAccountClicked)
         }
     }
 }

@@ -1,85 +1,84 @@
 package com.example.bmstu_spotlight
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import android.annotation.SuppressLint
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.bmstu_spotlight.ui.screens.AccountScreen
-import com.example.bmstu_spotlight.ui.screens.FavoritesScreen
-import com.example.bmstu_spotlight.ui.screens.HomeScreen
-import com.example.bmstu_spotlight.ui.screens.LocationScreen
-import com.example.bmstu_spotlight.ui.screens.NotificationsScreen
+import com.example.bmstu_spotlight.ui.screens.BottomBarScreen
+import com.example.bmstu_spotlight.ui.screens.BottomNavGraph
+import com.example.bmstu_spotlight.ui.theme.ColorBack1
 
-enum class Route() {
-    Home,
-    Location,
-    Notifications,
-    Favorites,
-    Account
-}
-
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun BMSTUSpotlightApp(navController: NavHostController = rememberNavController())
 {
-    Scaffold() { innerPadding ->
+    Scaffold(
+        bottomBar = {BottomBar(navController = navController)}
+    ) {
+        BottomNavGraph(navController = navController)
+    }
+}
 
-        NavHost(
-            navController = navController,
-            startDestination = Route.Home.name,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            composable(route = Route.Home.name) {
-                HomeScreen(
-                    onHomeClicked = {navController.navigate(Route.Home.name)},
-                    onLocationClicked = {navController.navigate(Route.Location.name)},
-                    onFavoritesClicked = {navController.navigate(Route.Favorites.name)},
-                    onAccountClicked = {navController.navigate(Route.Account.name)},
-                    onNotificationClicked = {navController.navigate(Route.Notifications.name)}
-                )
-            }
-            composable(route = Route.Location.name) {
-                LocationScreen(
-                    onHomeClicked = {navController.navigate(Route.Home.name)},
-                    onLocationClicked = {navController.navigate(Route.Location.name)},
-                    onFavoritesClicked = {navController.navigate(Route.Favorites.name)},
-                    onAccountClicked = {navController.navigate(Route.Account.name)},
-                    onNotificationClicked = {navController.navigate(Route.Notifications.name)}
-                )
-            }
-            composable(route = Route.Favorites.name) {
-                FavoritesScreen(
-                    onHomeClicked = {navController.navigate(Route.Home.name)},
-                    onLocationClicked = {navController.navigate(Route.Location.name)},
-                    onFavoritesClicked = {navController.navigate(Route.Favorites.name)},
-                    onAccountClicked = {navController.navigate(Route.Account.name)},
-                    onNotificationClicked = {navController.navigate(Route.Notifications.name)}
-                )
-            }
-            composable(route = Route.Notifications.name) {
-                NotificationsScreen(
-                    onHomeClicked = {navController.navigate(Route.Home.name)},
-                    onLocationClicked = {navController.navigate(Route.Location.name)},
-                    onFavoritesClicked = {navController.navigate(Route.Favorites.name)},
-                    onAccountClicked = {navController.navigate(Route.Account.name)},
-                    onNotificationClicked = {navController.navigate(Route.Notifications.name)}
-                )
-            }
-            composable(route = Route.Account.name) {
-                AccountScreen(
-                    onHomeClicked = {navController.navigate(Route.Home.name)},
-                    onLocationClicked = {navController.navigate(Route.Location.name)},
-                    onFavoritesClicked = {navController.navigate(Route.Favorites.name)},
-                    onAccountClicked = {navController.navigate(Route.Account.name)},
-                    onNotificationClicked = {navController.navigate(Route.Notifications.name)}
-                )
-            }
+@Composable
+fun BottomBar(navController: NavHostController) {
+    val screens = listOf(
+        BottomBarScreen.Home,
+        BottomBarScreen.Location,
+        BottomBarScreen.Account,
+        BottomBarScreen.Favorites,
+        BottomBarScreen.Notifications
+    )
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    BottomNavigation(backgroundColor = Color.Transparent) {
+        screens.forEach { screen ->
+            AddItem(screen = screen, currentDestination = currentDestination,
+                navController = navController)
         }
     }
+}
+
+@Composable
+fun RowScope.AddItem(
+    screen: BottomBarScreen,
+    currentDestination: NavDestination?,
+    navController: NavHostController
+) {
+    BottomNavigationItem(
+        modifier = Modifier.background(ColorBack1, shape = RoundedCornerShape(18.dp)),
+        icon = {
+            Icon(imageVector = screen.icon,contentDescription = "Navigation Icon", modifier = Modifier.size(40.dp),
+                tint = if (currentDestination?.hierarchy?.any { it.route == screen.route } == true) Color.White else Color.Unspecified)
+        },
+        selected = currentDestination?.hierarchy?.any {
+            it.route == screen.route
+        } == true,
+        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.high),
+        selectedContentColor = Color.White,
+        onClick = {
+            navController.navigate(screen.route) {
+                popUpTo(navController.graph.findStartDestination().id)
+                launchSingleTop = true
+            }
+        }
+    )
 }
