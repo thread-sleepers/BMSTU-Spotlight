@@ -50,9 +50,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.livedata.observeAsState
 import android.content.Context
 import android.content.Intent
-
-
-
+import androidx.annotation.StringRes
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.internal.composableLambda
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 
 class MainActivity : ComponentActivity() {
@@ -60,99 +70,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BMSTUSpotlightTheme {
-                HomeScreen()
+                BMSTUSpotlightApp()
             }
         }
     }
 }
-
-enum class Route {
-    Home,
-    Location,
-    Notifications,
-    Favorites,
-    Account
-}
-
-
-@Composable
-fun BottomSection(context: Context, currentRoute: Route) { // Навигация между экранами (Нижние кнопки)
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(ColorBack1, shape = RoundedCornerShape(18.dp))
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        IconButton(
-            onClick = { if (currentRoute != Route.Home) context.startActivity(Intent(context, HomeActivity::class.java)) },
-            enabled = currentRoute != Route.Home
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Menu,
-                contentDescription = "Menu Icon",
-                modifier = Modifier.size(80.dp),
-                tint = if (currentRoute == Route.Home) Color.White else Color.Unspecified
-            )
-        }
-
-        IconButton(
-            onClick = { if (currentRoute != Route.Location) context.startActivity(Intent(context, LocationActivity::class.java)) },
-            enabled = currentRoute != Route.Location
-        ) {
-            Icon(
-                imageVector = Icons.Filled.LocationOn,
-                contentDescription = "Location Icon",
-                modifier = Modifier.size(80.dp),
-                tint = if (currentRoute == Route.Location) Color.White else Color.Unspecified
-            )
-        }
-
-        IconButton(
-            onClick = { if (currentRoute != Route.Notifications) context.startActivity(Intent(context, NotificationsActivity::class.java)) },
-            enabled = currentRoute != Route.Notifications
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Notifications,
-                contentDescription = "Notifications Icon",
-                modifier = Modifier.size(80.dp),
-                tint = if (currentRoute == Route.Notifications) Color.White else Color.Unspecified
-            )
-        }
-
-        IconButton(
-            onClick = { if (currentRoute != Route.Favorites) context.startActivity(Intent(context, FavoritesActivity::class.java)) },
-            enabled = currentRoute != Route.Favorites
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Favorite,
-                contentDescription = "Favorites Icon",
-                modifier = Modifier.size(80.dp),
-                tint = if (currentRoute == Route.Favorites) Color.White else Color.Unspecified
-            )
-        }
-
-        IconButton(
-            onClick = { if (currentRoute != Route.Account) context.startActivity(Intent(context, AccountActivity::class.java)) },
-            enabled = currentRoute != Route.Account
-        ) {
-            Icon(
-                imageVector = Icons.Filled.AccountCircle,
-                contentDescription = "Account Icon",
-                modifier = Modifier.size(80.dp),
-                tint = if (currentRoute == Route.Account) Color.White else Color.Unspecified
-            )
-        }
-    }
-}
-
-
 
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     BMSTUSpotlightTheme {
-        HomeScreen()
+        BMSTUSpotlightApp()
     }
 }

@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.material3.android)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
@@ -77,5 +78,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.rxjava2)
     testImplementation(libs.androidx.room.testing)
+
+    implementation(libs.navigation.compose)
+    implementation(libs.androidx.material)
 
 }
