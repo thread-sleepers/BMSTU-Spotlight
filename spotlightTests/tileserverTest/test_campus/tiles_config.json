@@ -1,0 +1,16 @@
+{
+  "options": {
+    "paths": { "data": "./data"}
+  },
+  "data": {
+    "indoor-tiles": {
+      "mbtiles": "campus_result.mbtiles"
+    }
+  },
+  "styles": {
+    "indoor-style": {
+        "style": "campus_result.json",
+        "serve_rendered": true
+    }
+  }
+}

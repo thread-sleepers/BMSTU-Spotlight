@@ -1,0 +1,981 @@
+{
+   "sources": {
+    "openmaptiles": {
+      "type": "vector",
+      "url": "http://[::]:8080/data/openmaptiles.json", 
+       "tiles": [
+            "http://[::]:8080/data/openmaptiles/{z}/{x}/{y}.pbf"
+        ]
+    }
+  },
+ 
+  "name": "output.mbtiles",
+  "format": "pbf",
+  "basename": "output.mbtiles",
+  "id": "output",
+  "description": "output.mbtiles",
+  "version": "2",
+  "minzoom": 0,
+  "maxzoom": 12,
+  "center": [37.67528, 55.762907, 12],
+  "bounds": [37.67528, 55.762907, 37.687231, 55.769766],
+  "antimeridian_adjusted_bounds": "37.675280,55.762907,37.687231,55.769766",
+  "type": "overlay",
+  "generator": "tippecanoe v2.75.1",
+  "generator_options": "tippecanoe -zg -o output.mbtiles Buildings_of_campus_geojson.geojson --drop-densest-as-needed",
+  "strategies": "[{\"tiny_polygons\":71},{\"tiny_polygons\":71},{\"tiny_polygons\":71},{\"tiny_polygons\":71},{\"tiny_polygons\":142},{\"tiny_polygons\":142},{\"tiny_polygons\":142},{\"tiny_polygons\":138},{\"tiny_polygons\":110},{\"tiny_polygons\":27},{\"tiny_polygons\":5},{\"tiny_polygons\":1},{}]",
+  "vector_layers": [
+    {
+      "id": "Buildings_of_campus_geojson",
+      "description": "",
+      "minzoom": 0,
+      "maxzoom": 12,
+      "fields": {
+        "addr:city": "String",
+        "addr:country": "String",
+        "addr:housenumber": "String",
+        "addr:postcode": "String",
+        "addr:street": "String",
+        "alt_name": "String",
+        "amenity": "String",
+        "branch": "String",
+        "brand": "String",
+        "brand:en": "String",
+        "brand:ru": "String",
+        "brand:wikidata": "String",
+        "brand:wikipedia": "String",
+        "building": "String",
+        "building:architecture": "String",
+        "building:colour": "String",
+        "building:flats": "String",
+        "building:levels": "String",
+        "building:material": "String",
+        "building:part": "String",
+        "contact:facebook": "String",
+        "contact:instagram": "String",
+        "contact:ok": "String",
+        "contact:phone": "String",
+        "contact:twitter": "String",
+        "contact:vk": "String",
+        "contact:website": "String",
+        "contact:youtube": "String",
+        "description": "String",
+        "design:ref": "String",
+        "disused": "String",
+        "fax": "String",
+        "full_id": "String",
+        "government": "String",
+        "health_facility:type": "String",
+        "healthcare": "String",
+        "heritage": "String",
+        "heritage:name": "String",
+        "historic:name": "String",
+        "location": "String",
+        "name": "String",
+        "name:en": "String",
+        "name:ru": "String",
+        "name:uk": "String",
+        "office": "String",
+        "official_name": "String",
+        "opening_hours": "String",
+        "operator": "String",
+        "operator:wikidata": "String",
+        "operator:wikipedia": "String",
+        "osm_id": "String",
+        "osm_type": "String",
+        "phone": "String",
+        "power": "String",
+        "ref": "String",
+        "roof:angle": "String",
+        "roof:colour": "String",
+        "roof:material": "String",
+        "roof:shape": "String",
+        "short_name": "String",
+        "start_date": "String",
+        "substation": "String",
+        "type": "String",
+        "website": "String",
+        "wheelchair": "String",
+        "wikidata": "String",
+        "wikipedia": "String"
+      }
+    }
+  ],
+  "tilestats": {
+    "layerCount": 1,
+    "layers": [
+      {
+        "layer": "Buildings_of_campus_geojson",
+        "count": 71,
+        "geometry": "Polygon",
+        "attributeCount": 67,
+        "attributes": [
+          {
+            "attribute": "addr:city",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Москва"
+            ]
+          },
+          {
+            "attribute": "addr:country",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "RU"
+            ]
+          },
+          {
+            "attribute": "addr:housenumber",
+            "count": 60,
+            "type": "string",
+            "values": [
+              "1 к1",
+              "10",
+              "10 с2А",
+              "10/1",
+              "13",
+              "13-15",
+              "14",
+              "15",
+              "16/2 с1",
+              "16/2 с2",
+              "16/2 с5",
+              "17 к12",
+              "17 к14",
+              "17 к4",
+              "17 к5",
+              "17 к6",
+              "19",
+              "2",
+              "2 с2",
+              "3 c4A",
+              "3 с2",
+              "3 с4",
+              "3-5",
+              "30 с10",
+              "5",
+              "50/12 с1",
+              "53",
+              "53 c1",
+              "53 c2",
+              "53 с3",
+              "53 с4",
+              "53 с5",
+              "53 с8",
+              "54 с1",
+              "54 с3",
+              "56/17",
+              "56/17 c2",
+              "57Б с1",
+              "57Б с2",
+              "58 с4",
+              "58/25 c11",
+              "58/25 к12 с2",
+              "58/25 к8",
+              "58/25 с10",
+              "58/25 с14",
+              "58/25 с16",
+              "58/3 с2",
+              "58А",
+              "6",
+              "60/5",
+              "62-66",
+              "66/11",
+              "68/8 с1",
+              "70 с1",
+              "70 с2",
+              "8/2",
+              "9/23",
+              "9/23 с1",
+              "вл 47",
+              "вл58"
+            ]
+          },
+          {
+            "attribute": "addr:postcode",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "105005"
+            ]
+          },
+          {
+            "attribute": "addr:street",
+            "count": 12,
+            "type": "string",
+            "values": [
+              "2-я Бауманская улица",
+              "Аптекарский переулок",
+              "Бауманская улица",
+              "Бригадирский переулок",
+              "Гарднеровский переулок",
+              "Денисовский переулок",
+              "Лефортовский переулок",
+              "Новокирочный переулок",
+              "Плетешковский переулок",
+              "Старокирочный переулок",
+              "Технический переулок",
+              "улица Радио"
+            ]
+          },
+          {
+            "attribute": "alt_name",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Палаты Ван-дер-Гульстов"
+            ]
+          },
+          {
+            "attribute": "amenity",
+            "count": 4,
+            "type": "string",
+            "values": [
+              "bank",
+              "cafe",
+              "clinic",
+              "library"
+            ]
+          },
+          {
+            "attribute": "branch",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Московский банк"
+            ]
+          },
+          {
+            "attribute": "brand",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Сбербанк"
+            ]
+          },
+          {
+            "attribute": "brand:en",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Sberbank"
+            ]
+          },
+          {
+            "attribute": "brand:ru",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Сбербанк"
+            ]
+          },
+          {
+            "attribute": "brand:wikidata",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Q205012"
+            ]
+          },
+          {
+            "attribute": "brand:wikipedia",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "en:Sberbank of Russia"
+            ]
+          },
+          {
+            "attribute": "building",
+            "count": 14,
+            "type": "string",
+            "values": [
+              "apartments",
+              "commercial",
+              "hospital",
+              "hotel",
+              "house",
+              "industrial",
+              "office",
+              "public",
+              "retail",
+              "ruins",
+              "school",
+              "service",
+              "university",
+              "yes"
+            ]
+          },
+          {
+            "attribute": "building:architecture",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "empire",
+              "stalinist_neoclassicism"
+            ]
+          },
+          {
+            "attribute": "building:colour",
+            "count": 24,
+            "type": "string",
+            "values": [
+              "beige",
+              "beige;white",
+              "brown",
+              "burlywood",
+              "green",
+              "grey",
+              "lightblue;white",
+              "lightgreen",
+              "lightgrey",
+              "lightgrey;black",
+              "lightgrey;grey",
+              "lightyellow",
+              "orange",
+              "orange;beige",
+              "orange;brown",
+              "pink",
+              "pink;beige",
+              "pink;orange",
+              "pink;white",
+              "red",
+              "tomato",
+              "white",
+              "white;blue",
+              "yellow"
+            ]
+          },
+          {
+            "attribute": "building:flats",
+            "count": 6,
+            "type": "string",
+            "values": [
+              "143",
+              "30",
+              "60",
+              "68",
+              "84",
+              "93"
+            ]
+          },
+          {
+            "attribute": "building:levels",
+            "count": 13,
+            "type": "string",
+            "values": [
+              "1",
+              "10",
+              "11",
+              "12",
+              "14",
+              "16",
+              "2",
+              "20",
+              "3",
+              "4",
+              "5",
+              "6",
+              "9"
+            ]
+          },
+          {
+            "attribute": "building:material",
+            "count": 6,
+            "type": "string",
+            "values": [
+              "brick",
+              "concrete",
+              "glass",
+              "metal",
+              "plaster",
+              "porcelain_stoneware"
+            ]
+          },
+          {
+            "attribute": "building:part",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "commercial"
+            ]
+          },
+          {
+            "attribute": "contact:facebook",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "https://ru-ru.facebook.com/sledcomru",
+              "https://www.facebook.com/sberbank"
+            ]
+          },
+          {
+            "attribute": "contact:instagram",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "https://www.instagram.com/sberbank/",
+              "https://www.instagram.com/sledcom_rf"
+            ]
+          },
+          {
+            "attribute": "contact:ok",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "https://ok.ru/sberbank"
+            ]
+          },
+          {
+            "attribute": "contact:phone",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "+7 800 5555550"
+            ]
+          },
+          {
+            "attribute": "contact:twitter",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "https://twitter.com/sberbank/",
+              "https://twitter.com/sledcom_rf"
+            ]
+          },
+          {
+            "attribute": "contact:vk",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "https://vk.com/sberbank",
+              "https://vk.com/sledcomru"
+            ]
+          },
+          {
+            "attribute": "contact:website",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "https://www.sberbank.ru"
+            ]
+          },
+          {
+            "attribute": "contact:youtube",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "https://www.youtube.com/channel/UCOiAwKQuFMdJuK7wwDIoKpA",
+              "https://www.youtube.com/sberbank"
+            ]
+          },
+          {
+            "attribute": "description",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Пятиэтажный трёхподъездный кирпичный жилой дом.\nПостроен в 1930 году."
+            ]
+          },
+          {
+            "attribute": "design:ref",
+            "count": 7,
+            "type": "string",
+            "values": [
+              "1-511-3/Ю",
+              "II-14",
+              "II-14-31",
+              "II-18-02/12",
+              "II-18-11/МИ вариант «Б»",
+              "II-57-03/12ЮА",
+              "II-68-01/16Ю"
+            ]
+          },
+          {
+            "attribute": "disused",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "yes"
+            ]
+          },
+          {
+            "attribute": "fax",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "+7 495 9169068"
+            ]
+          },
+          {
+            "attribute": "full_id",
+            "count": 71,
+            "type": "string",
+            "values": [
+              "1",
+              "r13838105",
+              "r14277909",
+              "r14277910",
+              "r14277912",
+              "r14987145",
+              "r14987147",
+              "r14987148",
+              "r14987149",
+              "r14987150",
+              "r16930267",
+              "r911487",
+              "w1034107315",
+              "w1056583221",
+              "w1081140752",
+              "w1196709574",
+              "w1196709575",
+              "w1196709576",
+              "w1196709577",
+              "w1196709581",
+              "w1196709582",
+              "w1228626947",
+              "w1234550686",
+              "w1234575764",
+              "w1234575765",
+              "w131173264",
+              "w131173268",
+              "w131173269",
+              "w131175172",
+              "w131175182",
+              "w131175183",
+              "w131175184",
+              "w131175185",
+              "w131175197",
+              "w131182227",
+              "w131182234",
+              "w131182280",
+              "w131182288",
+              "w131182309",
+              "w131182336",
+              "w309473840",
+              "w34319620",
+              "w34319621",
+              "w34319627",
+              "w34319628",
+              "w34319635",
+              "w42692907",
+              "w45243241",
+              "w45767830",
+              "w45831335",
+              "w45831365",
+              "w45831444",
+              "w53156740",
+              "w53156742",
+              "w53156743",
+              "w53156746",
+              "w53156747",
+              "w53162065",
+              "w541958498",
+              "w54684718",
+              "w60911174",
+              "w60911175",
+              "w60911197",
+              "w620857751",
+              "w642976119",
+              "w665282678",
+              "w665282704",
+              "w676327440",
+              "w708012674",
+              "w895563037",
+              "w933023157"
+            ]
+          },
+          {
+            "attribute": "government",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "investigation"
+            ]
+          },
+          {
+            "attribute": "health_facility:type",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "clinic"
+            ]
+          },
+          {
+            "attribute": "healthcare",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "clinic"
+            ]
+          },
+          {
+            "attribute": "heritage",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "yes"
+            ]
+          },
+          {
+            "attribute": "heritage:name",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Дом Анны Монс"
+            ]
+          },
+          {
+            "attribute": "historic:name",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Фанагорийские казармы (почтовый двор)"
+            ]
+          },
+          {
+            "attribute": "location",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "indoor"
+            ]
+          },
+          {
+            "attribute": "name",
+            "count": 12,
+            "type": "string",
+            "values": [
+              "Bauman Digital World",
+              "ГЛОНАСС",
+              "Зелёные технологии",
+              "Квантум парк",
+              "Кислород",
+              "Конгресс холл",
+              "Поликлиника №160 при МГТУ им. Н.Э.Баумана",
+              "Сбербанк",
+              "Следственный комитет Российской Федерации",
+              "Федеральный испытательный центр",
+              "Центральная универсальная научная библиотека им. Н. А. Некрасова",
+              "Цифровое материаловедение"
+            ]
+          },
+          {
+            "attribute": "name:en",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "GLONASS",
+              "Sberbank"
+            ]
+          },
+          {
+            "attribute": "name:ru",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Сбербанк"
+            ]
+          },
+          {
+            "attribute": "name:uk",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Поліклініка №160 при МДТУ ім. Н.Е.Баумана"
+            ]
+          },
+          {
+            "attribute": "office",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "engineer",
+              "government"
+            ]
+          },
+          {
+            "attribute": "official_name",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Государственное бюджетное учреждение культуры г. Москвы \"Центральная универсальная научная библиотека им. Н. А. Некрасова\""
+            ]
+          },
+          {
+            "attribute": "opening_hours",
+            "count": 3,
+            "type": "string",
+            "values": [
+              "Mo-Fr 09:00-19:30; Sa 09:00-16:30",
+              "Mo-Sa 10:00-22:00; Su 10:00-20:00",
+              "Mo-Su 11:00-23:00"
+            ]
+          },
+          {
+            "attribute": "operator",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "ПАО Сбербанк"
+            ]
+          },
+          {
+            "attribute": "operator:wikidata",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "Q205012"
+            ]
+          },
+          {
+            "attribute": "operator:wikipedia",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "ru:Сбербанк России"
+            ]
+          },
+          {
+            "attribute": "osm_id",
+            "count": 70,
+            "type": "string",
+            "values": [
+              "1034107315",
+              "1056583221",
+              "1081140752",
+              "1196709574",
+              "1196709575",
+              "1196709576",
+              "1196709577",
+              "1196709581",
+              "1196709582",
+              "1228626947",
+              "1234550686",
+              "1234575764",
+              "1234575765",
+              "131173264",
+              "131173268",
+              "131173269",
+              "131175172",
+              "131175182",
+              "131175183",
+              "131175184",
+              "131175185",
+              "131175197",
+              "131182227",
+              "131182234",
+              "131182280",
+              "131182288",
+              "131182309",
+              "131182336",
+              "13838105",
+              "14277909",
+              "14277910",
+              "14277912",
+              "14987145",
+              "14987147",
+              "14987148",
+              "14987149",
+              "14987150",
+              "16930267",
+              "309473840",
+              "34319620",
+              "34319621",
+              "34319627",
+              "34319628",
+              "34319635",
+              "42692907",
+              "45243241",
+              "45767830",
+              "45831335",
+              "45831365",
+              "45831444",
+              "53156740",
+              "53156742",
+              "53156743",
+              "53156746",
+              "53156747",
+              "53162065",
+              "541958498",
+              "54684718",
+              "60911174",
+              "60911175",
+              "60911197",
+              "620857751",
+              "642976119",
+              "665282678",
+              "665282704",
+              "676327440",
+              "708012674",
+              "895563037",
+              "911487",
+              "933023157"
+            ]
+          },
+          {
+            "attribute": "osm_type",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "relation",
+              "way"
+            ]
+          },
+          {
+            "attribute": "phone",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "+7 495 9169068"
+            ]
+          },
+          {
+            "attribute": "power",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "substation"
+            ]
+          },
+          {
+            "attribute": "ref",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "9038/035",
+              "ТП 30459"
+            ]
+          },
+          {
+            "attribute": "roof:angle",
+            "count": 3,
+            "type": "string",
+            "values": [
+              "10",
+              "20",
+              "30"
+            ]
+          },
+          {
+            "attribute": "roof:colour",
+            "count": 7,
+            "type": "string",
+            "values": [
+              "blue",
+              "darkgoldenrod",
+              "gray",
+              "green",
+              "grey",
+              "lightgrey",
+              "red"
+            ]
+          },
+          {
+            "attribute": "roof:material",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "metal",
+              "tar_paper"
+            ]
+          },
+          {
+            "attribute": "roof:shape",
+            "count": 5,
+            "type": "string",
+            "values": [
+              "flat",
+              "gabled",
+              "hipped",
+              "round",
+              "skillion"
+            ]
+          },
+          {
+            "attribute": "short_name",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "ГЗ ",
+              "Некрасовка"
+            ]
+          },
+          {
+            "attribute": "start_date",
+            "count": 12,
+            "type": "string",
+            "values": [
+              "1958",
+              "1959",
+              "1960",
+              "1964",
+              "1970",
+              "1974",
+              "1976",
+              "1977",
+              "1978",
+              "2022",
+              "C18-C19",
+              "late C17"
+            ]
+          },
+          {
+            "attribute": "substation",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "minor_distribution"
+            ]
+          },
+          {
+            "attribute": "type",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "multipolygon"
+            ]
+          },
+          {
+            "attribute": "website",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "https://nekrasovka.ru/"
+            ]
+          },
+          {
+            "attribute": "wheelchair",
+            "count": 1,
+            "type": "string",
+            "values": [
+              "yes"
+            ]
+          },
+          {
+            "attribute": "wikidata",
+            "count": 3,
+            "type": "string",
+            "values": [
+              "Q118137830",
+              "Q14426318",
+              "Q4165255"
+            ]
+          },
+          {
+            "attribute": "wikipedia",
+            "count": 2,
+            "type": "string",
+            "values": [
+              "ru:Дом Анны Монс",
+              "ru:Центральная универсальная научная библиотека имени Н. А. Некрасова"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tilejson": "2.0.0"
+}

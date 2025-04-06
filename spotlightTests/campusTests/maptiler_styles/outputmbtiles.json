@@ -1,0 +1,46 @@
+{
+  "version": 8,
+  "name": "output.mbtiles",
+  "metadata": {"maputnik:renderer": "mlgljs"},
+  "center": [37.6812555, 55.7663366508368],
+  "zoom": 15,
+  "sources": {
+    "0195e42e-cac2-7fb2-9e06-dee6cb77ef8a": {
+      "url": "https://api.maptiler.com/tiles/0195e42e-cac2-7fb2-9e06-dee6cb77ef8a/tiles.json?key=gpVOgqbHwdAs6xGA7G9m",
+      "type": "vector"
+    }
+  },
+  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=gpVOgqbHwdAs6xGA7G9m",
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "layout": {"visibility": "visible"},
+      "paint": {"background-color": "#ffffff"}
+    },
+    {
+      "id": "Buildings_of_campus_geojson_line",
+      "type": "line",
+      "source": "0195e42e-cac2-7fb2-9e06-dee6cb77ef8a",
+      "source-layer": "Buildings_of_campus_geojson",
+      "paint": {"line-color": "rgb(68,153,68)"}
+    },
+    {
+      "id": "Buildings_of_campus_geojson_point",
+      "type": "circle",
+      "source": "0195e42e-cac2-7fb2-9e06-dee6cb77ef8a",
+      "source-layer": "Buildings_of_campus_geojson",
+      "filter": ["==", "$type", "Point"],
+      "paint": {"circle-color": "rgb(68,153,68)", "circle-radius": 2}
+    },
+    {
+      "id": "Buildings_of_campus_geojson_polygon",
+      "type": "fill",
+      "source": "0195e42e-cac2-7fb2-9e06-dee6cb77ef8a",
+      "source-layer": "Buildings_of_campus_geojson",
+      "filter": ["==", "$type", "Polygon"],
+      "paint": {"fill-color": "rgb(68,153,68)", "fill-opacity": 0.6}
+    }
+  ],
+  "id": "0195e42f-2d27-79b2-99db-e61e1631f640"
+}

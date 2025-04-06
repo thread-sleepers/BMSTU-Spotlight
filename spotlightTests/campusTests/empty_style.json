@@ -1,0 +1,23 @@
+{
+  "version": 8,
+  "name": "Empty Style",
+  "metadata": {},
+  "sources": {
+    "output": {
+      "type": "vector",
+      "url": "http://[::]:8080/data/output/{z}/{x}/{y}.pbf"
+    }
+  },
+  "sprite": "",
+  "glyphs": "https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "output",
+      "type": "line",
+      "source": "output",
+      "source-layer": "Buildings_of_campus_geojson",
+      "paint": {"line-color": "rgba(122, 16, 16, 1)"}
+    }
+  ],
+  "id": "rrzmxtb"
+}

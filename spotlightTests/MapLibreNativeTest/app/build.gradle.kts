@@ -1,3 +1,5 @@
+val MAPTILER_API_KEY: String = "gpVOgqbHwdAs6xGA7G9m"
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -15,6 +17,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+      //  buildConfigField("String", "MAPTILER_API_KEY", "${MAPTILER_API_KEY}")
+
     }
 
     buildTypes {
@@ -33,6 +38,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+//    buildFeatures {
+//        buildConfig = true
+//    }
 }
 
 dependencies {

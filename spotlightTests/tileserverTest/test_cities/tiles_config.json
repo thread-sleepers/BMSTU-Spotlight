@@ -1,0 +1,16 @@
+{
+  "options": {
+    "paths": { "data": "./data"}
+  },
+  "data": {
+    "indoor-tiles": {
+      "mbtiles": "world_cities.mbtiles"
+    }
+  },
+  "styles": {
+    "indoor-style": {
+        "style": "world_cities.json",
+        "serve_rendered": true
+    }
+  }
+}

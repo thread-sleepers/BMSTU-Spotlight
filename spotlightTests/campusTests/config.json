@@ -1,0 +1,38 @@
+{
+  "options": {
+    "paths": {
+      "root": "",
+      "fonts": "fonts",
+      "styles": "styles",
+      "mbtiles": "data"  
+    },
+    "serveStaticMaps": true,
+    "serveRenderedTiles": true  
+  },
+  "data": {  
+    "openmaptiles": {
+      "mbtiles": "output.mbtiles"
+    }
+  },
+  "styles": {
+    "test-style": {
+      "style": "style.json",
+      "tilejson": {
+        "minzoom": 0,
+        "maxzoom": 20,
+        "bounds": [8.529446, 47.364758, 8.55232, 47.380539],
+        "center": [37.6812555, 55.7663366508368, 15],  
+        "tiles": [
+          "http://[::]:8080/data/openmaptiles/{z}/{x}/{y}.png"  
+        ],
+        "type": "raster",  
+        "format": "png"
+      }
+    }
+  }
+}
+
+
+
+
+
