@@ -1,7 +1,7 @@
-package com.example.bmstu_spotlight.ui.screens.saved_locations_screen.data.di
+package com.example.bmstu_spotlight.saved_locations_screen.data.di
 
-import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.data.repository.FakeLocationRepository
-import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.domain.repository.LocationRepository
+import com.example.bmstu_spotlight.saved_locations_screen.data.repository.FakeLocationRepository
+import com.example.bmstu_spotlight.saved_locations_screen.domain.repository.LocationRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
