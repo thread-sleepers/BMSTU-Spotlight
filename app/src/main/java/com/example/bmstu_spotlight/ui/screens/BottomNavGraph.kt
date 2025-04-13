@@ -22,8 +22,8 @@ fun BottomNavGraph(
         composable(route = BottomBarScreen.Location.route) {
             LocationScreen()
         }
-        composable(route = BottomBarScreen.Favorites.route) {
-            FavoritesScreen()
+        composable(route = BottomBarScreen.SavedLocationsScreen.route) {
+            SavedLocationsScreen()
         }
         composable(route = BottomBarScreen.Notifications.route) {
             NotificationsScreen()

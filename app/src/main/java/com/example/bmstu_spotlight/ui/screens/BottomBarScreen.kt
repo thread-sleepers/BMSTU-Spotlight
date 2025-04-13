@@ -33,9 +33,9 @@ sealed class BottomBarScreen (
         title = "acc",
         icon = Icons.Default.AccountCircle
     )
-    object Favorites: BottomBarScreen(
-        route = "Favorites",
-        title = "fav",
+    object SavedLocationsScreen: BottomBarScreen(
+        route = "Saved",
+        title = "saved",
         icon = Icons.Default.Favorite
     )
 }
