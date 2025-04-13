@@ -3,7 +3,9 @@ package com.example.bmstu_spotlight
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -28,17 +30,27 @@ import com.example.bmstu_spotlight.ui.theme.ColorBack1
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BMSTUSpotlightApp(navController: NavHostController = rememberNavController())
-{
+fun BMSTUSpotlightApp(navController: NavHostController = rememberNavController()) {
     Scaffold(
-        bottomBar = {BottomBar(navController = navController)}
+        bottomBar = {
+            BottomBar(
+                navController = navController,
+                modifier = Modifier.systemBarsPadding()
+            )
+        }
     ) {
-        BottomNavGraph(navController = navController)
+        BottomNavGraph(
+            navController = navController,
+            modifier = Modifier.systemBarsPadding()
+        )
     }
 }
 
 @Composable
-fun BottomBar(navController: NavHostController) {
+fun BottomBar(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+) {
     val screens = listOf(
         BottomBarScreen.Home,
         BottomBarScreen.Location,
@@ -49,10 +61,15 @@ fun BottomBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation(backgroundColor = Color.Transparent) {
+    BottomNavigation(
+        backgroundColor = Color.Transparent,
+        modifier = modifier
+    ) {
         screens.forEach { screen ->
-            AddItem(screen = screen, currentDestination = currentDestination,
-                navController = navController)
+            AddItem(
+                screen = screen, currentDestination = currentDestination,
+                navController = navController
+            )
         }
     }
 }
@@ -66,7 +83,10 @@ fun RowScope.AddItem(
     BottomNavigationItem(
         modifier = Modifier.background(ColorBack1, shape = RoundedCornerShape(18.dp)),
         icon = {
-            Icon(imageVector = screen.icon,contentDescription = "Navigation Icon", modifier = Modifier.size(40.dp),
+            Icon(
+                imageVector = screen.icon,
+                contentDescription = "Navigation Icon",
+                modifier = Modifier.size(40.dp),
                 tint = if (currentDestination?.hierarchy?.any { it.route == screen.route } == true) Color.White else Color.Unspecified)
         },
         selected = currentDestination?.hierarchy?.any {
