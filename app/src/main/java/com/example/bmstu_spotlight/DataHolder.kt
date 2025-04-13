@@ -4,7 +4,6 @@ import com.example.bmstu_spotlight.data.datasource.local.entities.NodeEntity
 import com.example.bmstu_spotlight.data.datasource.local.entities.NodeType
 import java.util.UUID
 
-
 object DataHolder {
     var location1: String = ""
     var location2: String = ""
@@ -48,6 +47,3 @@ object DataHolder {
     )
 
 }
-
-
-
