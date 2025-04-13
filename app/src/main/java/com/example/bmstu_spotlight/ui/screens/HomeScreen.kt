@@ -1,5 +1,7 @@
 package com.example.bmstu_spotlight.ui.screens
 
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,38 +15,145 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bmstu_spotlight.DataHolder
+import com.example.bmstu_spotlight.ui.theme.ColorBack1
 import com.example.bmstu_spotlight.ui.theme.ColorBack2
 import com.example.bmstu_spotlight.ui.theme.ColorBack3
+import com.example.bmstu_spotlight.ui.theme.ColorButton1
+import com.example.bmstu_spotlight.ui.theme.ColorInput1
 import com.example.bmstu_spotlight.ui.theme.ColorText1
 import com.example.bmstu_spotlight.ui.theme.ColorText2
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.example.bmstu_spotlight.R
+
+
+import com.example.bmstu_spotlight.data.datasource.local.entities.NodeType
+import com.example.bmstu_spotlight.data.datasource.local.entities.NodeEntity
+import kotlinx.coroutines.selects.select
+
 
 @Composable
-fun HomeScreen() { // Экран меню
+fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = viewModel()) {
+    val selectedNodeType by viewModel.selectedNodeType.observeAsState(null)
+    val filteredNodes by viewModel.filteredNodes.observeAsState(listOf()) // Исправлено
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp),
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.Top
     ) {
-        Text(text = "Menu Screen", fontSize = 28.sp)
-        MenuSection()
-        //BottomSection(currentRoute = Route.Home)
+        TopSection3()
+
+        if (selectedNodeType == null) {
+            MenuSection { nodeType -> viewModel.selectNodeType(nodeType) }
+        } else {
+            selectedNodeType?.let { nodeType -> // Безопасная проверка перед передачей
+                SecondMenuSection(
+                    nodeType = nodeType,
+                    nodes = filteredNodes,
+                    onBackClick = { viewModel.clearSelection() },
+                    navController = navController
+                )
+            }
+        }
     }
 }
 
+
+
 @Composable
-fun MenuSection() { // Отображение кнопок из меню
+fun TopSection3() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(ColorBack1, shape = RoundedCornerShape(18.dp))
+            .padding(8.dp),
+        verticalArrangement = Arrangement.Top
+    ) {
+        val messageSearch1 = remember { mutableStateOf("") }
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            // Белый кружок с изображением
+            Box(
+                modifier = Modifier
+                    .size(50.dp) // Размер кружка
+                    .background(Color.White, shape = CircleShape), // Круглая форма
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.emblem), // Замените на свой ресурс
+                    contentDescription = "Логотип",
+                    modifier = Modifier.size(40.dp) // Размер картинки
+                )
+            }
+
+            Text(
+                "BMSTU-Spotlight",
+                color = ColorText2,
+                fontSize = 28.sp,
+                textAlign = TextAlign.Center
+            )
+
+            // Белый кружок с изображением
+            Box(
+                modifier = Modifier
+                    .size(50.dp) // Размер кружка
+                    .background(Color.White, shape = CircleShape), // Круглая форма
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.emblem), // Замените на свой ресурс
+                    contentDescription = "Логотип",
+                    modifier = Modifier.size(40.dp) // Размер картинки
+                )
+            }
+        }
+    }
+}
+
+
+
+@Composable
+fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение кнопок из меню
 
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
-        modifier = Modifier.fillMaxHeight(0.9f),
+        modifier = Modifier.fillMaxHeight(0.92f),
         contentPadding = PaddingValues(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalItemSpacing = 8.dp
@@ -55,14 +164,15 @@ fun MenuSection() { // Отображение кнопок из меню
                     .fillMaxWidth()
                     .height(100.dp)
                     .background(ColorBack2)
-                    .clickable( onClick = {  }),
+                    .clickable {  },
                 contentAlignment = Alignment.Center
             )
             {
-                Text("It's all in the Spotlight",
+                Text("Студенчиские активности",
                     color = ColorText1,
-                    fontSize = 28.sp,
-                    textAlign = TextAlign.Center
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
             }
         }
@@ -72,14 +182,15 @@ fun MenuSection() { // Отображение кнопок из меню
                     .fillMaxWidth()
                     .height(200.dp)
                     .background(ColorBack3)
-                    .clickable( onClick = {  }),
+                    .clickable { onItemClick(NodeType.LABORATORY) },
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Workshops",
+                Text("Мастерские",
                     color = ColorText2,
-                    fontSize = 28.sp,
-                    textAlign = TextAlign.Center
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
             }
         }
@@ -93,10 +204,11 @@ fun MenuSection() { // Отображение кнопок из меню
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Creative Area",
+                Text("Научные лаборатории",
                     color = ColorText2,
-                    fontSize = 28.sp,
-                    textAlign = TextAlign.Center
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
             }
         }
@@ -106,14 +218,15 @@ fun MenuSection() { // Отображение кнопок из меню
                     .fillMaxWidth()
                     .height(200.dp)
                     .background(ColorBack2)
-                    .clickable( onClick = {  }),
+                    .clickable { onItemClick(NodeType.CLASSROOM) },
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Classrooms",
+                Text("Места для учебы и отдыха",
                     color = ColorText1,
-                    fontSize = 28.sp,
-                    textAlign = TextAlign.Center
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
             }
         }
@@ -128,10 +241,11 @@ fun MenuSection() { // Отображение кнопок из меню
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Conferences",
+                Text("Конференции",
                     color = ColorText1,
-                    fontSize = 28.sp,
-                    textAlign = TextAlign.Center
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
             }
         }
@@ -148,8 +262,9 @@ fun MenuSection() { // Отображение кнопок из меню
             {
                 Text("VK Education",
                     color = ColorText2,
-                    fontSize = 28.sp,
-                    textAlign = TextAlign.Center
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
             }
 
@@ -161,14 +276,15 @@ fun MenuSection() { // Отображение кнопок из меню
                     .fillMaxWidth()
                     .height(300.dp)
                     .background(ColorBack3)
-                    .clickable( onClick = {  }),
+                    .clickable { onItemClick(NodeType.CANTEEN) },
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Cafeterias and canteens",
+                Text("Кафетерии и столовые",
                     color = ColorText2,
-                    fontSize = 28.sp,
-                    textAlign = TextAlign.Center
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
             }
         }
@@ -183,13 +299,70 @@ fun MenuSection() { // Отображение кнопок из меню
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Shops",
+                Text("Магазины",
                     color = ColorText1,
-                    fontSize = 28.sp,
-                    textAlign = TextAlign.Center
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
             }
         }
 
     }
 }
+
+@Composable
+fun SecondMenuSection(
+    nodeType: NodeType,
+    nodes: List<NodeEntity>, // Используем NodeEntity вместо Node
+    onBackClick: () -> Unit,
+    navController: NavHostController
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxHeight(0.96f)
+            .fillMaxSize()
+            .padding(8.dp)
+    ) {
+        LazyColumn(
+            modifier = Modifier.fillMaxHeight(0.90f),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(nodes) { node ->
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(80.dp)
+                        .background(ColorBack2)
+                        .clickable {
+                            DataHolder.selectedNodeId = node.nodeId
+                            navController.navigate(BottomBarScreen.Location.route)
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(node.nodeName, fontSize = 24.sp, textAlign = TextAlign.Center, color = ColorText1)
+                }
+            }
+        }
+
+        Button(
+            onClick = onBackClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(64.dp)
+                .padding(8.dp)
+                .shadow(3.dp, shape = CircleShape),
+            colors = ButtonDefaults.buttonColors(containerColor = ColorButton1, contentColor = Color.Black),
+            shape = RoundedCornerShape(28.dp),
+        ) {
+            Text("Назад", fontSize = 20.sp, color = ColorText2)
+        }
+    }
+}
+
+
+
+
+
+
+
