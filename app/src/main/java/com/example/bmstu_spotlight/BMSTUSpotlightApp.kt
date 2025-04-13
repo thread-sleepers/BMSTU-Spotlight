@@ -64,7 +64,7 @@ fun RowScope.AddItem(
     navController: NavHostController
 ) {
     BottomNavigationItem(
-        modifier = Modifier.background(ColorBack1, shape = RoundedCornerShape(18.dp)),
+        modifier = Modifier.background(ColorBack1),
         icon = {
             Icon(imageVector = screen.icon,contentDescription = "Navigation Icon", modifier = Modifier.size(40.dp),
                 tint = if (currentDestination?.hierarchy?.any { it.route == screen.route } == true) Color.White else Color.Unspecified)
