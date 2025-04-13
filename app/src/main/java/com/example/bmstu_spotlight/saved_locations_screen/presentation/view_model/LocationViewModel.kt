@@ -3,13 +3,14 @@ package com.example.bmstu_spotlight.saved_locations_screen.presentation.view_mod
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bmstu_spotlight.saved_locations_screen.domain.usecase.GetSavedLocationsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-
-class LocationViewModel (
+@HiltViewModel
+class LocationViewModel @Inject constructor(
     private val getSavedLocationsUseCase: GetSavedLocationsUseCase
 ) : ViewModel() {
     private val _recentLocations = MutableStateFlow<Map<String, String>>(emptyMap())
