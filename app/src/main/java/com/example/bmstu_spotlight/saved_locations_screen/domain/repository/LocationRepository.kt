@@ -1,4 +1,4 @@
-package com.example.bmstu_spotlight.ui.screens.saved_locations_screen.domain.repository
+package com.example.bmstu_spotlight.saved_locations_screen.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 

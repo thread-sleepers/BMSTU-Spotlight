@@ -1,4 +1,4 @@
-package com.example.bmstu_spotlight.ui.screens.saved_locations_screen.presentation.components
+package com.example.bmstu_spotlight.saved_locations_screen.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth

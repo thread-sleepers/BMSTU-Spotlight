@@ -1,6 +1,6 @@
-package com.example.bmstu_spotlight.ui.screens.saved_locations_screen.data.repository
+package com.example.bmstu_spotlight.saved_locations_screen.data.repository
 
-import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.domain.repository.LocationRepository
+import com.example.bmstu_spotlight.saved_locations_screen.domain.repository.LocationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

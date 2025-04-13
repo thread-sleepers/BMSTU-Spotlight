@@ -1,4 +1,4 @@
-package com.example.bmstu_spotlight.ui.screens.saved_locations_screen.presentation.screen
+package com.example.bmstu_spotlight.saved_locations_screen.presentation.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,9 +20,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.presentation.components.LocationList
-import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.presentation.components.SectionHeader
-import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.presentation.view_model.LocationViewModel
+import com.example.bmstu_spotlight.saved_locations_screen.presentation.components.LocationList
+import com.example.bmstu_spotlight.saved_locations_screen.presentation.components.SectionHeader
+import com.example.bmstu_spotlight.saved_locations_screen.presentation.view_model.LocationViewModel
 import dagger.hilt.android.components.ViewModelComponent
 
 import androidx.lifecycle.viewmodel.compose.viewModels
@@ -78,7 +78,7 @@ fun SavedLocationsScreen() {
 
 
 //    @Composable
-//    fun SavedLocationsScreen(val viewModel: LocationViewModel by viewModels) {
+//    fun SavedLocationsScreen(val viewModel: LocationViewModel = hiltViewModel) {
 //        val recent by viewModel.recentLocations.collectAsState()
 //        val favorites by viewModel.favoriteLocations.collectAsState()
 //

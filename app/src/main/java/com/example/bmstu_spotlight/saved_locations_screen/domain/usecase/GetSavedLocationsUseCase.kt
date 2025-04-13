@@ -1,6 +1,6 @@
-package com.example.bmstu_spotlight.ui.screens.saved_locations_screen.domain.usecase
+package com.example.bmstu_spotlight.saved_locations_screen.domain.usecase
 
-import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.domain.repository.LocationRepository
+import com.example.bmstu_spotlight.saved_locations_screen.domain.repository.LocationRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetSavedLocationsUseCase(

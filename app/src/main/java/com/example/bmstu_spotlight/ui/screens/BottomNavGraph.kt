@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.SavedLocationsScreen
 
 @Composable
 fun BottomNavGraph(

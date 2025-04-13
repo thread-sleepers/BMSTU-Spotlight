@@ -1,8 +1,8 @@
-package com.example.bmstu_spotlight.ui.screens.saved_locations_screen.presentation.view_model
+package com.example.bmstu_spotlight.saved_locations_screen.presentation.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.domain.usecase.GetSavedLocationsUseCase
+import com.example.bmstu_spotlight.saved_locations_screen.domain.usecase.GetSavedLocationsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
