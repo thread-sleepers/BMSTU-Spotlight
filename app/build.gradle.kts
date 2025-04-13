@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     alias(libs.plugins.google.devtools.ksp)
-    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -31,10 +30,8 @@ android {
         }
     }
     compileOptions {
-//        sourceCompatibility = JavaVersion.VERSION_11
-//        targetCompatibility = JavaVersion.VERSION_11
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -85,11 +82,9 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.androidx.material)
 
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    ksp("com.google.dagger:hilt-android-compiler:2.50")
-    implementation ("androidx.hilt.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.activity:activity-ktx:1.8.2")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:2.6.2")
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation (libs.koin.androidx.compose)
+    implementation (libs.koin.android)
 
 }
