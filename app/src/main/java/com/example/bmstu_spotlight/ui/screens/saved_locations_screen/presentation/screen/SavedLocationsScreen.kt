@@ -23,49 +23,99 @@ import androidx.compose.ui.unit.sp
 import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.presentation.components.LocationList
 import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.presentation.components.SectionHeader
 import com.example.bmstu_spotlight.ui.screens.saved_locations_screen.presentation.view_model.LocationViewModel
+import dagger.hilt.android.components.ViewModelComponent
 
-class SavedLocationsScreen {
-    @Preview(showSystemUi = true)
-    @Composable
-    fun SavedLocationsScreen(viewModel: LocationViewModel = hiltViewModel) {
-        val recent by viewModel.recentLocations.collectAsState()
-        val favorites by viewModel.favoriteLocations.collectAsState()
+import androidx.lifecycle.viewmodel.compose.viewModels
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
-        Column(
+@Composable
+fun SavedLocationsScreen() {
+    val viewModel: LocationViewModel by viewModels(
+        factoryProducer = { defaultViewModelProviderFactory }
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.LightGray)
+    ) {
+        // Title Section
+        Box(
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color.LightGray)
+                .fillMaxWidth()
+                .background(Color.White),
+            contentAlignment = Alignment.Center
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.White),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Destinations",
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 40.dp, bottom = 16.dp),
-                )
-            }
-
-            SectionHeader(title = "Recent", paddingStart = 32.dp)
-            LocationList(
-                items = recent,
-                icon = Icons.Default.FavoriteBorder,
-                iconContentDescription = "Recent Location",
-                itemPaddingStart = 32.dp
-            )
-
-            SectionHeader(title = "Saved", paddingStart = 32.dp)
-            LocationList(
-                items = favorites,
-                icon = Icons.Default.Favorite,
-                iconContentDescription = "Saved Location",
-                itemPaddingStart = 32.dp
+            Text(
+                text = "Destinations",
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 40.dp, bottom = 16.dp)
             )
         }
-    }
 
+        // Recent Section
+        SectionHeader(title = "Recent", paddingStart = 32.dp)
+        LocationList(
+            items = viewModel.recentLocations.value,
+            icon = Icons.Default.FavoriteBorder,
+            iconContentDescription = "Recent Location",
+            itemPaddingStart = 32.dp
+        )
+
+        // Saved Section
+        SectionHeader(title = "Saved", paddingStart = 32.dp)
+        LocationList(
+            items = viewModel.favoriteLocations.value,
+            icon = Icons.Default.Favorite,
+            iconContentDescription = "Saved Location",
+            itemPaddingStart = 32.dp
+        )
+    }
 }
+
+
+//    @Composable
+//    fun SavedLocationsScreen(val viewModel: LocationViewModel by viewModels) {
+//        val recent by viewModel.recentLocations.collectAsState()
+//        val favorites by viewModel.favoriteLocations.collectAsState()
+//
+//        Column(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .background(Color.LightGray)
+//        ) {
+//            Box(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .background(Color.White),
+//                contentAlignment = Alignment.Center
+//            ) {
+//                Text(
+//                    text = "Destinations",
+//                    fontSize = 28.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    modifier = Modifier.padding(top = 40.dp, bottom = 16.dp),
+//                )
+//            }
+//
+//            SectionHeader(title = "Recent", paddingStart = 32.dp)
+//            LocationList(
+//                items = recent,
+//                icon = Icons.Default.FavoriteBorder,
+//                iconContentDescription = "Recent Location",
+//                itemPaddingStart = 32.dp
+//            )
+//
+//            SectionHeader(title = "Saved", paddingStart = 32.dp)
+//            LocationList(
+//                items = favorites,
+//                icon = Icons.Default.Favorite,
+//                iconContentDescription = "Saved Location",
+//                itemPaddingStart = 32.dp
+//            )
+//        }
+//    }
+//

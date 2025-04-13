@@ -12,24 +12,23 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-class SectionHeader {
-    @Composable
-    fun SectionHeader(title: String, paddingStart: Dp) {
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.TopStart
-        ) {
-            Text(
-                text = title,
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(
-                    start = paddingStart,
-                    top = 24.dp,
-                    bottom = 8.dp
-                )
-            )
-        }
-    }
 
+@Composable
+fun SectionHeader(title: String, paddingStart: Dp) {
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.TopStart
+    ) {
+        Text(
+            text = title,
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(
+                start = paddingStart,
+                top = 24.dp,
+                bottom = 8.dp
+            )
+        )
+    }
 }
+
