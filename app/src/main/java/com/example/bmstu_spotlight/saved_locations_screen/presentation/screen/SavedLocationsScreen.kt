@@ -23,18 +23,14 @@ import androidx.compose.ui.unit.sp
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.components.LocationList
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.components.SectionHeader
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.view_model.LocationViewModel
-import dagger.hilt.android.components.ViewModelComponent
-
-import androidx.lifecycle.viewmodel.compose.viewModels
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SavedLocationsScreen() {
-    val viewModel: LocationViewModel by viewModels(
-        factoryProducer = { defaultViewModelProviderFactory }
-    )
+fun SavedLocationsScreen(
+    viewModel: LocationViewModel = koinViewModel()
+) {
+    val recent by viewModel.recentLocations.collectAsState()
+    val favorites by viewModel.favoriteLocations.collectAsState()
 
     Column(
         modifier = Modifier
