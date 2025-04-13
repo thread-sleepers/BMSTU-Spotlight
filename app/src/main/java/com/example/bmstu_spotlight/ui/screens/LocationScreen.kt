@@ -1,7 +1,6 @@
 package com.example.bmstu_spotlight.ui.screens
 
-import android.view.ViewGroup
-import android.webkit.WebView
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTransformGestures
@@ -14,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -42,7 +43,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
-import androidx.compose.ui.viewinterop.AndroidView
 import com.example.bmstu_spotlight.DataHolder
 import com.example.bmstu_spotlight.R
 import com.example.bmstu_spotlight.ui.theme.ColorBack1
@@ -51,53 +51,64 @@ import com.example.bmstu_spotlight.ui.theme.ColorButton1
 import com.example.bmstu_spotlight.ui.theme.ColorButton2
 import com.example.bmstu_spotlight.ui.theme.ColorInput1
 import com.example.bmstu_spotlight.ui.theme.ColorText2
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 
+import com.example.bmstu_spotlight.data.datasource.local.entities.NodeEntity
+import com.example.bmstu_spotlight.data.datasource.local.entities.NodeType
+
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LocationScreen(mapLink: String = "https://api.maptiler.com/maps/01965777-0fa0-7baa-98d9-d6e9bd013e48/?key=PHHZ2OozEcXHfqqJCqIr#18.77/55.7664093/37.6859631") { // Экран отображения маршрута или локации
+fun LocationScreen(navController: NavController, viewModel: LocationViewModel = viewModel()) {
     val showNewTopSection = remember { mutableStateOf(DataHolder.showNewTopSection) }
+    val backgroundImage = painterResource(id = R.drawable.plan)
 
-    // Box для наложения элементов экрана поверх карты
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        AndroidView(
-            factory = {
-                WebView(it).apply {
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                    )
-                    settings.javaScriptEnabled = true
-                }
-            },
-            update = {
-                it.loadUrl(mapLink)
-            }
-        )
-        // Основное содержимое поверх карты
+    val selectedNode by viewModel.selectedNode.observeAsState(null)
+    val showSheet by viewModel.showSheet.observeAsState(false)
+
+    val scale by viewModel.scale.observeAsState(1f)
+    val offsetX by viewModel.offsetX.observeAsState(0f)
+    val offsetY by viewModel.offsetY.observeAsState(0f)
+
+    val nodeId = DataHolder.selectedNodeId
+
+
+
+    // Вызываем selectNode при загрузке экрана, если nodeId не null
+    if (nodeId != null) {
+        viewModel.selectNode(nodeId.toString())
+    }
+
+
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        InteractiveImageBackground(image = backgroundImage, scale, offsetX, offsetY, viewModel)
+
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp),
+            modifier = Modifier.fillMaxSize().padding(8.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            if (showNewTopSection.value) { // Когда маршрут начат
+            if (showNewTopSection.value) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.90f),
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight(0.90f),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    TopSection2(onButtonClick = {
-                        DataHolder.showNewTopSection = false // Сохранение в DataHolder
+                    ТopSection2(onButtonClick = {
+                        DataHolder.showNewTopSection = false
                         showNewTopSection.value = false
                     })
                     RouteBar()
                 }
-            } else { // Когда маршрут ещё не начат
+            } else {
                 TopSection1 { loc1, loc2 ->
-                    DataHolder.location1 = loc1 // Сохранение данных в DataHolder
+                    DataHolder.location1 = loc1
                     DataHolder.location2 = loc2
                     DataHolder.showNewTopSection = true
                     showNewTopSection.value = true
@@ -105,7 +116,133 @@ fun LocationScreen(mapLink: String = "https://api.maptiler.com/maps/01965777-0fa
             }
         }
     }
+
+    Log.d("LocationScreen", "showSheet value: $showSheet")
+
+    if (showSheet) {
+        selectedNode?.let { node -> // Проверка на null
+            ModalBottomSheet(
+                onDismissRequest = { viewModel.closeSheet() },
+                sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+                containerColor = ColorBack1,
+                scrimColor = Color.Transparent,
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    item {
+                        Text(
+                            text = node.nodeName, // Название узла
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            color = Color.Black
+                        )
+                    }
+                    item {
+                        Text(
+                            text = node.nodeDescription, // Описание узла
+                            fontSize = 20.sp,
+                            textAlign = TextAlign.Center,
+                            color = Color.Black
+                        )
+                    }
+                    item {
+                        Button(
+                            modifier = Modifier.fillMaxWidth().height(54.dp).padding(4.dp).shadow(3.dp, shape = CircleShape),
+                            colors = ButtonDefaults.buttonColors(containerColor = ColorButton1, contentColor = Color.Black),
+                            shape = RoundedCornerShape(28.dp),
+                            onClick = { viewModel.closeSheet() }
+                        ) {
+                            Text("Закрыть", color = ColorText2, fontSize = 20.sp)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
+
+@Composable
+fun InteractiveImageBackground(
+    image: Painter,
+    scale: Float,
+    offsetX: Float,
+    offsetY: Float,
+    viewModel: LocationViewModel
+) {
+    val imageSize = remember { mutableStateOf(Size.Zero) }
+    val screenSize = remember { mutableStateOf(Size.Zero) }
+
+    // Если выбран маркер, автоматически центрируем карту
+    LaunchedEffect(DataHolder.targetMarkerIndex) {
+        DataHolder.targetMarkerIndex?.let { index ->
+            val (markerX, markerY) = DataHolder.markerPositions[index]
+            viewModel.updateScale(DataHolder.targetScale)
+            viewModel.updateOffset(-markerX * scale + 500, -markerY * scale + 800)
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                detectTransformGestures { _, pan, zoom, _ ->
+                    viewModel.updateScale((scale * zoom).coerceIn(1f, 3f))
+                    viewModel.updateOffset(offsetX + pan.x, offsetY + pan.y)
+                }
+            }
+    ) {
+        // Фоновое изображение карты
+        Image(
+            painter = image,
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 64.dp)
+                .graphicsLayer(
+                    scaleX = scale,
+                    scaleY = scale,
+                    translationX = offsetX,
+                    translationY = offsetY
+                )
+                .onGloballyPositioned { coordinates ->
+                    screenSize.value = coordinates.size.toSize()
+                    imageSize.value = Size(
+                        coordinates.size.width.toFloat(),
+                        coordinates.size.height.toFloat()
+                    )
+                }
+        )
+
+        // Закомментирован код отображения маркеров на карте
+        /*
+        DataHolder.markerPositions.forEachIndexed { index, (x, y) ->
+            Box(
+                modifier = Modifier
+                    .graphicsLayer(
+                        translationX = (x * scale + offsetX).coerceIn(0f, screenSize.value.width.toFloat()),
+                        translationY = (y * scale + offsetY).coerceIn(0f, screenSize.value.height.toFloat())
+                    )
+                    .size(40.dp)
+                    .background(color = Color.Red, shape = CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = (index + 1).toString(),
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
+            }
+        }
+        */
+    }
+}
+
+
 
 @Composable
 fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко ввода начальной и конечной локации
@@ -122,8 +259,7 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
         OutlinedTextField(
             value = message_location1.value,
             onValueChange = { newText ->
-                message_location1.value = newText
-            },
+                message_location1.value = newText },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
@@ -164,10 +300,7 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
                 .height(54.dp)
                 .padding(4.dp)
                 .shadow(3.dp, shape = CircleShape),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = ColorButton1,
-                contentColor = Color.Black
-            ), // Используем ColorButton1
+            colors = ButtonDefaults.buttonColors(containerColor = ColorButton1, contentColor = Color.Black), // Используем ColorButton1
             shape = RoundedCornerShape(28.dp),
         ) {
             Text("Построить маршрут", color = ColorText2, fontSize = 20.sp)
@@ -176,7 +309,7 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
 }
 
 @Composable
-fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены маршрута
+fun ТopSection2(onButtonClick: () -> Unit) { //Окошко отмены маршрута
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -192,10 +325,7 @@ fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар�
                 .height(54.dp)
                 .padding(4.dp)
                 .shadow(3.dp, shape = CircleShape),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = ColorButton2,
-                contentColor = Color.Black
-            ), // Используем ColorButton2
+            colors = ButtonDefaults.buttonColors(containerColor = ColorButton2, contentColor = Color.Black), // Используем ColorButton2
             shape = RoundedCornerShape(28.dp),
         ) {
             Text("Новый маршрут", color = ColorText2, fontSize = 20.sp)
@@ -226,3 +356,4 @@ fun RouteBar() { //Окошко с временем маршрута
         )
     }
 }
+
