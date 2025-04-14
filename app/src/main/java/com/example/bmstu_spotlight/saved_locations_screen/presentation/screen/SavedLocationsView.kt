@@ -34,7 +34,7 @@ fun SavedLocationsView(state1: Map<String, String>, state2: Map<String, String>)
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Destinations",
+                text = "Локации",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 40.dp, bottom = 16.dp),
@@ -43,7 +43,7 @@ fun SavedLocationsView(state1: Map<String, String>, state2: Map<String, String>)
 
         SectionHeader(
             modifier = Modifier.fillMaxWidth(),
-            title = "Recent"
+            title = "Недавние"
         )
         LocationList(
             modifier = Modifier
@@ -61,7 +61,7 @@ fun SavedLocationsView(state1: Map<String, String>, state2: Map<String, String>)
 
         SectionHeader(
             modifier = Modifier.fillMaxWidth(),
-            title = "Saved"
+            title = "Сохранённые"
         )
         LocationList(
             modifier = Modifier
