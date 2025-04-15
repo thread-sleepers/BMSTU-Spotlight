@@ -82,4 +82,9 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.androidx.material)
 
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation (libs.koin.androidx.compose)
+    implementation (libs.koin.android)
+
 }

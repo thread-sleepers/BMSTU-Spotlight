@@ -63,11 +63,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.bmstu_spotlight.saved_locations_screen.di.appModule
+import org.koin.core.context.GlobalContext.startKoin
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startKoin {
+            modules(appModule)
+        }
         setContent {
             BMSTUSpotlightTheme {
                 BMSTUSpotlightApp()

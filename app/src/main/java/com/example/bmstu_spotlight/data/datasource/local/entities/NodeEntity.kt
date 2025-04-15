@@ -36,7 +36,9 @@ data class NodeEntity(
     @ColumnInfo(name = "is_available")
     val isAvailable: Boolean,
     @ColumnInfo(name = "foreign_floor_id")
-    val foreignFloorId: UUID
+    val foreignFloorId: UUID,
+    @ColumnInfo(name = "reference")
+    val reference: String
 )
 
 enum class NodeType {

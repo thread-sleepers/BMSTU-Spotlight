@@ -14,7 +14,7 @@ class DatabaseBuilder(private val context: Context) {
             name = "my-database-filename"
         ).build()
     }
-    fun provideBuildingDao(): BuildingDao = database.buildingDao()
-    fun provideFloorDao(): FloorDao = database.floorDao()
-    fun provideNodeDao(): NodeDao = database.nodeDao()
+    val buildingDao: BuildingDao get() = database.buildingDao()
+    val floorDao: FloorDao get() = database.floorDao()
+    val nodeDao: NodeDao get() = database.nodeDao()
 }
