@@ -95,6 +95,11 @@ fun LocationScreen(navController: NavController, viewModel: LocationViewModel = 
     }
 
     Log.d("LocationScreen", "showSheet value: ${uiState.showSheet}")
+    LaunchedEffect(Unit) {
+        DataHolder.selectedNodeId?.let { nodeId ->
+            viewModel.selectNode(nodeId)
+        }
+    }
 
     if (uiState.showSheet) {
         uiState.selectedNode?.let { node ->
