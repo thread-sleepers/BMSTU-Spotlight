@@ -29,7 +29,8 @@ class LocationViewModel : ViewModel() {
     }
 
     fun closeSheet() {
-        _uiState.update { LocationState() }
+        DataHolder.selectedNodeId = null // Обнуляем выбранный узел
+        _uiState.update { LocationState() } // Сбрасываем состояние экрана
     }
 
     fun updateScale(newScale: Float) {
