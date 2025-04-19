@@ -1,75 +1,48 @@
 package com.example.bmstu_spotlight.ui.screens
 
-import android.util.Log
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.bmstu_spotlight.data.datasource.local.entities.NodeEntity
+import com.example.bmstu_spotlight.route.domain.models.Node
+import com.example.bmstu_spotlight.domain.mappers.toDomain
 import com.example.bmstu_spotlight.DataHolder
+import java.util.UUID
+
+data class LocationState(
+    val selectedNode: Node? = null,
+    val showSheet: Boolean = false,
+    val scale: Float = 1f,
+    val offsetX: Float = 0f,
+    val offsetY: Float = 0f,
+    val showNewTopSection: Boolean = DataHolder.showNewTopSection
+)
 
 class LocationViewModel : ViewModel() {
+    private val _uiState = MutableStateFlow(LocationState())
+    val uiState = _uiState.asStateFlow()
 
-    // LiveData для хранения выбранного узла (например, лаборатория, аудитория и т. д.).
-    // _selectedNode — это изменяемая версия, а selectedNode — публичная LiveData для наблюдения.
-    private val _selectedNode = MutableLiveData<NodeEntity?>()
-    val selectedNode: LiveData<NodeEntity?> = _selectedNode
-
-    // LiveData для управления состоянием шторки (открыта/закрыта).
-    // По умолчанию шторка закрыта (false).
-    private val _showSheet = MutableLiveData<Boolean>(false)
-    val showSheet: LiveData<Boolean> = _showSheet
-
-    // LiveData для хранения текущего масштаба карты.
-    // По умолчанию масштаб установлен на 1x.
-    private val _scale = MutableLiveData<Float>(1f)
-    val scale: LiveData<Float> = _scale
-
-    // LiveData для хранения положения карты по оси X.
-    private val _offsetX = MutableLiveData<Float>(0f)
-    val offsetX: LiveData<Float> = _offsetX
-
-    // LiveData для хранения положения карты по оси Y.
-    private val _offsetY = MutableLiveData<Float>(0f)
-    val offsetY: LiveData<Float> = _offsetY
-
-    /**
-     * Метод устанавливает выбранный узел и открывает шторку с его информацией.
-     * Вызывается при выборе узла пользователем.
-     *
-     * @param nodeId - ID узла, который выбрал пользователь.
-     */
-    fun selectNode(nodeId: String) {
-        _selectedNode.value = DataHolder.nodes.find { it.nodeId.toString() == nodeId }
-        _showSheet.value = _selectedNode.value != null
+    fun selectNode(nodeId: UUID) {
+        val node = DataHolder.nodes.find { it.nodeId == nodeId }?.toDomain()
+        _uiState.update { it.copy(selectedNode = node, showSheet = node != null) }
     }
 
-
-    /**
-     * Метод закрывает шторку и сбрасывает выбранный узел.
-     * Вызывается при нажатии на кнопку закрытия.
-     */
     fun closeSheet() {
-        _showSheet.value = false // Закрываем шторку.
-        _selectedNode.value = null // Очищаем выбранный узел.
-        DataHolder.selectedNodeId = null
+        _uiState.update { LocationState() }
     }
 
-    /**
-     * Масштабируем карту, ограничивая минимальный (1x) и максимальный (3x) уровни.
-     * @param newScale - новый масштаб карты.
-     */
     fun updateScale(newScale: Float) {
-        _scale.value = newScale.coerceIn(1f, 3f) // Ограничиваем значение от 1x до 3x.
+        _uiState.update { it.copy(scale = newScale.coerceIn(1f, 3f)) }
     }
 
-    /**
-     * Метод обновляет положение карты, изменяя смещение по X и Y.
-     * @param newX - новое значение смещения по X.
-     * @param newY - новое значение смещения по Y.
-     */
     fun updateOffset(newX: Float, newY: Float) {
-        _offsetX.value = newX
-        _offsetY.value = newY
+        _uiState.update { it.copy(offsetX = newX, offsetY = newY) }
+    }
+
+    fun toggleTopSection(visible: Boolean) {
+        _uiState.update { it.copy(showNewTopSection = visible) }
+        DataHolder.showNewTopSection = visible
     }
 }
 

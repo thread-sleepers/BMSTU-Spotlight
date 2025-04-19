@@ -57,70 +57,47 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-
-import com.example.bmstu_spotlight.data.datasource.local.entities.NodeEntity
-import com.example.bmstu_spotlight.data.datasource.local.entities.NodeType
+import androidx.compose.runtime.*
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationScreen(navController: NavController, viewModel: LocationViewModel = viewModel()) {
-    val showNewTopSection = remember { mutableStateOf(DataHolder.showNewTopSection) }
+    val uiState by viewModel.uiState.collectAsState()
     val backgroundImage = painterResource(id = R.drawable.plan)
 
-    val selectedNode by viewModel.selectedNode.observeAsState(null)
-    val showSheet by viewModel.showSheet.observeAsState(false)
-
-    val scale by viewModel.scale.observeAsState(1f)
-    val offsetX by viewModel.offsetX.observeAsState(0f)
-    val offsetY by viewModel.offsetY.observeAsState(0f)
-
-    val nodeId = DataHolder.selectedNodeId
-
-
-
-    // Вызываем selectNode при загрузке экрана, если nodeId не null
-    if (nodeId != null) {
-        viewModel.selectNode(nodeId.toString())
-    }
-
-
-
     Box(modifier = Modifier.fillMaxSize()) {
-        InteractiveImageBackground(image = backgroundImage, scale, offsetX, offsetY, viewModel)
+        InteractiveImageBackground(image = backgroundImage, uiState.scale, uiState.offsetX, uiState.offsetY, viewModel)
 
         Column(
             modifier = Modifier.fillMaxSize().padding(8.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            if (showNewTopSection.value) {
+            if (uiState.showNewTopSection) {
                 Column(
                     modifier = Modifier.fillMaxWidth().fillMaxHeight(0.90f),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    ТopSection2(onButtonClick = {
-                        DataHolder.showNewTopSection = false
-                        showNewTopSection.value = false
-                    })
+                    ТopSection2(onButtonClick = { viewModel.toggleTopSection(false) })
                     RouteBar()
                 }
             } else {
                 TopSection1 { loc1, loc2 ->
                     DataHolder.location1 = loc1
                     DataHolder.location2 = loc2
-                    DataHolder.showNewTopSection = true
-                    showNewTopSection.value = true
+                    viewModel.toggleTopSection(true)
                 }
             }
         }
     }
 
-    Log.d("LocationScreen", "showSheet value: $showSheet")
+    Log.d("LocationScreen", "showSheet value: ${uiState.showSheet}")
 
-    if (showSheet) {
-        selectedNode?.let { node -> // Проверка на null
+    if (uiState.showSheet) {
+        uiState.selectedNode?.let { node ->
             ModalBottomSheet(
                 onDismissRequest = { viewModel.closeSheet() },
                 sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
@@ -132,30 +109,19 @@ fun LocationScreen(navController: NavController, viewModel: LocationViewModel = 
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     item {
-                        Text(
-                            text = node.nodeName, // Название узла
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                            color = Color.Black
-                        )
+                        Text(text = node.name, fontSize = 24.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
                     }
                     item {
-                        Text(
-                            text = node.nodeDescription, // Описание узла
-                            fontSize = 20.sp,
-                            textAlign = TextAlign.Center,
-                            color = Color.Black
-                        )
+                        Text(text = node.description, fontSize = 20.sp, textAlign = TextAlign.Center)
                     }
                     item {
                         Button(
-                            modifier = Modifier.fillMaxWidth().height(54.dp).padding(4.dp).shadow(3.dp, shape = CircleShape),
-                            colors = ButtonDefaults.buttonColors(containerColor = ColorButton1, contentColor = Color.Black),
+                            modifier = Modifier.fillMaxWidth().height(54.dp).padding(4.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = ColorButton1),
                             shape = RoundedCornerShape(28.dp),
                             onClick = { viewModel.closeSheet() }
                         ) {
-                            Text("Закрыть", color = ColorText2, fontSize = 20.sp)
+                            Text("Закрыть", fontSize = 20.sp)
                         }
                     }
                 }
@@ -265,7 +231,7 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
                 .padding(4.dp)
                 .background(ColorInput1, shape = RoundedCornerShape(28.dp)),
             textStyle = TextStyle(fontSize = 20.sp),
-            placeholder = { Text("Откуда", fontSize = 20.sp) },
+            placeholder = { Text(stringResource(id = R.string.enter_the_starting_point), fontSize = 20.sp) },
             singleLine = true,
             shape = RoundedCornerShape(28.dp),
         )
@@ -288,7 +254,7 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
                 .padding(4.dp)
                 .background(ColorInput1, shape = RoundedCornerShape(28.dp)),
             textStyle = TextStyle(fontSize = 20.sp),
-            placeholder = { Text("Куда", fontSize = 20.sp) },
+            placeholder = { Text(stringResource(id = R.string.enter_the_ending_point), fontSize = 20.sp) },
             singleLine = true,
             shape = RoundedCornerShape(28.dp),
         )
@@ -303,7 +269,7 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
             colors = ButtonDefaults.buttonColors(containerColor = ColorButton1, contentColor = Color.Black), // Используем ColorButton1
             shape = RoundedCornerShape(28.dp),
         ) {
-            Text("Построить маршрут", color = ColorText2, fontSize = 20.sp)
+            Text(stringResource(id = R.string.build_a_route_button), color = ColorText2, fontSize = 20.sp)
         }
     }
 }
@@ -328,7 +294,7 @@ fun ТopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар
             colors = ButtonDefaults.buttonColors(containerColor = ColorButton2, contentColor = Color.Black), // Используем ColorButton2
             shape = RoundedCornerShape(28.dp),
         ) {
-            Text("Новый маршрут", color = ColorText2, fontSize = 20.sp)
+            Text(stringResource(id = R.string.new_route_button), color = ColorText2, fontSize = 20.sp)
         }
     }
 }
