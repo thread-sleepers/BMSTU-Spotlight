@@ -51,20 +51,19 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.bmstu_spotlight.R
-
-
+import androidx.compose.runtime.*
+import androidx.navigation.NavController
+import com.example.bmstu_spotlight.ui.screens.HomeViewModel.*
 import com.example.bmstu_spotlight.data.datasource.local.entities.NodeType
-import com.example.bmstu_spotlight.data.datasource.local.entities.NodeEntity
-import kotlinx.coroutines.selects.select
-
+import com.example.bmstu_spotlight.route.domain.models.Node
 
 @Composable
-fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = viewModel()) {
-    val selectedNodeType by viewModel.selectedNodeType.observeAsState(null)
-    val filteredNodes by viewModel.filteredNodes.observeAsState(listOf()) // Исправлено
+fun HomeScreen(navController: NavController, viewModel: HomeViewModel = viewModel()) {
+    val uiState by viewModel.uiState.collectAsState()
 
     Column(
         modifier = Modifier
@@ -74,17 +73,14 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = view
     ) {
         TopSection3()
 
-        if (selectedNodeType == null) {
+        if (uiState.selectedNodeType == null) {
             MenuSection { nodeType -> viewModel.selectNodeType(nodeType) }
         } else {
-            selectedNodeType?.let { nodeType -> // Безопасная проверка перед передачей
-                SecondMenuSection(
-                    nodeType = nodeType,
-                    nodes = filteredNodes,
-                    onBackClick = { viewModel.clearSelection() },
-                    navController = navController
-                )
-            }
+            SecondMenuSection(
+                nodes = uiState.filteredNodes,
+                onBackClick = { viewModel.clearSelection() },
+                navController = navController as NavHostController//
+            )
         }
     }
 }
@@ -100,7 +96,6 @@ fun TopSection3() {
             .padding(8.dp),
         verticalArrangement = Arrangement.Top
     ) {
-        val messageSearch1 = remember { mutableStateOf("") }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -108,38 +103,38 @@ fun TopSection3() {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            // Белый кружок с изображением
+            // Герб мгту
             Box(
                 modifier = Modifier
-                    .size(50.dp) // Размер кружка
-                    .background(Color.White, shape = CircleShape), // Круглая форма
+                    .size(50.dp)
+                    .background(Color.White, shape = CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.emblem), // Замените на свой ресурс
+                    painter = painterResource(id = R.drawable.emblem),
                     contentDescription = "Логотип",
-                    modifier = Modifier.size(40.dp) // Размер картинки
+                    modifier = Modifier.size(40.dp)
                 )
             }
 
             Text(
-                "BMSTU-Spotlight",
+                stringResource(id = R.string.app_name),
                 color = ColorText2,
                 fontSize = 28.sp,
                 textAlign = TextAlign.Center
             )
 
-            // Белый кружок с изображением
+            // Герб мгту
             Box(
                 modifier = Modifier
-                    .size(50.dp) // Размер кружка
-                    .background(Color.White, shape = CircleShape), // Круглая форма
+                    .size(50.dp)
+                    .background(Color.White, shape = CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.emblem), // Замените на свой ресурс
+                    painter = painterResource(id = R.drawable.emblem),
                     contentDescription = "Логотип",
-                    modifier = Modifier.size(40.dp) // Размер картинки
+                    modifier = Modifier.size(40.dp)
                 )
             }
         }
@@ -313,8 +308,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
 
 @Composable
 fun SecondMenuSection(
-    nodeType: NodeType,
-    nodes: List<NodeEntity>, // Используем NodeEntity вместо Node
+    nodes: List<Node>,
     onBackClick: () -> Unit,
     navController: NavHostController
 ) {
@@ -335,12 +329,12 @@ fun SecondMenuSection(
                         .height(80.dp)
                         .background(ColorBack2)
                         .clickable {
-                            DataHolder.selectedNodeId = node.nodeId
+                            DataHolder.selectedNodeId = node.id
                             navController.navigate(BottomBarScreen.Location.route)
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(node.nodeName, fontSize = 24.sp, textAlign = TextAlign.Center, color = ColorText1)
+                    Text(node.name, fontSize = 24.sp, textAlign = TextAlign.Center, color = ColorText1)
                 }
             }
         }
@@ -355,7 +349,7 @@ fun SecondMenuSection(
             colors = ButtonDefaults.buttonColors(containerColor = ColorButton1, contentColor = Color.Black),
             shape = RoundedCornerShape(28.dp),
         ) {
-            Text("Назад", fontSize = 20.sp, color = ColorText2)
+            Text(stringResource(id = R.string.back_button), fontSize = 20.sp, color = ColorText2)
         }
     }
 }
