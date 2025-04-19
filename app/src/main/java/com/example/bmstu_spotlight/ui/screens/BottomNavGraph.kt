@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.SavedLocationsScreen
+import com.example.bmstu_spotlight.schedule_screen.presentation.screen.ScheduleScreen
 
 @Composable
 fun BottomNavGraph(
@@ -31,6 +32,9 @@ fun BottomNavGraph(
         }
         composable(route = BottomBarScreen.Account.route) {
             AccountScreen()
+        }
+        composable(route = BottomBarScreen.Schedule.route) {
+            ScheduleScreen()
         }
     }
 }
