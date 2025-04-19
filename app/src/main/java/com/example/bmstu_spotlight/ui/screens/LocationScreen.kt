@@ -94,7 +94,9 @@ fun LocationScreen(navController: NavController, viewModel: LocationViewModel = 
         )
         // Основное содержимое поверх карты
         Column(
-            modifier = Modifier.fillMaxSize().padding(8.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             if (uiState.showNewTopSection) {

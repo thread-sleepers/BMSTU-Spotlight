@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">BMSTU-Spotlight</string>
-
     <string name="back_button">Назад</string>
     <string name="build_a_route_button">Построить маршрут</string>
     <string name="new_route_button">Новый маршрут</string>
