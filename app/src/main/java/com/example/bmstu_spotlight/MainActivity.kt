@@ -64,6 +64,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.bmstu_spotlight.saved_locations_screen.di.appModule
+import com.example.bmstu_spotlight.schedule_screen.di.scheduleModule
 import org.koin.core.context.GlobalContext.startKoin
 
 
@@ -72,6 +73,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         startKoin {
             modules(appModule)
+            modules(scheduleModule)
         }
         setContent {
             BMSTUSpotlightTheme {
