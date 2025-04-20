@@ -56,13 +56,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.bmstu_spotlight.R
 import androidx.compose.runtime.*
-import androidx.navigation.NavController
 import com.example.bmstu_spotlight.ui.screens.HomeViewModel.*
 import com.example.bmstu_spotlight.data.datasource.local.entities.NodeType
 import com.example.bmstu_spotlight.route.domain.models.Node
 
 @Composable
-fun HomeScreen(navController: NavController, viewModel: HomeViewModel = viewModel()) {
+fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
 
     Column(
@@ -79,12 +78,28 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = viewMode
             SecondMenuSection(
                 nodes = uiState.filteredNodes,
                 onBackClick = { viewModel.clearSelection() },
-                navController = navController as NavHostController//
+                navController = navController
             )
         }
     }
 }
 
+// Герб мгту
+@Composable
+fun Emblem(modifier: Modifier = Modifier) {
+    Box(
+        modifier = Modifier
+            .size(50.dp)
+            .background(Color.White, shape = CircleShape),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.emblem),
+            contentDescription = "Логотип",
+            modifier = Modifier.size(40.dp)
+        )
+    }
+}
 
 
 @Composable
@@ -103,19 +118,8 @@ fun TopSection3() {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            // Герб мгту
-            Box(
-                modifier = Modifier
-                    .size(50.dp)
-                    .background(Color.White, shape = CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.emblem),
-                    contentDescription = "Логотип",
-                    modifier = Modifier.size(40.dp)
-                )
-            }
+
+            Emblem()
 
             Text(
                 stringResource(id = R.string.app_name),
@@ -124,19 +128,8 @@ fun TopSection3() {
                 textAlign = TextAlign.Center
             )
 
-            // Герб мгту
-            Box(
-                modifier = Modifier
-                    .size(50.dp)
-                    .background(Color.White, shape = CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.emblem),
-                    contentDescription = "Логотип",
-                    modifier = Modifier.size(40.dp)
-                )
-            }
+            Emblem()
+
         }
     }
 }
@@ -163,7 +156,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Студенчиские активности",
+                Text(stringResource(id = R.string.type1_button),
                     color = ColorText1,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
@@ -181,7 +174,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Мастерские",
+                Text(stringResource(id = R.string.type2_button),
                     color = ColorText2,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
@@ -199,7 +192,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Научные лаборатории",
+                Text(stringResource(id = R.string.type3_button),
                     color = ColorText2,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
@@ -217,7 +210,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Места для учебы и отдыха",
+                Text(stringResource(id = R.string.type4_button),
                     color = ColorText1,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
@@ -236,7 +229,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Конференции",
+                Text(stringResource(id = R.string.type5_button),
                     color = ColorText1,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
@@ -255,7 +248,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                 contentAlignment = Alignment.Center
             )
             {
-                Text("VK Education",
+                Text(stringResource(id = R.string.type6_button),
                     color = ColorText2,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
@@ -275,7 +268,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Кафетерии и столовые",
+                Text(stringResource(id = R.string.type7_button),
                     color = ColorText2,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
@@ -294,7 +287,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                 contentAlignment = Alignment.Center
             )
             {
-                Text("Магазины",
+                Text(stringResource(id = R.string.type8_button),
                     color = ColorText1,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
