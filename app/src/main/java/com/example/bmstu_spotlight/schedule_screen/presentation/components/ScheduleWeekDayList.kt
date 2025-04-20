@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ScheduleWeekDayList(
     items: List<String>,
-    items_2: Map<String, String>,
+    lessons: Map<String, String>,
     modifier: Modifier
 ) {
     LazyColumn(
@@ -39,7 +39,7 @@ fun ScheduleWeekDayList(
                             top = 8.dp,
                             bottom = 8.dp
                         ),
-                    items = items_2
+                    items = lessons
                 )
             }
         }

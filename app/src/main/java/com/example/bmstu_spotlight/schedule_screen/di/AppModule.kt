@@ -7,7 +7,7 @@ import com.example.bmstu_spotlight.schedule_screen.presentation.view_model.Sched
 import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModel
 
-val appModuleSchedule = module {
+val scheduleModule = module {
     single<ScheduleRepository> {
         FakeScheduleRepository()
     }

@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,7 +25,7 @@ fun ScheduleView(state: Map<String, String>) {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(top = 40.dp, bottom = 16.dp),
         )
-        val weekDays = listOf("Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота")
+        val weekDays = remember { listOf("Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота") }
         ScheduleWeekDayList(weekDays, state, modifier = Modifier)
     }
 }

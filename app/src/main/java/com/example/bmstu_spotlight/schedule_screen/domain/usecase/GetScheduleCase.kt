@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 class GetScheduleCase (
     private val repository: ScheduleRepository
 ) {
-    operator fun invoke(): Flow<Map<String, String>> {
+    suspend operator fun invoke(): Map<String, String> {
         return repository.getSchedule()
     }
 }

@@ -8,7 +8,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ScheduleScreen(viewModel: ScheduleViewModel = koinViewModel()) {
-    val schedule by viewModel.schedule.collectAsState()
+    val schedule by viewModel.schedule
     ScheduleView(state = schedule)
-
 }
