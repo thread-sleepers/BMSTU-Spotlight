@@ -4,6 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.*
+import com.example.bmstu_spotlight.profile.data.ProfileRepositoryImpl
+import com.example.bmstu_spotlight.profile.presentation.screen.ProfileScreen
+
 
 @Composable
 fun BottomNavGraph(navController: NavHostController) {
@@ -24,7 +29,7 @@ fun BottomNavGraph(navController: NavHostController) {
             NotificationsScreen()
         }
         composable(route = BottomBarScreen.Account.route) {
-            AccountScreen()
+           ProfileScreen()
         }
     }
 }
