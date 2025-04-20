@@ -87,4 +87,10 @@ dependencies {
     implementation (libs.koin.androidx.compose)
     implementation (libs.koin.android)
 
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
+    implementation(libs.androidx.material.icons.extended)
+
 }
