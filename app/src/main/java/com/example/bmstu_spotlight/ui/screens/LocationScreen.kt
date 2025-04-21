@@ -1,5 +1,7 @@
 package com.example.bmstu_spotlight.ui.screens
 
+import android.view.ViewGroup
+import android.webkit.WebView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTransformGestures
@@ -40,6 +42,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import androidx.compose.ui.viewinterop.AndroidView
 import com.example.bmstu_spotlight.DataHolder
 import com.example.bmstu_spotlight.R
 import com.example.bmstu_spotlight.ui.theme.ColorBack1
@@ -50,19 +53,29 @@ import com.example.bmstu_spotlight.ui.theme.ColorInput1
 import com.example.bmstu_spotlight.ui.theme.ColorText2
 
 @Composable
-fun LocationScreen() { // Экран отображения маршрута или локации
+fun LocationScreen(mapLink: String = "https://api.maptiler.com/maps/01965777-0fa0-7baa-98d9-d6e9bd013e48/?key=PHHZ2OozEcXHfqqJCqIr#18.77/55.7664093/37.6859631") { // Экран отображения маршрута или локации
     val showNewTopSection = remember { mutableStateOf(DataHolder.showNewTopSection) }
-    val backgroundImage = painterResource(id = R.drawable.plan)
 
-    // Box для наложения элементов друг на друга
+    // Box для наложения элементов экрана поверх карты
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        // Интерактивное фоновое изображение
-        InteractiveImageBackground(image = backgroundImage)
-
-        // Основное содержимое поверх фонового изображения
+        AndroidView(
+            factory = {
+                WebView(it).apply {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                    settings.javaScriptEnabled = true
+                }
+            },
+            update = {
+                it.loadUrl(mapLink)
+            }
+        )
+        // Основное содержимое поверх карты
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -76,7 +89,7 @@ fun LocationScreen() { // Экран отображения маршрута и�
                         .fillMaxHeight(0.90f),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    ТopSection2(onButtonClick = {
+                    TopSection2(onButtonClick = {
                         DataHolder.showNewTopSection = false // Сохранение в DataHolder
                         showNewTopSection.value = false
                     })
@@ -91,91 +104,6 @@ fun LocationScreen() { // Экран отображения маршрута и�
                 }
             }
         }
-    }
-}
-
-@Composable //УДАЛИТЬ КОГДА ПОЯВЯТСЯ КАРТЫ!!!
-fun InteractiveImageBackground(image: Painter) {
-    var scale by remember { mutableStateOf(1f) }
-    var offsetX by remember { mutableStateOf(0f) }
-    var offsetY by remember { mutableStateOf(0f) }
-
-    val imageSize = remember { mutableStateOf(Size.Zero) }
-    val screenSize = remember { mutableStateOf(Size.Zero) }
-
-    // Если выбран маркер, автоматически приближаемся к нему
-    LaunchedEffect(DataHolder.targetMarkerIndex) {
-        DataHolder.targetMarkerIndex?.let { index ->
-            val (markerX, markerY) = DataHolder.markerPositions[index]
-            scale = DataHolder.targetScale
-            offsetX = -markerX * scale + 500 // Центрируем маркер на экране (500 — примерный экранный центр по X)
-            offsetY = -markerY * scale + 800 // Центрируем маркер на экране (800 — примерный экранный центр по Y)
-        }
-    }
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .pointerInput(Unit) {
-                detectTransformGestures { _, pan, zoom, _ ->
-                    // Обновляем масштаб
-                    val newScale = (scale * zoom).coerceIn(1f, 3f) // Ограничиваем масштаб от 1x до 3x
-                    scale = newScale
-
-                    // Ограничение перемещения
-                    val maxX = (imageSize.value.width * scale - screenSize.value.width) / 2
-                    val maxY = (imageSize.value.height * scale - screenSize.value.height) / 2
-
-                    offsetX = (offsetX + pan.x).coerceIn(-maxX, maxX)
-                    offsetY = (offsetY + pan.y).coerceIn(-maxY, maxY)
-                }
-            }
-    ) {
-        // Фоновое изображение
-        Image(
-            painter = image,
-            contentDescription = null,
-            contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 64.dp)
-                .graphicsLayer(
-                    scaleX = scale,
-                    scaleY = scale,
-                    translationX = offsetX,
-                    translationY = offsetY
-                )
-                .onGloballyPositioned { coordinates ->
-                    screenSize.value = coordinates.size.toSize()
-                    imageSize.value = Size(
-                        coordinates.size.width.toFloat(),
-                        coordinates.size.height.toFloat()
-                    )
-                }
-        )
-
-        /* Добавление маркеров - проставление меток на карте, закоментировано,
-            потому что не настроено, то чтобы маркеры отображались в нужных, а
-            не случайных местоах */
-
-        /*DataHolder.markerPositions.forEachIndexed { index, (x, y) ->
-            Box(
-                modifier = Modifier
-                    .graphicsLayer(
-                        translationX = x * scale + offsetX,
-                        translationY = y * scale + offsetY
-                    )
-                    .size(40.dp)
-                    .background(color = Color.Red, shape = CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = (index + 1).toString(),
-                    color = Color.White,
-                    fontSize = 16.sp
-                )
-            }
-        }*/
     }
 }
 
@@ -194,7 +122,8 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
         OutlinedTextField(
             value = message_location1.value,
             onValueChange = { newText ->
-                message_location1.value = newText },
+                message_location1.value = newText
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
@@ -235,7 +164,10 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
                 .height(54.dp)
                 .padding(4.dp)
                 .shadow(3.dp, shape = CircleShape),
-            colors = ButtonDefaults.buttonColors(containerColor = ColorButton1, contentColor = Color.Black), // Используем ColorButton1
+            colors = ButtonDefaults.buttonColors(
+                containerColor = ColorButton1,
+                contentColor = Color.Black
+            ), // Используем ColorButton1
             shape = RoundedCornerShape(28.dp),
         ) {
             Text("Построить маршрут", color = ColorText2, fontSize = 20.sp)
@@ -244,7 +176,7 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
 }
 
 @Composable
-fun ТopSection2(onButtonClick: () -> Unit) { //Окошко отмены маршрута
+fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены маршрута
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -260,7 +192,10 @@ fun ТopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар
                 .height(54.dp)
                 .padding(4.dp)
                 .shadow(3.dp, shape = CircleShape),
-            colors = ButtonDefaults.buttonColors(containerColor = ColorButton2, contentColor = Color.Black), // Используем ColorButton2
+            colors = ButtonDefaults.buttonColors(
+                containerColor = ColorButton2,
+                contentColor = Color.Black
+            ), // Используем ColorButton2
             shape = RoundedCornerShape(28.dp),
         ) {
             Text("Новый маршрут", color = ColorText2, fontSize = 20.sp)
