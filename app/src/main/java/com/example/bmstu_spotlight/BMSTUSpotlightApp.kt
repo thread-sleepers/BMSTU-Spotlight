@@ -56,7 +56,6 @@ fun BottomBar(
         BottomBarScreen.Location,
         BottomBarScreen.Account,
         BottomBarScreen.SavedLocationsScreen,
-        BottomBarScreen.Notifications,
         BottomBarScreen.Schedule
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()

@@ -6,7 +6,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class BottomBarScreen (
@@ -24,11 +23,6 @@ sealed class BottomBarScreen (
         title = "loc",
         icon = Icons.Default.LocationOn
     )
-    object Notifications: BottomBarScreen(
-        route = "Notifications",
-        title = "not",
-        icon = Icons.Default.Notifications
-    )
     object Account: BottomBarScreen(
         route = "Account",
         title = "acc",
@@ -42,6 +36,6 @@ sealed class BottomBarScreen (
     object Schedule: BottomBarScreen(
         route = "Schedule",
         title = "schedule",
-        icon = Icons.Default.Star
+        icon = Icons.Default.Notifications
     )
 }
