@@ -3,7 +3,6 @@ package com.example.bmstu_spotlight.ui.screens
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bmstu_spotlight.route.domain.models.Node
 import com.example.bmstu_spotlight.domain.mappers.toDomain
