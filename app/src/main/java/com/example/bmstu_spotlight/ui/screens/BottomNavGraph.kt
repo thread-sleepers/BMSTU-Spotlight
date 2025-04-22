@@ -27,9 +27,6 @@ fun BottomNavGraph(
         composable(route = BottomBarScreen.SavedLocationsScreen.route) {
             SavedLocationsScreen()
         }
-        composable(route = BottomBarScreen.Notifications.route) {
-            NotificationsScreen()
-        }
         composable(route = BottomBarScreen.Account.route) {
             AccountScreen()
         }
