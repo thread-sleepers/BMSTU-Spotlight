@@ -13,11 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bmstu_spotlight.schedule_screen.data.model.Lesson
 import com.example.bmstu_spotlight.schedule_screen.presentation.components.ScheduleList
 import com.example.bmstu_spotlight.schedule_screen.presentation.components.ScheduleWeekDayList
 
 @Composable
-fun ScheduleView(state: Map<String, String>) {
+fun ScheduleView(state: List<Lesson>) {
     Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Text(
             text = "Расписание",
