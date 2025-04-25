@@ -25,7 +25,7 @@ fun BottomNavGraph(
             HomeScreen(navController)
         }
         composable(route = BottomBarScreen.Location.route) {
-            LocationScreen()
+            LocationScreen(navController)
         }
         composable(route = BottomBarScreen.SavedLocationsScreen.route) {
             SavedLocationsScreen()
