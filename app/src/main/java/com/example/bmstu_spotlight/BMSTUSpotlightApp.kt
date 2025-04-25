@@ -81,7 +81,7 @@ fun RowScope.AddItem(
     navController: NavHostController
 ) {
     BottomNavigationItem(
-        modifier = Modifier.background(ColorBack1, shape = RoundedCornerShape(18.dp)),
+        modifier = Modifier.background(ColorBack1),
         icon = {
             Icon(
                 imageVector = screen.icon,

@@ -6,9 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.compose.runtime.*
+import com.example.bmstu_spotlight.menu_screen.presentation.screen.HomeScreen
 import com.example.bmstu_spotlight.profile.presentation.screen.ProfileScreen
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.SavedLocationsScreen
 import com.example.bmstu_spotlight.schedule_screen.presentation.screen.ScheduleScreen
+import com.example.bmstu_spotlight.location_screen.presentation.screen.LocationScreen
 
 
 @Composable
@@ -22,7 +24,7 @@ fun BottomNavGraph(
         modifier = modifier
     ) {
         composable(route = BottomBarScreen.Home.route) {
-            HomeScreen()
+            HomeScreen(navController)
         }
         composable(route = BottomBarScreen.Location.route) {
             LocationScreen()
