@@ -1,0 +1,133 @@
+[33m33691d5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev/UI[m[33m)[m HEAD@{0}: reset: moving to 33691d5463de5f9161c4bdd58102b6ea6bf82859
+[33m7a1718c[m HEAD@{1}: rebase (finish): returning to refs/heads/dev/UI
+[33m7a1718c[m HEAD@{2}: rebase (continue): Удаление ненужных перемненных и библиотек в locationScreen
+[33m126d8e0[m HEAD@{3}: rebase (pick): Сделал ребейз для всей ветки
+[33m4de32f7[m HEAD@{4}: rebase (pick): Еще один ребейз
+[33m26ed821[m HEAD@{5}: rebase (pick): Rebaise final2
+[33m38b200e[m HEAD@{6}: rebase (pick): Rebaise Final
+[33m7f727dc[m HEAD@{7}: rebase (pick): Вренул библиотеки, дописал данные в датахолдере
+[33m3707fe7[m HEAD@{8}: rebase (pick): Сохранение изменений 3
+[33m1b2e219[m HEAD@{9}: rebase (continue): Обновил код в Pull Request2
+[33mb6c571a[m HEAD@{10}: rebase (continue): Rebaise
+[33m9b7ab4c[m HEAD@{11}: rebase (continue): Rebaise
+[33m10f88b5[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{12}: rebase (start): checkout develop
+[33m33691d5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev/UI[m[33m)[m HEAD@{13}: checkout: moving from develop to dev/UI
+[33m10f88b5[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{14}: checkout: moving from dev/UI to develop
+[33m33691d5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdev/UI[m[33m)[m HEAD@{15}: commit: Удаление ненужных перемненных и библиотек в locationScreen
+[33me736803[m[33m ([m[1;31morigin/dev/UI[m[33m)[m HEAD@{16}: rebase (abort): returning to refs/heads/dev/UI
+[33m10f88b5[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{17}: rebase (start): checkout develop
+[33me736803[m[33m ([m[1;31morigin/dev/UI[m[33m)[m HEAD@{18}: checkout: moving from develop to dev/UI
+[33m10f88b5[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{19}: checkout: moving from dev/UI to develop
+[33me736803[m[33m ([m[1;31morigin/dev/UI[m[33m)[m HEAD@{20}: commit: Сделал ребейз для всей ветки
+[33md9a3ab0[m HEAD@{21}: checkout: moving from dev/UI to dev/UI
+[33md9a3ab0[m HEAD@{22}: rebase (finish): returning to refs/heads/dev/UI
+[33md9a3ab0[m HEAD@{23}: rebase (continue): Еще один ребейз
+[33m95ed72e[m HEAD@{24}: rebase (continue): Rebaise final2
+[33m0d4689b[m HEAD@{25}: rebase (continue): Rebaise Final
+[33m55e0224[m HEAD@{26}: rebase (pick): Added profile screen
+[33m1ae0b61[m HEAD@{27}: rebase (pick): deleted extra icon in bottom navigation
+[33me4b5be7[m HEAD@{28}: rebase (continue): added a custom map to the main screen (location) background
+[33m610ce4e[m HEAD@{29}: pull origin dev/UI --rebase (start): checkout 610ce4e6eecafae06a20df14a54a06e6e6b873b8
+[33m2d8a4a1[m HEAD@{30}: commit: Правки
+[33ma676da4[m HEAD@{31}: commit: Еще один ребейз
+[33m02cf2ba[m HEAD@{32}: rebase (finish): returning to refs/heads/dev/UI
+[33m02cf2ba[m HEAD@{33}: rebase (pick): Вренул библиотеки, дописал данные в датахолдере
+[33m5620c6a[m HEAD@{34}: rebase (pick): Сохранение изменений 3
+[33mc8ddfc9[m HEAD@{35}: rebase (continue): Обновил код в Pull Request3
+[33ma1b15c5[m HEAD@{36}: rebase (continue): Rebaise2
+[33m136ca07[m HEAD@{37}: rebase (continue): Rebaise
+[33m10f88b5[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{38}: rebase (start): checkout develop
+[33m610ce4e[m HEAD@{39}: checkout: moving from develop to dev/UI
+[33m10f88b5[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{40}: pull: Fast-forward
+[33m2c1f0e7[m HEAD@{41}: checkout: moving from dev/UI to develop
+[33m610ce4e[m HEAD@{42}: commit: Вренул библиотеки, дописал данные в датахолдере
+[33m1be6779[m HEAD@{43}: checkout: moving from develop to dev/UI
+[33m2c1f0e7[m HEAD@{44}: checkout: moving from dev/UI to develop
+[33m1be6779[m HEAD@{45}: checkout: moving from develop to dev/UI
+[33m2c1f0e7[m HEAD@{46}: checkout: moving from dev/UI to develop
+[33m1be6779[m HEAD@{47}: checkout: moving from dev/UI to dev/UI
+[33m1be6779[m HEAD@{48}: rebase (finish): returning to refs/heads/dev/UI
+[33m1be6779[m HEAD@{49}: rebase (continue): Сохранение изменений 3
+[33m51bd1a6[m HEAD@{50}: rebase (pick): Обновил код в Pull Request2
+[33m078b291[m HEAD@{51}: rebase (continue): Rebaise
+[33m776fdb9[m HEAD@{52}: rebase (continue): Rebaise
+[33m2c1f0e7[m HEAD@{53}: rebase (start): checkout develop
+[33m17416d0[m HEAD@{54}: checkout: moving from develop to dev/UI
+[33m2c1f0e7[m HEAD@{55}: checkout: moving from dev/UI to develop
+[33m17416d0[m HEAD@{56}: commit (amend): Сохранение изменений 3
+[33ma26575a[m HEAD@{57}: reset: moving to a26575accfad815e47aa4cd282563707f7149307
+[33m96305b8[m HEAD@{58}: checkout: moving from a26575accfad815e47aa4cd282563707f7149307 to dev/UI
+[33ma26575a[m HEAD@{59}: checkout: moving from dev/UI to a26575accfad815e47aa4cd282563707f7149307
+[33m96305b8[m HEAD@{60}: rebase (finish): returning to refs/heads/dev/UI
+[33m96305b8[m HEAD@{61}: rebase (continue): Добавил исправления в существующий PR
+[33m9e67dc2[m HEAD@{62}: rebase (continue): ViewModels, HomeScreen, MenuScreen
+[33m21314a7[m HEAD@{63}: rebase (pick): fixed comments for MR
+[33mb9947b2[m HEAD@{64}: rebase (pick): added first variance of schedule screen
+[33m6c3b352[m HEAD@{65}: rebase (pick): changed lg to Russian
+[33mefb17fa[m HEAD@{66}: rebase (pick): separated screen into view and screen, added modifiers as parameters
+[33m85425a0[m HEAD@{67}: rebase (pick): deleted all dagger dependencies
+[33mf25f4a4[m HEAD@{68}: rebase (pick): minor changes to db
+[33m22374f2[m HEAD@{69}: rebase (pick): added a Saved Destinations screen with partial hilt injection
+[33m01d00b7[m HEAD@{70}: rebase (pick): fixed dependencies issues due to incorrect rebase
+[33m18927c0[m HEAD@{71}: rebase (pick): minor changes to db
+[33maff5ebb[m HEAD@{72}: rebase (pick): added a Saved Destinations screen with partial hilt injection
+[33mc83cc1c[m HEAD@{73}: rebase (pick): added di with koin to the Saved Locations Screen
+[33m982f2f0[m HEAD@{74}: rebase (pick): minor changes to db
+[33mc3ef0b5[m HEAD@{75}: rebase (pick): refactored dependencies
+[33m0c6621f[m HEAD@{76}: rebase (continue): added a Saved Destinations screen with partial hilt injection
+[33m73f5926[m HEAD@{77}: pull origin dev/UI --rebase (pick): moved nav bar to front
+[33ma26575a[m HEAD@{78}: pull origin dev/UI --rebase (start): checkout a26575accfad815e47aa4cd282563707f7149307
+[33m5be9b4e[m HEAD@{79}: rebase (finish): returning to refs/heads/dev/UI
+[33m5be9b4e[m HEAD@{80}: rebase (pick): Сохранение изменений 3
+[33m1c71d54[m HEAD@{81}: rebase (pick): Обновил код в Pull Request2
+[33m2d12e9e[m HEAD@{82}: rebase (pick): Добавил исправления в существующий PR
+[33m2d478d5[m HEAD@{83}: rebase (continue): ViewModels, HomeScreen, MenuScreen
+[33m2c1f0e7[m HEAD@{84}: rebase (start): checkout develop
+[33ma26575a[m HEAD@{85}: checkout: moving from develop to dev/UI
+[33m2c1f0e7[m HEAD@{86}: pull origin develop: Fast-forward
+[33ma4761bc[m HEAD@{87}: checkout: moving from dev/UI to develop
+[33ma26575a[m HEAD@{88}: checkout: moving from dev/UI to dev/UI
+[33ma26575a[m HEAD@{89}: commit: Сохранение изменений 3
+[33m26b8092[m HEAD@{90}: commit: Обновил код в Pull Request2
+[33m35f9285[m HEAD@{91}: checkout: moving from dev/UI to dev/UI
+[33m35f9285[m HEAD@{92}: commit: Добавил исправления в существующий PR
+[33m96df083[m HEAD@{93}: checkout: moving from dev/UI to dev/UI
+[33m96df083[m HEAD@{94}: checkout: moving from develop to dev/UI
+[33ma4761bc[m HEAD@{95}: checkout: moving from dev/UI to develop
+[33m96df083[m HEAD@{96}: commit: ViewModels, HomeScreen, MenuScreen
+[33ma4761bc[m HEAD@{97}: checkout: moving from develop to dev/UI
+[33ma4761bc[m HEAD@{98}: checkout: moving from dev/UI to develop
+[33ma4761bc[m HEAD@{99}: merge develop: Fast-forward
+[33m4a24e00[m HEAD@{100}: checkout: moving from develop to dev/UI
+[33ma4761bc[m HEAD@{101}: pull origin develop: Fast-forward
+[33me9b744c[m HEAD@{102}: checkout: moving from dev/UI to develop
+[33m4a24e00[m HEAD@{103}: rebase (finish): returning to refs/heads/dev/UI
+[33m4a24e00[m HEAD@{104}: rebase (continue): Описание изменений
+[33mf673ce3[m HEAD@{105}: rebase (continue): Версия 0.0 Создание главного экрана и экрана отображения маршрута
+[33me9b744c[m HEAD@{106}: rebase (start): checkout develop
+[33mba57715[m HEAD@{107}: checkout: moving from develop to dev/UI
+[33me9b744c[m HEAD@{108}: pull: Fast-forward
+[33me945bf3[m HEAD@{109}: checkout: moving from dev/UI to develop
+[33mba57715[m HEAD@{110}: merge ba57715: Fast-forward
+[33m6843db1[m HEAD@{111}: checkout: moving from ba57715384f29503dd04cb10bc87ba3b2f8952c7 to dev/UI
+[33mba57715[m HEAD@{112}: checkout: moving from dev/UI to ba57715
+[33m6843db1[m HEAD@{113}: checkout: moving from dev/UI2 to dev/UI
+[33mbb35890[m[33m ([m[1;32mmaster[m[33m, [m[1;32mdev/UI2[m[33m)[m HEAD@{114}: checkout: moving from dev/UI2 to dev/UI2
+[33mbb35890[m[33m ([m[1;32mmaster[m[33m, [m[1;32mdev/UI2[m[33m)[m HEAD@{115}: checkout: moving from master to dev/UI2
+[33mbb35890[m[33m ([m[1;32mmaster[m[33m, [m[1;32mdev/UI2[m[33m)[m HEAD@{116}: checkout: moving from dev/UI to master
+[33m6843db1[m HEAD@{117}: checkout: moving from develop to dev/UI
+[33me945bf3[m HEAD@{118}: pull: Fast-forward
+[33m11e7cb4[m HEAD@{119}: checkout: moving from dev/UI to develop
+[33m6843db1[m HEAD@{120}: checkout: moving from dev/UI to dev/UI
+[33m6843db1[m HEAD@{121}: checkout: moving from new-feature to dev/UI
+[33mba57715[m HEAD@{122}: commit: Описание изменений
+[33m6843db1[m HEAD@{123}: checkout: moving from dev/UI to new-feature
+[33m6843db1[m HEAD@{124}: commit: Версия 0.0 Создание главного экрана и экрана отображения маршрута
+[33m11e7cb4[m HEAD@{125}: checkout: moving from develop to dev/UI
+[33m11e7cb4[m HEAD@{126}: checkout: moving from dev/UI to develop
+[33m5193737[m HEAD@{127}: commit: Исправление ошибок связанных с первым запуском
+[33ma03c8c5[m HEAD@{128}: commit: Создание главного экрана и экрана маршрута
+[33m11e7cb4[m HEAD@{129}: checkout: moving from dev/UI to dev/UI
+[33m11e7cb4[m HEAD@{130}: checkout: moving from develop to dev/UI
+[33m11e7cb4[m HEAD@{131}: checkout: moving from master to develop
+[33mbb35890[m[33m ([m[1;32mmaster[m[33m, [m[1;32mdev/UI2[m[33m)[m HEAD@{132}: clone: from https://github.com/thread-sleepers/BMSTU-Spotlight
