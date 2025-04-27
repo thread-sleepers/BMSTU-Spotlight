@@ -25,13 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".HomeActivity" android:exported="true" />
-        <activity android:name=".LocationActivity" android:exported="true" />
-        <activity android:name=".NotificationsActivity" android:exported="true" />
-        <activity android:name=".FavoritesActivity" android:exported="true" />
-        <activity android:name=".AccountActivity" android:exported="true" />
-
     </application>
 
 </manifest>
