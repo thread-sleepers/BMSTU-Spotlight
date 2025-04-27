@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bmstu_spotlight.schedule_screen.data.model.Lesson
+import com.example.bmstu_spotlight.schedule_screen.domain.model.Lesson
 import com.example.bmstu_spotlight.schedule_screen.presentation.components.ScheduleList
 import com.example.bmstu_spotlight.schedule_screen.presentation.components.ScheduleWeekDayList
 

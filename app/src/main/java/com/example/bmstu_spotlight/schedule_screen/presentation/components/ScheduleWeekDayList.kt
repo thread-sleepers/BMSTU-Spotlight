@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bmstu_spotlight.schedule_screen.data.model.Lesson
+import com.example.bmstu_spotlight.schedule_screen.domain.model.Lesson
 import com.example.bmstu_spotlight.ui.theme.Purple40
 import java.time.format.TextStyle
 

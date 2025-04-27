@@ -24,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.bmstu_spotlight.schedule_screen.data.model.Lesson
+import com.example.bmstu_spotlight.schedule_screen.domain.model.Lesson
 import com.example.bmstu_spotlight.ui.theme.ColorBack1
 import com.example.bmstu_spotlight.ui.theme.ColorBack2
 import com.example.bmstu_spotlight.ui.theme.Purple40
@@ -46,21 +46,25 @@ fun ScheduleList(
                     .fillMaxWidth()
             ) {
                 if (lesson.name == null) {
-                    Text(text="${lesson.startTime}-${lesson.endTime} | ",
+                    val scheduleRow = remember (lesson) { "${lesson.startTime}-${lesson.endTime} | " }
+                    Text(text=scheduleRow,
                         modifier = modifier.weight(2.0f))
                 }
                 else {
                     if (lesson.typeOfLesson != null) {
-                        Text(text="${lesson.startTime}-${lesson.endTime} | ${lesson.name}\n | ${lesson.typeOfLesson}",
+                        val scheduleRow = remember (lesson) {"${lesson.startTime}-${lesson.endTime} | ${lesson.name}\n | ${lesson.typeOfLesson}"}
+                        Text(text=scheduleRow,
                             modifier = modifier.weight(2.0f))
                         Button(onClick = {},
                             modifier = modifier.weight(1.0f),
                             colors = ButtonColors(Purple40, Color.White, Purple40, Purple40)
                         ) {
-                            Text(text="${lesson.classroom}")
+                            val scheduleClassroom = remember(lesson) {"${lesson.classroom}"}
+                            Text(text=scheduleClassroom)
                         }
                     } else {
-                        Text(text="${lesson.startTime}-${lesson.endTime} | ${lesson.name}",
+                        val scheduleRow = remember(lesson) {"${lesson.startTime}-${lesson.endTime} | ${lesson.name}"}
+                        Text(text=scheduleRow,
                             modifier = modifier.weight(2.0f))
                     }
                 }

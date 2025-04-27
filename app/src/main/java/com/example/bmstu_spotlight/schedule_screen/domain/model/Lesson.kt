@@ -1,4 +1,4 @@
-package com.example.bmstu_spotlight.schedule_screen.data.model
+package com.example.bmstu_spotlight.schedule_screen.domain.model
 
 data class Lesson(
     val startTime: String,
