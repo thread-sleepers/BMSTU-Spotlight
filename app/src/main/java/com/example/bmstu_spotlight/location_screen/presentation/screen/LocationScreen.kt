@@ -1,7 +1,9 @@
 package com.example.bmstu_spotlight.location_screen.presentation.screen
 
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -53,9 +55,9 @@ import com.example.bmstu_spotlight.location_screen.presentation.view_model.Locat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String = "https://api.maptiler.com/maps/01965777-0fa0-7baa-98d9-d6e9bd013e48/?key=PHHZ2OozEcXHfqqJCqIr#18.77/55.7664093/37.6859631") {
+fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?) {
     val uiState by viewModel.uiState.collectAsState()
-
+    val defaultLink = "https://api.maptiler.com/maps/01965777-0fa0-7baa-98d9-d6e9bd013e48/?key=PHHZ2OozEcXHfqqJCqIr#18.77/55.7664093/37.6859631"
     // Box для наложения элементов экрана поверх карты
     Box(
         modifier = Modifier
@@ -68,11 +70,14 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String =
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
+                    webViewClient = WebViewClient()
+                    webChromeClient = WebChromeClient()
                     settings.javaScriptEnabled = true
+                    loadUrl(mapLink ?: defaultLink)
                 }
             },
             update = {
-                it.loadUrl(mapLink)
+                it.loadUrl(mapLink ?: defaultLink)
             }
         )
         // Основное содержимое поверх карты

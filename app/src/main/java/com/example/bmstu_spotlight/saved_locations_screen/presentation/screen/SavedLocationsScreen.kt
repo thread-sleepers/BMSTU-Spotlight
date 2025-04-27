@@ -7,11 +7,17 @@ import com.example.bmstu_spotlight.saved_locations_screen.presentation.view_mode
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SavedLocationsScreen(viewModel: LocationViewModel = koinViewModel()) {
+fun SavedLocationsScreen(
+    viewModel: LocationViewModel = koinViewModel(),
+    onNavigate: (String) -> Unit = {}
+) {
     val recent by viewModel.recentLocations.collectAsState()
     val favorites by viewModel.favoriteLocations.collectAsState()
 
-    SavedLocationsView(state1 = recent, state2 = favorites)
+    SavedLocationsView(
+        recentState = recent,
+        favoritesState = favorites,
+        onLinkClick = onNavigate
+    )
 }
-
 
