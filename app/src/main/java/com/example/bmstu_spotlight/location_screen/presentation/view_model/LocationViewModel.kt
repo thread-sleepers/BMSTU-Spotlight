@@ -15,7 +15,8 @@ data class LocationState(
     val scale: Float = 1f,
     val offsetX: Float = 0f,
     val offsetY: Float = 0f,
-    val showNewTopSection: Boolean = DataHolder.showNewTopSection
+    val showNewTopSection: Boolean = DataHolder.showNewTopSection,
+    val defaultLink: String = "https://api.maptiler.com/maps/01965777-0fa0-7baa-98d9-d6e9bd013e48/?key=PHHZ2OozEcXHfqqJCqIr#18.77/55.7664093/37.6859631"
 )
 
 class LocationViewModel : ViewModel() {

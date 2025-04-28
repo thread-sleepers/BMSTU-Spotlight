@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class LocationViewModel(
+class SavedLocationViewModel(
     private val getSavedLocationsUseCase: GetSavedLocationsUseCase
 ) : ViewModel() {
     private val _recentLocations = MutableStateFlow<Map<String, LocationDetails>>(emptyMap())
