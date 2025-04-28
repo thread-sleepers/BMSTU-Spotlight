@@ -23,8 +23,8 @@ import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.co
 
 @Composable
 fun SavedLocationsView(
-    recentState: Map<String, LocationDetails>,
-    favoritesState: Map<String, LocationDetails>,
+    recentState: List<LocationDetails>,
+    favoritesState: List<LocationDetails>,
     onLinkClick: (String) -> Unit
 ) {
     Column(

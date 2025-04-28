@@ -4,6 +4,6 @@ import com.example.bmstu_spotlight.saved_locations_screen.data.repository.Locati
 import kotlinx.coroutines.flow.Flow
 
 interface LocationRepository {
-    fun getRecentLocations(): Flow<Map<String, LocationDetails>>
-    fun getFavoriteLocations(): Flow<Map<String, LocationDetails>>
+    fun getRecentLocations(): Flow<List<LocationDetails>>
+    fun getFavoriteLocations(): Flow<List<LocationDetails>>
 }

@@ -20,18 +20,18 @@ import com.example.bmstu_spotlight.saved_locations_screen.data.repository.Locati
 
 @Composable
 fun LocationList(
-    items: Map<String, LocationDetails>,
+    items: List<LocationDetails>,
     icon: ImageVector,
     iconContentDescription: String,
     modifier: Modifier,
     onReferenceClick: (String) -> Unit
 ) {
     LazyColumn {
-        items(items.entries.toList()) { (location, details) ->
+        items(items) { it ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = modifier.clickable{
-                    onReferenceClick(details.mapLink)
+                    onReferenceClick(it.mapLink)
                 }
             ) {
                 Icon(
@@ -41,7 +41,7 @@ fun LocationList(
                     modifier = Modifier.padding(end = 16.dp)
                 )
                 Text(
-                    text = location,
+                    text = it.locationName,
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.weight(1f)
@@ -53,7 +53,7 @@ fun LocationList(
                     modifier = Modifier.padding(end = 8.dp)
                 )
                 Text(
-                    text = details.time,
+                    text = it.time,
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.onBackground
                 )

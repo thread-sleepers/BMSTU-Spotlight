@@ -11,11 +11,11 @@ import kotlinx.coroutines.launch
 class SavedLocationViewModel(
     private val getSavedLocationsUseCase: GetSavedLocationsUseCase
 ) : ViewModel() {
-    private val _recentLocations = MutableStateFlow<Map<String, LocationDetails>>(emptyMap())
-    val recentLocations: StateFlow<Map<String, LocationDetails>> = _recentLocations
+    private val _recentLocations = MutableStateFlow<List<LocationDetails>>(emptyList())
+    val recentLocations: StateFlow<List<LocationDetails>> = _recentLocations
 
-    private val _favoriteLocations = MutableStateFlow<Map<String, LocationDetails>>(emptyMap())
-    val favoriteLocations: StateFlow<Map<String, LocationDetails>> = _favoriteLocations
+    private val _favoriteLocations = MutableStateFlow<List<LocationDetails>>(emptyList())
+    val favoriteLocations: StateFlow<List<LocationDetails>> = _favoriteLocations
 
     init {
         viewModelScope.launch {

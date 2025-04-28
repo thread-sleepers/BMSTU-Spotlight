@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 class GetSavedLocationsUseCase(
     private val repository: LocationRepository
 ) {
-    operator fun invoke(): Pair<Flow<Map<String, LocationDetails>>, Flow<Map<String, LocationDetails>>> {
+    operator fun invoke(): Pair<Flow<List<LocationDetails>>, Flow<List<LocationDetails>>> {
         return Pair(repository.getRecentLocations(), repository.getFavoriteLocations())
     }
 }
