@@ -17,11 +17,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bmstu_spotlight.saved_locations_screen.presentation.components.LocationList
+import com.example.bmstu_spotlight.saved_locations_screen.data.repository.LocationDetails
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.components.SectionHeader
+import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.components.LocationList
 
 @Composable
-fun SavedLocationsView(state1: Map<String, String>, state2: Map<String, String>) {
+fun SavedLocationsView(
+    recentState: List<LocationDetails>,
+    favoritesState: List<LocationDetails>,
+    onLinkClick: (String) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,9 +59,10 @@ fun SavedLocationsView(state1: Map<String, String>, state2: Map<String, String>)
                     top = 8.dp,
                     bottom = 8.dp
                 ),
-            items = state1,
+            items = recentState,
             icon = Icons.Default.FavoriteBorder,
-            iconContentDescription = "Recent Location"
+            iconContentDescription = "Recent Location",
+            onReferenceClick = onLinkClick
         )
 
         SectionHeader(
@@ -72,10 +78,10 @@ fun SavedLocationsView(state1: Map<String, String>, state2: Map<String, String>)
                     top = 8.dp,
                     bottom = 8.dp
                 ),
-            items = state2,
+            items = favoritesState,
             icon = Icons.Default.Favorite,
-            iconContentDescription = "Saved Location"
+            iconContentDescription = "Saved Location",
+            onReferenceClick = onLinkClick
         )
     }
 }
-
