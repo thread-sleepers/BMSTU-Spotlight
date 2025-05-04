@@ -51,6 +51,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.*
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationViewModel
+import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,6 +62,8 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .padding(8.dp)
+
     ) {
         AndroidView(
             factory = {
@@ -80,20 +83,17 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
             }
         )
         // Основное содержимое поверх карты
+        CustomTopBar(stringResource(R.string.navigator))
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp),
+                .fillMaxWidth()
+                .padding(top = 70.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             if (uiState.showNewTopSection) {
-                Column(
-                    modifier = Modifier.fillMaxWidth().fillMaxHeight(0.90f),
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    TopSection2(onButtonClick = { viewModel.toggleTopSection(false) })
-                    RouteBar()
-                }
+                TopSection2(onButtonClick = { viewModel.toggleTopSection(false) })
+                RouteBar()
+                //}
             } else { // Когда маршрут ещё не начат
                 TopSection1 { loc1, loc2 ->
                     DataHolder.location1 = loc1 // Сохранение данных в DataHolder
@@ -135,7 +135,7 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                             shape = RoundedCornerShape(28.dp),
                             onClick = { viewModel.closeSheet() }
                         ) {
-                            Text("Закрыть", fontSize = 20.sp)
+                            Text(text = stringResource(R.string.close), fontSize = 20.sp)
                         }
                     }
                 }
@@ -150,8 +150,8 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
         modifier = Modifier
             .fillMaxWidth()
             .background(ColorBack1, shape = RoundedCornerShape(18.dp))
-            .padding(8.dp),
-        verticalArrangement = Arrangement.Top
+            .padding(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         val message_location1 = remember { mutableStateOf("") }
         val message_location2 = remember { mutableStateOf("") }
@@ -218,7 +218,7 @@ fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар�
         modifier = Modifier
             .fillMaxWidth()
             .background(ColorBack1, shape = RoundedCornerShape(18.dp))
-            .padding(8.dp),
+            .padding(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

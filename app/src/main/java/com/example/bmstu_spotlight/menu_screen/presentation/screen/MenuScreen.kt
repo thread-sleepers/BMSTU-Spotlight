@@ -46,14 +46,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.bmstu_spotlight.R
 import androidx.compose.runtime.*
-import com.example.bmstu_spotlight.menu_screen.presentation.view_model.HomeViewModel.*
+import androidx.compose.ui.draw.clip
+import com.example.bmstu_spotlight.menu_screen.presentation.view_model.MenuViewModel.*
 import com.example.bmstu_spotlight.data.datasource.local.entities.NodeType
 import com.example.bmstu_spotlight.menu_screen.domain.models.Node
+import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 import com.example.bmstu_spotlight.ui.screens.BottomBarScreen
-import com.example.bmstu_spotlight.menu_screen.presentation.view_model.HomeViewModel
+import com.example.bmstu_spotlight.menu_screen.presentation.view_model.MenuViewModel
 
 @Composable
-fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = viewModel()) {
+fun MenuScreen(navController: NavHostController, viewModel: MenuViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
 
     Column(
@@ -62,7 +64,7 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = view
             .padding(8.dp),
         verticalArrangement = Arrangement.Top
     ) {
-        TopSection3()
+        CustomTopBar(stringResource(R.string.app_name))
 
         if (uiState.selectedNodeType == null) {
             MenuSection { nodeType -> viewModel.selectNodeType(nodeType) }
@@ -75,59 +77,6 @@ fun HomeScreen(navController: NavHostController, viewModel: HomeViewModel = view
         }
     }
 }
-
-// Герб мгту
-@Composable
-fun Emblem(modifier: Modifier = Modifier) {
-    Box(
-        modifier = Modifier
-            .size(50.dp)
-            .background(Color.White, shape = CircleShape),
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.emblem),
-            contentDescription = "Логотип",
-            modifier = Modifier.size(40.dp)
-        )
-    }
-}
-
-
-
-@Composable
-fun TopSection3() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(ColorBack1, shape = RoundedCornerShape(18.dp))
-            .padding(8.dp),
-        verticalArrangement = Arrangement.Top
-    ) {
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceAround,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-
-            Emblem()
-
-            Text(
-                stringResource(id = R.string.app_name),
-                color = ColorText2,
-                fontSize = 28.sp,
-                textAlign = TextAlign.Center
-            )
-
-            Emblem()
-
-        }
-    }
-}
-
-
 
 @Composable
 fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение кнопок из меню
@@ -142,6 +91,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
         item {
             Box(
                 Modifier
+                    .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(100.dp)
                     .background(ColorBack2)
@@ -160,6 +110,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
         item {
             Box(
                 Modifier
+                    .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(200.dp)
                     .background(ColorBack3)
@@ -178,6 +129,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
         item {
             Box(
                 Modifier
+                    .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(300.dp)
                     .background(ColorBack3)
@@ -196,6 +148,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
         item {
             Box(
                 Modifier
+                    .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(200.dp)
                     .background(ColorBack2)
@@ -215,6 +168,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
         item {
             Box(
                 Modifier
+                    .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(100.dp)
                     .background(ColorBack2)
@@ -234,6 +188,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
         item {
             Box(
                 Modifier
+                    .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(200.dp)
                     .background(ColorBack3)
@@ -254,6 +209,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
         item {
             Box(
                 Modifier
+                    .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(300.dp)
                     .background(ColorBack3)
@@ -273,6 +229,7 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
         item {
             Box(
                 Modifier
+                    .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(200.dp)
                     .background(ColorBack2)
@@ -311,6 +268,7 @@ fun SecondMenuSection(
             items(nodes) { node ->
                 Box(
                     Modifier
+                        .clip(shape = RoundedCornerShape(15.dp))
                         .fillMaxWidth()
                         .height(80.dp)
                         .background(ColorBack2)
