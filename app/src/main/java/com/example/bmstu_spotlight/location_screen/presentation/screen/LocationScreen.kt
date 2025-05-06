@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
@@ -45,19 +48,26 @@ import com.example.bmstu_spotlight.ui.theme.ColorInput1
 import com.example.bmstu_spotlight.ui.theme.ColorText2
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.*
+import com.example.bmstu_spotlight.location_screen.data.popularFrom
+import com.example.bmstu_spotlight.location_screen.data.popularTo
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationViewModel
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?) {
     val uiState by viewModel.uiState.collectAsState()
+
+    val messageLocation1 = remember { mutableStateOf("") }
+    val messageLocation2 = remember { mutableStateOf("") }
+
     // Box для наложения элементов экрана поверх карты
     Box(
         modifier = Modifier
@@ -95,11 +105,14 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                 RouteBar()
                 //}
             } else { // Когда маршрут ещё не начат
-                TopSection1 { loc1, loc2 ->
-                    DataHolder.location1 = loc1 // Сохранение данных в DataHolder
-                    DataHolder.location2 = loc2
-                    viewModel.toggleTopSection(true)
-                }
+                TopSection1(
+                    from = messageLocation1,
+                    to = messageLocation2,
+                    onButtonClick = { loc1, loc2 ->
+                        DataHolder.location1 = loc1 // Сохранение данных в DataHolder
+                        DataHolder.location2 = loc2
+                        viewModel.toggleTopSection(true)
+                    })
             }
         }
     }
@@ -112,14 +125,18 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
 
     if (uiState.showSheet) {
         uiState.selectedNode?.let { node ->
+            messageLocation2.value = node.name
+
             ModalBottomSheet(
                 onDismissRequest = { viewModel.closeSheet() },
                 sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
                 containerColor = ColorBack1,
-                scrimColor = Color.Transparent,
+                scrimColor = Color.Transparent
             ) {
                 LazyColumn(
-                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     item {
@@ -130,7 +147,10 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                     }
                     item {
                         Button(
-                            modifier = Modifier.fillMaxWidth().height(54.dp).padding(4.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(54.dp)
+                                .padding(4.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = ColorButton1),
                             shape = RoundedCornerShape(28.dp),
                             onClick = { viewModel.closeSheet() }
@@ -145,7 +165,10 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
 }
 
 @Composable
-fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко ввода начальной и конечной локации
+fun TopSection1(from: MutableState<String>, to: MutableState<String>, onButtonClick: (String, String) -> Unit) { //Окошко ввода начальной и конечной локации
+    val showSuggestionsFrom = remember { mutableStateOf(false) }
+    val showSuggestionsTo = remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -153,28 +176,48 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
             .padding(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        val message_location1 = remember { mutableStateOf("") }
-        val message_location2 = remember { mutableStateOf("") }
-
         OutlinedTextField(
-            value = message_location1.value,
+            value = from.value,
             onValueChange = { newText ->
-                message_location1.value = newText
+               from.value = newText
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
                 .background(ColorInput1, shape = RoundedCornerShape(28.dp)),
+            trailingIcon = {
+                IconButton(onClick = {
+                    showSuggestionsFrom.value = !showSuggestionsFrom.value
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search for Destinations",
+                        tint = Color.Gray
+                    )
+                }
+            },
             textStyle = TextStyle(fontSize = 20.sp),
             placeholder = { Text(stringResource(id = R.string.enter_the_starting_point), fontSize = 20.sp) },
             singleLine = true,
             shape = RoundedCornerShape(28.dp),
         )
 
+        if (showSuggestionsFrom.value) {
+            PopularDestinationsList(
+                destinations = popularFrom,
+                onDestinationSelected = {
+                    from.value = it
+                    showSuggestionsFrom.value = false
+                }
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
         OutlinedTextField(
-            value = message_location2.value,
+            value = to.value,
             onValueChange = { newText ->
-                message_location2.value = newText
+                to.value = newText
                 // Проверяем, соответствует ли ввод имени маркера УДАЛИТЬ КОГДА ПОЯВЯТСЯ КАРТЫ!!!
                 when (newText) {
                     "1" -> DataHolder.targetMarkerIndex = 0
@@ -188,14 +231,35 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
                 .fillMaxWidth()
                 .padding(4.dp)
                 .background(ColorInput1, shape = RoundedCornerShape(28.dp)),
+            trailingIcon = {
+                IconButton(onClick = {
+                    showSuggestionsTo.value = !showSuggestionsTo.value
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search for Destinations",
+                        tint = Color.Gray
+                    )
+                }
+            },
             textStyle = TextStyle(fontSize = 20.sp),
             placeholder = { Text(stringResource(id = R.string.enter_the_ending_point), fontSize = 20.sp) },
             singleLine = true,
             shape = RoundedCornerShape(28.dp),
         )
 
+        if (showSuggestionsTo.value) {
+            PopularDestinationsList(
+                destinations = popularTo,
+                onDestinationSelected = {
+                    to.value = it
+                    showSuggestionsTo.value = false
+                }
+            )
+        }
+
         Button(
-            onClick = { onButtonClick(message_location1.value, message_location2.value) },
+            onClick = { onButtonClick(from.value, to.value) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(54.dp)
@@ -242,7 +306,6 @@ fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар�
 
 @Composable
 fun CenterSection() {
-
 }
 
 @Composable
