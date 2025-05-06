@@ -58,6 +58,9 @@ import androidx.compose.runtime.*
 import com.example.bmstu_spotlight.location_screen.data.popularFrom
 import com.example.bmstu_spotlight.location_screen.data.popularTo
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationViewModel
+import com.example.bmstu_spotlight.ui.handlers.findLocationLink
+import com.example.bmstu_spotlight.ui.handlers.findLocationName
+import com.example.bmstu_spotlight.ui.handlers.findRoute
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,6 +70,11 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
 
     val messageLocation1 = remember { mutableStateOf("") }
     val messageLocation2 = remember { mutableStateOf("") }
+
+    val currentMapLink = remember { mutableStateOf(mapLink ?: uiState.defaultLink) }
+    val onEnterLink: (String?) -> Unit = {
+            link -> currentMapLink.value = link ?: uiState.defaultLink
+    }
 
     // Box для наложения элементов экрана поверх карты
     Box(
@@ -85,11 +93,15 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                     webViewClient = WebViewClient()
                     webChromeClient = WebChromeClient()
                     settings.javaScriptEnabled = true
-                    loadUrl(mapLink ?: uiState.defaultLink)
+                    loadUrl(currentMapLink.value)
+
+                    if (currentMapLink.value != uiState.defaultLink) {
+                        messageLocation2.value = findLocationName(currentMapLink.value).toString()
+                    }
                 }
             },
             update = {
-                it.loadUrl(mapLink ?: uiState.defaultLink)
+                it.loadUrl(currentMapLink.value)
             }
         )
         // Основное содержимое поверх карты
@@ -112,7 +124,10 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                         DataHolder.location1 = loc1 // Сохранение данных в DataHolder
                         DataHolder.location2 = loc2
                         viewModel.toggleTopSection(true)
-                    })
+                        onEnterLink(findRoute(loc1, loc2))
+                    },
+                    onEnterLink = onEnterLink
+                )
             }
         }
     }
@@ -165,7 +180,12 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
 }
 
 @Composable
-fun TopSection1(from: MutableState<String>, to: MutableState<String>, onButtonClick: (String, String) -> Unit) { //Окошко ввода начальной и конечной локации
+fun TopSection1(
+    from: MutableState<String>,
+    to: MutableState<String>,
+    onButtonClick: (String, String) -> Unit,
+    onEnterLink: (String?) -> Unit
+) { //Окошко ввода начальной и конечной локации
     val showSuggestionsFrom = remember { mutableStateOf(false) }
     val showSuggestionsTo = remember { mutableStateOf(false) }
 
@@ -207,6 +227,7 @@ fun TopSection1(from: MutableState<String>, to: MutableState<String>, onButtonCl
                 destinations = popularFrom,
                 onDestinationSelected = {
                     from.value = it
+                    onEnterLink(findLocationLink(it))
                     showSuggestionsFrom.value = false
                 }
             )
@@ -253,13 +274,16 @@ fun TopSection1(from: MutableState<String>, to: MutableState<String>, onButtonCl
                 destinations = popularTo,
                 onDestinationSelected = {
                     to.value = it
+                    onEnterLink(findLocationLink(it))
                     showSuggestionsTo.value = false
                 }
             )
         }
 
         Button(
-            onClick = { onButtonClick(from.value, to.value) },
+            onClick = {
+                onButtonClick(from.value, to.value)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(54.dp)
