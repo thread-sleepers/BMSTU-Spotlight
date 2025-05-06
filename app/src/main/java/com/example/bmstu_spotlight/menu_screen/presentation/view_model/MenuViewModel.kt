@@ -10,13 +10,13 @@ import com.example.bmstu_spotlight.menu_screen.domain.models.Node
 import com.example.bmstu_spotlight.domain.mappers.toDomain
 
 
-data class HomeState(
+data class MenuState(
     val selectedNodeType: NodeType? = null,
     val filteredNodes: List<Node> = emptyList()
 )
 
-class HomeViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(HomeState())
+class MenuViewModel : ViewModel() {
+    private val _uiState = MutableStateFlow(MenuState())
     val uiState = _uiState.asStateFlow()
 
     fun selectNodeType(nodeType: NodeType) {
@@ -27,7 +27,6 @@ class HomeViewModel : ViewModel() {
     }
 
     fun clearSelection() {
-        _uiState.update { HomeState() }
+        _uiState.update { MenuState() }
     }
 }
-

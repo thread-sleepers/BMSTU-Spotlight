@@ -3,11 +3,11 @@
     <string name="back_button">Назад</string>
     <string name="build_a_route_button">Построить маршрут</string>
     <string name="new_route_button">Новый маршрут</string>
-    <string name="type1_button">Студенчиские активности</string>
+    <string name="type1_button">Студенческие активности</string>
     <string name="type2_button">Мастерские</string>
     <string name="type3_button">Научные лаборатории</string>
     <string name="type4_button">Места для учебы и отдыха</string>
-    <string name="type5_button">VK Educetion</string>
+    <string name="type5_button">VK Education</string>
     <string name="type6_button">Конференции</string>
     <string name="type7_button">Кафетерии и столовые</string>
     <string name="type8_button">Магазины</string>
@@ -15,4 +15,18 @@
 
     <string name="enter_the_starting_point">Откуда</string>
     <string name="enter_the_ending_point">Куда</string>
+
+    <string name="close">Закрыть</string>
+    <string name="profile">Профиль</string>
+    <string name="MGTU_account">МГТУ Аккаунт</string>
+    <string name="language">Язык</string>
+    <string name="go_down">Выйти</string>
+
+    <string name="locations">Локации</string>
+    <string name="recents">Недавние</string>
+    <string name="saved">Сохранённые</string>
+
+    <string name="schedule">Расписание</string>
+
+    <string name="navigator">Навигатор</string>
 </resources>
