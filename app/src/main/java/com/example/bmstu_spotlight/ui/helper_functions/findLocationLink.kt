@@ -1,4 +1,4 @@
-package com.example.bmstu_spotlight.ui.handlers
+package com.example.bmstu_spotlight.ui.helper_functions
 
 import com.example.bmstu_spotlight.DataHolder
 

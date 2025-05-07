@@ -51,14 +51,16 @@ object DataHolder {
     data class Routes(
         val from: String,
         val to: String,
-        val routeLink: String
+        val routeLink: String,
+        val emptyRouteLink: String
     )
 
     val routes = listOf(
         Routes(
             "Аудитория 384",
             "Аудитория 389",
-            "https://api.maptiler.com/maps/019695c6-45e9-791b-8d35-c0e01a58c539/?key=PHHZ2OozEcXHfqqJCqIr#18.51/55.7662563/37.6864668"
+            "https://api.maptiler.com/maps/019695c6-45e9-791b-8d35-c0e01a58c539/?key=PHHZ2OozEcXHfqqJCqIr#18.51/55.7662563/37.6864668",
+            "https://api.maptiler.com/maps/019695dc-dca6-7c87-a3c9-a343bd54b223/?key=PHHZ2OozEcXHfqqJCqIr#17.91/55.76625/37.686263"
         )
     )
 }

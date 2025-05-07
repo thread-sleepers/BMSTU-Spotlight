@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -58,10 +57,11 @@ import androidx.compose.runtime.*
 import com.example.bmstu_spotlight.location_screen.data.popularFrom
 import com.example.bmstu_spotlight.location_screen.data.popularTo
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationViewModel
-import com.example.bmstu_spotlight.ui.handlers.findLocationLink
-import com.example.bmstu_spotlight.ui.handlers.findLocationName
-import com.example.bmstu_spotlight.ui.handlers.findRoute
+import com.example.bmstu_spotlight.ui.helper_functions.findLocationLink
+import com.example.bmstu_spotlight.ui.helper_functions.findLocationName
+import com.example.bmstu_spotlight.ui.helper_functions.findRoute
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
+import com.example.bmstu_spotlight.ui.helper_functions.find2Locations
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -279,6 +279,11 @@ fun TopSection1(
                 }
             )
         }
+
+        if (to.value != "" && from.value != "") {
+            onEnterLink(find2Locations(from.value, to.value))
+        }
+
 
         Button(
             onClick = {
