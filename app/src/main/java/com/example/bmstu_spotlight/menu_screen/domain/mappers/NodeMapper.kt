@@ -12,7 +12,8 @@ fun NodeEntity.toDomain(): Node {
         xCoordinate = this.xCoordinate,
         yCoordinate = this.yCoordinate,
         roomNumber = this.roomNumber,
-        isAvailable = this.isAvailable
+        isAvailable = this.isAvailable,
+        reference = this.reference
     )
 }
 
