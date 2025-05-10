@@ -5,7 +5,7 @@ import com.example.bmstu_spotlight.DataHolder
 fun find2Locations(from: String, to: String): String? {
     var coupledLink: String? = null
     for (item in DataHolder.routes) {
-        if (item.from == from && item.to == to) {
+        if ((item.from == from && item.to == to) || (item.to == from && item.from == to)) {
             coupledLink = item.emptyRouteLink
         }
     }

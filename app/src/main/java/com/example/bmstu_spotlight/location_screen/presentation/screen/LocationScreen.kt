@@ -67,13 +67,11 @@ import com.example.bmstu_spotlight.ui.helper_functions.find2Locations
 @Composable
 fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?) {
     val uiState by viewModel.uiState.collectAsState()
-
-    val messageLocation1 = remember { mutableStateOf("") }
-    val messageLocation2 = remember { mutableStateOf("") }
-
-    val currentMapLink = remember { mutableStateOf(mapLink ?: uiState.defaultLink) }
+    val messageLocation1 = remember { viewModel.messageLocation1 }
+    val messageLocation2 = remember { viewModel.messageLocation2 }
+    val currentMapLink = remember { viewModel.updateMapLink(mapLink) }
     val onEnterLink: (String?) -> Unit = {
-            link -> currentMapLink.value = link ?: uiState.defaultLink
+        currentMapLink.value = viewModel.updateMapLink(it).value
     }
 
     // Box для наложения элементов экрана поверх карты
@@ -348,7 +346,7 @@ fun RouteBar() { //Окошко с временем маршрута
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            "Walk straight for 5 min",
+            "Пройдите вдоль коридора — 2 минуты",
             modifier = Modifier.fillMaxWidth(1f),
             fontSize = 20.sp,
             textAlign = TextAlign.Center

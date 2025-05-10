@@ -1,5 +1,8 @@
 package com.example.bmstu_spotlight.location_screen.presentation.view_model
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -7,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.example.bmstu_spotlight.menu_screen.domain.models.Node
 import com.example.bmstu_spotlight.domain.mappers.toDomain
 import com.example.bmstu_spotlight.DataHolder
+import kotlinx.coroutines.flow.StateFlow
 import java.util.UUID
 
 data class LocationState(
@@ -22,6 +26,8 @@ data class LocationState(
 class LocationViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(LocationState())
     val uiState = _uiState.asStateFlow()
+    val messageLocation1 = mutableStateOf("")
+    val messageLocation2 = mutableStateOf("")
 
     fun selectNode(nodeId: UUID) {
         val node = DataHolder.nodes.find { it.nodeId == nodeId }?.toDomain()
@@ -45,5 +51,8 @@ class LocationViewModel : ViewModel() {
         _uiState.update { it.copy(showNewTopSection = visible) }
         DataHolder.showNewTopSection = visible
     }
+
+    fun updateMapLink(link: String?): MutableState<String> =
+        mutableStateOf(link ?: uiState.value.defaultLink)
 }
 
