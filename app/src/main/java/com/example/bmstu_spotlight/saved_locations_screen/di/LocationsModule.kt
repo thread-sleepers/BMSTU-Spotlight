@@ -7,7 +7,7 @@ import com.example.bmstu_spotlight.saved_locations_screen.presentation.view_mode
 import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModel
 
-val appModule = module {
+val locationsModule = module {
     single<LocationRepository> {
         FakeLocationRepository()
     }

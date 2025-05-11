@@ -1,5 +1,8 @@
 package com.example.bmstu_spotlight.location_screen.presentation.view_model
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -7,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.example.bmstu_spotlight.menu_screen.domain.models.Node
 import com.example.bmstu_spotlight.domain.mappers.toDomain
 import com.example.bmstu_spotlight.DataHolder
+import kotlinx.coroutines.flow.StateFlow
 import java.util.UUID
 
 data class LocationState(
@@ -16,12 +20,30 @@ data class LocationState(
     val offsetX: Float = 0f,
     val offsetY: Float = 0f,
     val showNewTopSection: Boolean = DataHolder.showNewTopSection,
-    val defaultLink: String = "https://api.maptiler.com/maps/01965777-0fa0-7baa-98d9-d6e9bd013e48/?key=PHHZ2OozEcXHfqqJCqIr#18.77/55.7664093/37.6859631"
+    val defaultLink: String = "https://api.maptiler.com/maps/01969592-b55a-7cf6-a450-cda9af40bac7/?key=PHHZ2OozEcXHfqqJCqIr#18.31/55.766431/37.685916",
+    val messageLocation1: String = "",
+    val messageLocation2: String = "",
+    val currentMapLink: String = defaultLink
 )
 
-class LocationViewModel : ViewModel() {
+class LocationViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(LocationState())
     val uiState = _uiState.asStateFlow()
+
+    fun updateMessageLocation1(value: String) {
+        _uiState.update { it.copy(messageLocation1 = value) }
+    }
+
+    fun updateMessageLocation2(value: String) {
+        _uiState.update { it.copy(messageLocation2 = value) }
+    }
+
+    fun updateMapLink(link: String?) {
+        _uiState.update { state ->
+            val newLink = link ?: state.defaultLink
+            state.copy(currentMapLink = newLink)
+        }
+    }
 
     fun selectNode(nodeId: UUID) {
         val node = DataHolder.nodes.find { it.nodeId == nodeId }?.toDomain()
