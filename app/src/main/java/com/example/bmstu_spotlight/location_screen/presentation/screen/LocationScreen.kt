@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -49,18 +51,21 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import com.example.bmstu_spotlight.location_screen.data.popularFrom
 import com.example.bmstu_spotlight.location_screen.data.popularTo
+import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationState
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationViewModel
 import com.example.bmstu_spotlight.ui.helper_functions.findLocationLink
 import com.example.bmstu_spotlight.ui.helper_functions.findLocationName
 import com.example.bmstu_spotlight.ui.helper_functions.findRoute
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 import com.example.bmstu_spotlight.ui.helper_functions.find2Locations
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?) {
+fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), mapLink: String?) {
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(mapLink) {
@@ -107,7 +112,7 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
         ) {
             if (uiState.showNewTopSection) {
                 TopSection2(onButtonClick = { viewModel.toggleTopSection(false) })
-                RouteBar()
+                RouteToast(uiState)
                 //}
             } else { // Когда маршрут ещё не начат
                 TopSection1(
@@ -122,6 +127,7 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                     onButtonClick = { loc1, loc2 ->
                         DataHolder.location1 = loc1 // Сохранение данных в DataHolder
                         DataHolder.location2 = loc2
+                        viewModel.findRoute(loc1, loc2)
                         viewModel.toggleTopSection(true)
                         viewModel.updateMapLink(findRoute(loc1, loc2))
                     },
@@ -324,6 +330,28 @@ fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар�
 @Composable
 fun CenterSection() {
 }
+
+@Composable
+fun RouteToast(uiState: LocationState) {
+    val context = LocalContext.current
+
+    // Показываем Toast, когда есть что показать и не идёт загрузка
+    LaunchedEffect(uiState.routeTimeMinutes, uiState.isRouteLoading) {
+        when {
+            uiState.isRouteLoading -> {
+                Toast.makeText(context, "Поиск маршрута...", Toast.LENGTH_SHORT).show()
+            }
+            uiState.routeTimeMinutes != null && uiState.routeTimeMinutes != -1 -> {
+                Toast.makeText(
+                    context,
+                    "Пройдите вдоль коридора — ${uiState.routeTimeMinutes} мин.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+}
+
 
 @Composable
 fun RouteBar() { //Окошко с временем маршрута
