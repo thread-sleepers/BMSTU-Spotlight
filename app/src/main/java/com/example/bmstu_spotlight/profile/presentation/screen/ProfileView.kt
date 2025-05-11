@@ -1,6 +1,6 @@
 package com.example.bmstu_spotlight.profile.presentation.screen
 
-import com.example.bmstu_spotlight.ui.theme.ColorBack3
+//import com.example.bmstu_spotlight.ui.theme.ColorBack3
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,7 +29,7 @@ fun ProfileView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(ColorBack3)
+            .background(MaterialTheme.colorScheme.surfaceContainer)
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -39,7 +39,7 @@ fun ProfileView(
 
         Card(shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth().padding(8.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White)
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             ProfileHeader(state.name, state.email, state.avatarUrl)
         }
@@ -48,7 +48,7 @@ fun ProfileView(
 
         Card(shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth().padding(8.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White)
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             ProfileField(stringResource(R.string.MGTU_account), state.accountType) {
                 Icon(imageVector = Icons.Default.Public, contentDescription = null)
@@ -59,7 +59,7 @@ fun ProfileView(
 
         Card(shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth().padding(8.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White)
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             ProfileField(stringResource(R.string.language), state.language) {
                 Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
@@ -70,11 +70,11 @@ fun ProfileView(
 
         Button(
             onClick = onSignOut,
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth().padding(8.dp)
         ) {
-            Text(stringResource(R.string.go_down), color = Color.Red)
+            Text(stringResource(R.string.go_down), color = MaterialTheme.colorScheme.tertiary)
         }
     }
 

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bmstu_spotlight.schedule_screen.domain.model.Lesson
-import com.example.bmstu_spotlight.ui.theme.Purple40
+//import com.example.bmstu_spotlight.ui.theme.Purple40
 import java.time.format.TextStyle
 
 @Composable
@@ -39,7 +40,7 @@ fun ScheduleWeekDayList(
             ) {
                 Text(text="${item}",
                     modifier = modifier.fillMaxWidth(),
-                    color = Purple40,
+                    color = MaterialTheme.colorScheme.tertiary,
                     fontSize = 30.sp,
                     textAlign = TextAlign.Center)
                 ScheduleList(
@@ -50,7 +51,8 @@ fun ScheduleWeekDayList(
                             end = 10.dp,
                             top = 8.dp,
                             bottom = 8.dp
-                        ),
+                        )
+                        ,
                     items = lessons
                 )
             }

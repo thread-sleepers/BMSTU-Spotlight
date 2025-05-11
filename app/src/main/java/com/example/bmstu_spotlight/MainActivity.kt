@@ -41,7 +41,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.draw.shadow
 import androidx.compose.foundation.shape.CircleShape
 import com.example.bmstu_spotlight.ui.theme.*
-import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightTheme
+//import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightTheme
+import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightAppNewTheme
 import kotlin.random.Random
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -78,7 +79,7 @@ class MainActivity : ComponentActivity() {
             modules(ProfileModule)
         }
         setContent {
-            BMSTUSpotlightTheme {
+            BMSTUSpotlightAppNewTheme {
                 BMSTUSpotlightApp()
             }
         }
@@ -89,7 +90,8 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    BMSTUSpotlightTheme {
+    BMSTUSpotlightAppNewTheme {
         BMSTUSpotlightApp()
     }
 }
+

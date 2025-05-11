@@ -37,14 +37,15 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.bmstu_spotlight.DataHolder
 import com.example.bmstu_spotlight.R
-import com.example.bmstu_spotlight.ui.theme.ColorBack1
-import com.example.bmstu_spotlight.ui.theme.ColorBack2
-import com.example.bmstu_spotlight.ui.theme.ColorButton1
-import com.example.bmstu_spotlight.ui.theme.ColorButton2
-import com.example.bmstu_spotlight.ui.theme.ColorInput1
-import com.example.bmstu_spotlight.ui.theme.ColorText2
+//import com.example.bmstu_spotlight.ui.theme.ColorBack1
+//import com.example.bmstu_spotlight.ui.theme.ColorBack2
+//import com.example.bmstu_spotlight.ui.theme.ColorButton1
+//import com.example.bmstu_spotlight.ui.theme.ColorButton2
+//import com.example.bmstu_spotlight.ui.theme.ColorInput1
+//import com.example.bmstu_spotlight.ui.theme.ColorText2
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.ui.res.stringResource
@@ -115,7 +116,7 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
             ModalBottomSheet(
                 onDismissRequest = { viewModel.closeSheet() },
                 sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-                containerColor = ColorBack1,
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
                 scrimColor = Color.Transparent,
             ) {
                 LazyColumn(
@@ -131,7 +132,7 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                     item {
                         Button(
                             modifier = Modifier.fillMaxWidth().height(54.dp).padding(4.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = ColorButton1),
+                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
                             shape = RoundedCornerShape(28.dp),
                             onClick = { viewModel.closeSheet() }
                         ) {
@@ -149,7 +150,7 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(ColorBack1, shape = RoundedCornerShape(18.dp))
+            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(18.dp))
             .padding(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -164,7 +165,7 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
-                .background(ColorInput1, shape = RoundedCornerShape(28.dp)),
+                .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(28.dp)),
             textStyle = TextStyle(fontSize = 20.sp),
             placeholder = { Text(stringResource(id = R.string.enter_the_starting_point), fontSize = 20.sp) },
             singleLine = true,
@@ -187,7 +188,7 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
-                .background(ColorInput1, shape = RoundedCornerShape(28.dp)),
+                .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(28.dp)),
             textStyle = TextStyle(fontSize = 20.sp),
             placeholder = { Text(stringResource(id = R.string.enter_the_ending_point), fontSize = 20.sp) },
             singleLine = true,
@@ -202,12 +203,12 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
                 .padding(4.dp)
                 .shadow(3.dp, shape = CircleShape),
             colors = ButtonDefaults.buttonColors(
-                containerColor = ColorButton1,
+                containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = Color.Black
             ), // Используем ColorButton1
             shape = RoundedCornerShape(28.dp),
         ) {
-            Text(stringResource(id = R.string.build_a_route_button), color = ColorText2, fontSize = 20.sp)
+            Text(stringResource(id = R.string.build_a_route_button), color = MaterialTheme.colorScheme.onPrimary, fontSize = 20.sp)
         }
     }
 }
@@ -217,7 +218,7 @@ fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар�
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(ColorBack1, shape = RoundedCornerShape(18.dp))
+            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(18.dp))
             .padding(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -230,12 +231,12 @@ fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар�
                 .padding(4.dp)
                 .shadow(3.dp, shape = CircleShape),
             colors = ButtonDefaults.buttonColors(
-                containerColor = ColorButton2,
+                containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = Color.Black
             ),
             shape = RoundedCornerShape(28.dp),
         ) {
-            Text(stringResource(id = R.string.new_route_button), color = ColorText2, fontSize = 20.sp)
+            Text(stringResource(id = R.string.new_route_button), color = MaterialTheme.colorScheme.onPrimary, fontSize = 20.sp)
         }
     }
 }
@@ -251,7 +252,7 @@ fun RouteBar() { //Окошко с временем маршрута
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 8.dp)
-            .background(ColorBack2, shape = RoundedCornerShape(18.dp))
+            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(18.dp))
             .padding(8.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

@@ -28,18 +28,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bmstu_spotlight.DataHolder
-import com.example.bmstu_spotlight.ui.theme.ColorBack1
-import com.example.bmstu_spotlight.ui.theme.ColorBack2
-import com.example.bmstu_spotlight.ui.theme.ColorBack3
-import com.example.bmstu_spotlight.ui.theme.ColorButton1
-import com.example.bmstu_spotlight.ui.theme.ColorText1
-import com.example.bmstu_spotlight.ui.theme.ColorText2
+//import com.example.bmstu_spotlight.ui.theme.ColorBack1
+//import com.example.bmstu_spotlight.ui.theme.ColorBack2
+//import com.example.bmstu_spotlight.ui.theme.ColorBack3
+//import com.example.bmstu_spotlight.ui.theme.ColorButton1
+//import com.example.bmstu_spotlight.ui.theme.ColorText1
+//import com.example.bmstu_spotlight.ui.theme.ColorText2
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -94,13 +95,13 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                     .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(100.dp)
-                    .background(ColorBack2)
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
                     .clickable {  },
                 contentAlignment = Alignment.Center
             )
             {
                 Text(stringResource(id = R.string.type1_button),
-                    color = ColorText1,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 8.dp)
@@ -113,13 +114,13 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                     .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(200.dp)
-                    .background(ColorBack3)
+                    .background(MaterialTheme.colorScheme.tertiaryContainer)
                     .clickable { onItemClick(NodeType.LABORATORY) },
                 contentAlignment = Alignment.Center
             )
             {
                 Text(stringResource(id = R.string.type2_button),
-                    color = ColorText2,
+                    color = MaterialTheme.colorScheme.onTertiaryContainer,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 8.dp)
@@ -132,13 +133,13 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                     .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(300.dp)
-                    .background(ColorBack3)
+                    .background(MaterialTheme.colorScheme.primaryContainer)
                     .clickable( onClick = {  }),
                 contentAlignment = Alignment.Center
             )
             {
                 Text(stringResource(id = R.string.type3_button),
-                    color = ColorText2,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 8.dp)
@@ -151,13 +152,13 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                     .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(200.dp)
-                    .background(ColorBack2)
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
                     .clickable { onItemClick(NodeType.CLASSROOM) },
                 contentAlignment = Alignment.Center
             )
             {
                 Text(stringResource(id = R.string.type4_button),
-                    color = ColorText1,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 8.dp)
@@ -171,13 +172,13 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                     .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(100.dp)
-                    .background(ColorBack2)
+                    .background(MaterialTheme.colorScheme.tertiaryContainer)
                     .clickable( onClick = {  }),
                 contentAlignment = Alignment.Center
             )
             {
                 Text(stringResource(id = R.string.type5_button),
-                    color = ColorText1,
+                    color = MaterialTheme.colorScheme.onTertiaryContainer,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 8.dp)
@@ -191,13 +192,13 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                     .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(200.dp)
-                    .background(ColorBack3)
+                    .background(MaterialTheme.colorScheme.primaryContainer)
                     .clickable( onClick = {  }),
                 contentAlignment = Alignment.Center
             )
             {
                 Text(stringResource(id = R.string.type6_button),
-                    color = ColorText2,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 8.dp)
@@ -212,13 +213,13 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                     .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(300.dp)
-                    .background(ColorBack3)
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
                     .clickable { onItemClick(NodeType.CANTEEN) },
                 contentAlignment = Alignment.Center
             )
             {
                 Text(stringResource(id = R.string.type7_button),
-                    color = ColorText2,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 8.dp)
@@ -232,13 +233,13 @@ fun MenuSection(onItemClick: (NodeType) -> Unit) { // Отображение к�
                     .clip(shape = RoundedCornerShape(15.dp))
                     .fillMaxWidth()
                     .height(200.dp)
-                    .background(ColorBack2)
+                    .background(MaterialTheme.colorScheme.tertiaryContainer)
                     .clickable( onClick = {  }),
                 contentAlignment = Alignment.Center
             )
             {
                 Text(stringResource(id = R.string.type8_button),
-                    color = ColorText1,
+                    color = MaterialTheme.colorScheme.onTertiaryContainer,
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = 8.dp)
@@ -271,14 +272,16 @@ fun SecondMenuSection(
                         .clip(shape = RoundedCornerShape(15.dp))
                         .fillMaxWidth()
                         .height(80.dp)
-                        .background(ColorBack2)
+                        //.background(ColorBack2)
                         .clickable {
                             DataHolder.selectedNodeId = node.id
                             navController.navigate(BottomBarScreen.Location.route)
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(node.name, fontSize = 24.sp, textAlign = TextAlign.Center, color = ColorText1)
+                    Text(node.name, fontSize = 24.sp, textAlign = TextAlign.Center,
+                        //color = ColorText1
+                    )
                 }
             }
         }
@@ -290,10 +293,11 @@ fun SecondMenuSection(
                 .height(64.dp)
                 .padding(8.dp)
                 .shadow(3.dp, shape = CircleShape),
-            colors = ButtonDefaults.buttonColors(containerColor = ColorButton1, contentColor = Color.Black),
+            //colors = ButtonDefaults.buttonColors(containerColor = ColorButton1, contentColor = Color.Black),
             shape = RoundedCornerShape(28.dp),
         ) {
-            Text(stringResource(id = R.string.back_button), fontSize = 20.sp, color = ColorText2)
+            Text(stringResource(id = R.string.back_button), fontSize = 20.sp//, color = ColorText2
+            )
         }
     }
 }

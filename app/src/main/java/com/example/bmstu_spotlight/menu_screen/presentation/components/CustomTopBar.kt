@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,8 +23,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bmstu_spotlight.R
-import com.example.bmstu_spotlight.ui.theme.ColorBack1
-import com.example.bmstu_spotlight.ui.theme.ColorText2
+//import com.example.bmstu_spotlight.ui.theme.ColorBack1
+//import com.example.bmstu_spotlight.ui.theme.ColorText2
 
 // Герб мгту
 @Composable
@@ -49,7 +50,7 @@ fun CustomTopBar(title: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(ColorBack1, shape = RoundedCornerShape(18.dp))
+            .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(18.dp))
             .padding(8.dp),
         //verticalArrangement = Arrangement.Top
     ) {
@@ -65,7 +66,7 @@ fun CustomTopBar(title: String) {
 
             Text(
                 title,
-                color = ColorText2,
+                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 28.sp,
                 textAlign = TextAlign.Center
             )

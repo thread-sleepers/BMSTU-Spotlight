@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -23,8 +24,8 @@ import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTop
 import com.example.bmstu_spotlight.saved_locations_screen.data.repository.LocationDetails
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.components.SectionHeader
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.components.LocationList
-import com.example.bmstu_spotlight.ui.theme.ColorBack2
-import com.example.bmstu_spotlight.ui.theme.ColorBack3
+//import com.example.bmstu_spotlight.ui.theme.ColorBack2
+//import com.example.bmstu_spotlight.ui.theme.ColorBack3
 
 @Composable
 fun SavedLocationsView(
@@ -35,7 +36,7 @@ fun SavedLocationsView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(ColorBack3)
+            .background(MaterialTheme.colorScheme.surfaceContainer)
             .padding(8.dp)
     ) {
         CustomTopBar(stringResource(R.string.locations))
@@ -48,7 +49,7 @@ fun SavedLocationsView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    start = 32.dp,
+                    start = 16.dp,
                     end = 16.dp,
                     top = 8.dp,
                     bottom = 8.dp
@@ -67,11 +68,12 @@ fun SavedLocationsView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    start = 32.dp,
+                    start = 16.dp,
                     end = 16.dp,
                     top = 8.dp,
                     bottom = 8.dp
-                ),
+                )
+                .background(MaterialTheme.colorScheme.surfaceVariant),
             items = favoritesState,
             icon = Icons.Default.Favorite,
             iconContentDescription = "Saved Location",
