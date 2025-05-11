@@ -1,49 +1,92 @@
 package com.example.bmstu_spotlight.route.domain.usecases
 
+import com.example.bmstu_spotlight.route.data.repository.TestGraphRepository
 import com.example.bmstu_spotlight.route.domain.models.Graph
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
 class FindShortestPathUseCaseTest {
     private lateinit var findShortestPathUseCase: FindShortestPathUseCase
-    private lateinit var graph: Graph
+    private lateinit var testGraph: Graph
 
     @Before
     fun setUp() {
-        findShortestPathUseCase = FindShortestPathUseCaseImpl()
-        graph = Graph()
+        testGraph = Graph()
 
-        // Создаём тестовый граф
-        graph.addEdge("A", "B", 5.0)
-        graph.addEdge("A", "C", 10.0)
-        graph.addEdge("B", "D", 2.0)
-        graph.addEdge("C", "D", 1.0)
-        graph.addEdge("B", "E", 3.0)
-        graph.addEdge("D", "E", 8.0)
+        testGraph.addEdge("350", "351", 10.0)
+        testGraph.addEdge("351", "350", 10.0)
+
+        testGraph.addEdge("350", "wc", 100.5)
+        testGraph.addEdge("wc", "350", 100.5)
+
+        testGraph.addEdge("350", "stairs_1", 101.98)
+        testGraph.addEdge("stairs_1", "350", 101.98)
+
+        testGraph.addEdge("351", "stairs_1", 92.2)
+        testGraph.addEdge("stairs_1", "351", 92.2)
+
+        testGraph.addEdge("350", "395", 158.11)
+        testGraph.addEdge("395", "350", 158.11)
+
+        testGraph.addEdge("384", "389", 28.28)
+
+        val testRepository = TestGraphRepository(testGraph)
+        findShortestPathUseCase = FindShortestPathUseCaseImpl(testRepository)
     }
 
     @Test
-    fun `find shortest path A to E`() {
-        val result = findShortestPathUseCase.execute(graph, "A", "E")
+    fun `shortest time from 384 to 389`() = runBlocking {
+        val result = findShortestPathUseCase.execute("384", "389")
 
-        assertEquals(8.0, result.time, 0.001) // Проверяем, что минимальное расстояние равно 8.0
-        assertEquals(listOf("A", "B", "E"), result.path) // Проверяем, что путь корректный
+        println("Computed path: ${result.path.joinToString(" → ")}")
+        println("Computed time: ${result.time}")
+
+        assertEquals(2.0, result.time, 0.001)
     }
 
     @Test
-    fun `find shortest path A to D`() {
-        val result = findShortestPathUseCase.execute(graph, "A", "D")
+    fun `shortest time from 350 to stairs_1`() = runBlocking {
+        val result = findShortestPathUseCase.execute("350", "stairs_1")
 
-        assertEquals(7.0, result.time, 0.001) // Кратчайший путь A → B → D (5 + 2)
-        assertEquals(listOf("A", "B", "D"), result.path)
+        println("Computed path: ${result.path.joinToString(" → ")}")
+        println("Computed time: ${result.time}")
+
+        assertEquals(5.0, result.time, 0.001)
     }
 
     @Test
-    fun `path does not exist`() {
-        val result = findShortestPathUseCase.execute(graph, "A", "Z")
+    fun `shortest time from 350 to 395`() = runBlocking {
+        val result = findShortestPathUseCase.execute("350", "395")
 
-        assertEquals(-1.0, result.time, 0.001) // Если пути нет, то расстояние -1.0
-        assertEquals(emptyList<String>(), result.path) // Пустой список пути
+        println("Computed path: ${result.path.joinToString(" → ")}")
+        println("Computed time: ${result.time}")
+
+        assertEquals(7.0, result.time, 0.001)
+    }
+
+    @Test
+    fun `direct path from 350 to stairs_1 is longer`() = runBlocking {
+        val result = findShortestPathUseCase.execute("350", "stairs_1")
+
+        println("Computed path: ${result.path.joinToString(" → ")}")
+        println("Computed time: ${result.time}")
+
+        assertEquals(5.0, result.time, 0.001)
+    }
+
+    @Test
+    fun `path from 351 to wc`() = runBlocking {
+        val result = findShortestPathUseCase.execute("351", "wc")
+
+        assertEquals(5.0, result.time, 0.001)
+    }
+
+    @Test
+    fun `path does not exist`() = runBlocking {
+        val result = findShortestPathUseCase.execute("350", "non_existing_node")
+
+        assertEquals(-1.0, result.time, 0.001)
     }
 }

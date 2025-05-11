@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.bmstu_spotlight.data.datasource.local.entities.EdgeEntity
 import com.example.bmstu_spotlight.data.datasource.local.entities.NodeEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -12,6 +13,9 @@ import kotlinx.coroutines.flow.Flow
 interface NodeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(node: NodeEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(nodes: List<NodeEntity>)
 
     @Delete(entity = NodeEntity::class)
     suspend fun delete(node: NodeEntity)

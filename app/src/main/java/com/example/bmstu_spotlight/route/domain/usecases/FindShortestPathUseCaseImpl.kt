@@ -1,46 +1,71 @@
 package com.example.bmstu_spotlight.route.domain.usecases
 
 import com.example.bmstu_spotlight.route.domain.models.Graph
+import com.example.bmstu_spotlight.route.domain.repository.GraphRepository
+import com.example.bmstu_spotlight.route.utils.mapToRange
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.*
+import kotlin.math.roundToInt
 
-class FindShortestPathUseCaseImpl: FindShortestPathUseCase {
+class FindShortestPathUseCaseImpl(
+    private val repository: GraphRepository
+): FindShortestPathUseCase {
     data class Node(val name: String, val cost: Double) : Comparable<Node> {
         override fun compareTo(other: Node): Int = cost.compareTo(other.cost)
     }
 
-    override fun execute(graph: Graph, start: String, end: String): FindShortestPathUseCase.Result {
-        val queue = PriorityQueue<Node>()
-        val distances = mutableMapOf<String, Double>().withDefault { Double.MAX_VALUE }
-        val previous = mutableMapOf<String, String?>()
+    override suspend fun execute(start: String, end: String): FindShortestPathUseCase.Result {
+        val graph = repository.getGraph()
 
-        distances[start] = 0.0
-        queue.add(Node(start, 0.0))
+        return withContext(Dispatchers.Default) {
+            val queue = PriorityQueue<Node>()
+            val distances = mutableMapOf<String, Double>().withDefault { Double.MAX_VALUE }
+            val previous = mutableMapOf<String, String?>()
 
-        while (queue.isNotEmpty()) {
-            val current = queue.poll() ?: break
+            distances[start] = 0.0
+            queue.add(Node(start, 0.0))
 
-            if (current.name == end) break
+            while (queue.isNotEmpty()) {
+                val current = queue.poll() ?: break
 
-            for (edge in graph.getEdges(current.name)) {
-                val newDist = distances.getValue(current.name) + edge.weight
-                if (newDist < distances.getValue(edge.target)) {
-                    distances[edge.target] = newDist
-                    previous[edge.target] = current.name
-                    queue.add(Node(edge.target, newDist))
+                if (current.name == end) break
+
+                for (edge in graph.getEdges(current.name)) {
+                    val newDist = distances.getValue(current.name) + edge.weight
+                    val target = edge.to
+                    if (newDist < distances.getValue(target)) {
+                        distances[target] = newDist
+                        previous[target] = current.name
+                        queue.add(Node(target, newDist))
+                    }
                 }
             }
+
+            if (!previous.containsKey(end)) return@withContext FindShortestPathUseCase.Result(
+                -1.0,
+                emptyList()
+            )
+
+            val path = mutableListOf<String>()
+            var at: String? = end
+            while (at != null) {
+                path.add(at)
+                at = previous[at]
+            }
+            path.reverse()
+
+            val rawTime = distances[end] ?: -1.0
+
+            // Преобразуем расстояние в минуты: нормализация в диапазон 1..10
+            val normalizedTime = rawTime.mapToRange(
+                oldMin = 0.0,
+                oldMax = 230.0, // верхняя граница графа
+                newMin = 1.0,
+                newMax = 10.0
+            ).roundToInt().toDouble()
+
+            return@withContext FindShortestPathUseCase.Result(normalizedTime, path)
         }
-
-        if (!previous.containsKey(end)) return FindShortestPathUseCase.Result(-1.0, emptyList())
-
-        val path = mutableListOf<String>()
-        var at: String? = end
-        while (at != null) {
-            path.add(at)
-            at = previous[at]
-        }
-        path.reverse()
-
-        return FindShortestPathUseCase.Result(distances[end] ?: -1.0, path)
     }
 }

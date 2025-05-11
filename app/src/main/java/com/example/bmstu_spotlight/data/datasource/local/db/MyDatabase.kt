@@ -3,9 +3,11 @@ package com.example.bmstu_spotlight.data.datasource.local.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.bmstu_spotlight.data.datasource.local.dao.BuildingDao
+import com.example.bmstu_spotlight.data.datasource.local.dao.EdgeDao
 import com.example.bmstu_spotlight.data.datasource.local.dao.FloorDao
 import com.example.bmstu_spotlight.data.datasource.local.dao.NodeDao
 import com.example.bmstu_spotlight.data.datasource.local.entities.BuildingEntity
+import com.example.bmstu_spotlight.data.datasource.local.entities.EdgeEntity
 import com.example.bmstu_spotlight.data.datasource.local.entities.FloorEntity
 import com.example.bmstu_spotlight.data.datasource.local.entities.NodeEntity
 
@@ -13,7 +15,8 @@ import com.example.bmstu_spotlight.data.datasource.local.entities.NodeEntity
     entities = [
         BuildingEntity::class,
         FloorEntity::class,
-        NodeEntity::class
+        NodeEntity::class,
+        EdgeEntity::class
     ],
     version = 1,
     exportSchema = true
@@ -22,5 +25,6 @@ abstract class MyDatabase: RoomDatabase() {
     abstract fun buildingDao(): BuildingDao
     abstract fun floorDao(): FloorDao
     abstract fun nodeDao(): NodeDao
+    abstract fun edgeDao(): EdgeDao
 }
 

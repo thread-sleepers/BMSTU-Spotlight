@@ -4,8 +4,8 @@ class Graph {
     private val adjacencyList = mutableMapOf<String, MutableList<Edge>>()
 
     fun addEdge(from: String, to: String, weight: Double) {
-        adjacencyList.computeIfAbsent(from) { mutableListOf() }.add(Edge(to, weight))
-        adjacencyList.computeIfAbsent(to) { mutableListOf() }.add(Edge(from, weight))
+        adjacencyList.computeIfAbsent(from) { mutableListOf() }.add(Edge(from, to, weight))
+        adjacencyList.computeIfAbsent(to) { mutableListOf() }.add(Edge(to, from, weight))
     }
 
     fun getEdges(node: String): List<Edge> = adjacencyList[node] ?: emptyList()
