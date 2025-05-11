@@ -67,11 +67,9 @@ import com.example.bmstu_spotlight.ui.helper_functions.find2Locations
 @Composable
 fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?) {
     val uiState by viewModel.uiState.collectAsState()
-    val messageLocation1 = remember { viewModel.messageLocation1 }
-    val messageLocation2 = remember { viewModel.messageLocation2 }
-    val currentMapLink = remember { viewModel.updateMapLink(mapLink) }
-    val onEnterLink: (String?) -> Unit = {
-        currentMapLink.value = viewModel.updateMapLink(it).value
+
+    LaunchedEffect(mapLink) {
+        viewModel.updateMapLink(mapLink)
     }
 
     // Box для наложения элементов экрана поверх карты
@@ -91,15 +89,17 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                     webViewClient = WebViewClient()
                     webChromeClient = WebChromeClient()
                     settings.javaScriptEnabled = true
-                    loadUrl(currentMapLink.value)
+                    loadUrl(uiState.currentMapLink)
 
-                    if (currentMapLink.value != uiState.defaultLink) {
-                        messageLocation2.value = findLocationName(currentMapLink.value).toString()
+                    if (uiState.currentMapLink != uiState.defaultLink) {
+                        viewModel.updateMessageLocation2(
+                            findLocationName(uiState.currentMapLink).toString()
+                        )
                     }
                 }
             },
             update = {
-                it.loadUrl(currentMapLink.value)
+                it.loadUrl(uiState.currentMapLink)
             }
         )
         // Основное содержимое поверх карты
@@ -116,15 +116,23 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                 //}
             } else { // Когда маршрут ещё не начат
                 TopSection1(
-                    from = messageLocation1,
-                    to = messageLocation2,
+                    from = uiState.messageLocation1,
+                    to = uiState.messageLocation2,
+                    onFromChange = {
+                        viewModel.updateMessageLocation1(it)
+                    },
+                    onToChange = {
+                        viewModel.updateMessageLocation2(it)
+                    },
                     onButtonClick = { loc1, loc2 ->
                         DataHolder.location1 = loc1 // Сохранение данных в DataHolder
                         DataHolder.location2 = loc2
                         viewModel.toggleTopSection(true)
-                        onEnterLink(findRoute(loc1, loc2))
+                        viewModel.updateMapLink(findRoute(loc1, loc2))
                     },
-                    onEnterLink = onEnterLink
+                    onEnterLink = {
+                        link -> viewModel.updateMapLink(link)
+                    }
                 )
             }
         }
@@ -138,7 +146,7 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
 
     if (uiState.showSheet) {
         uiState.selectedNode?.let { node ->
-            messageLocation2.value = node.name
+           viewModel.updateMessageLocation2(node.name)
 
             ModalBottomSheet(
                 onDismissRequest = { viewModel.closeSheet() },
@@ -179,8 +187,10 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
 
 @Composable
 fun TopSection1(
-    from: MutableState<String>,
-    to: MutableState<String>,
+    from: String,
+    to: String,
+    onFromChange: (String) -> Unit,
+    onToChange: (String) -> Unit,
     onButtonClick: (String, String) -> Unit,
     onEnterLink: (String?) -> Unit
 ) { //Окошко ввода начальной и конечной локации
@@ -195,10 +205,8 @@ fun TopSection1(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         OutlinedTextField(
-            value = from.value,
-            onValueChange = { newText ->
-               from.value = newText
-            },
+            value = from,
+            onValueChange = onFromChange,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
@@ -224,7 +232,7 @@ fun TopSection1(
             PopularDestinationsList(
                 destinations = popularFrom,
                 onDestinationSelected = {
-                    from.value = it
+                    onFromChange(it)
                     onEnterLink(findLocationLink(it))
                     showSuggestionsFrom.value = false
                 }
@@ -234,18 +242,8 @@ fun TopSection1(
         Spacer(modifier = Modifier.height(8.dp))
 
         OutlinedTextField(
-            value = to.value,
-            onValueChange = { newText ->
-                to.value = newText
-                // Проверяем, соответствует ли ввод имени маркера УДАЛИТЬ КОГДА ПОЯВЯТСЯ КАРТЫ!!!
-                when (newText) {
-                    "1" -> DataHolder.targetMarkerIndex = 0
-                    "2" -> DataHolder.targetMarkerIndex = 1
-                    "3" -> DataHolder.targetMarkerIndex = 2
-                    "4" -> DataHolder.targetMarkerIndex = 3
-                    else -> DataHolder.targetMarkerIndex = null
-                }//УДАЛИТЬ КОГДА ПОЯВЯТСЯ КАРТЫ!!!
-            },
+            value = to,
+            onValueChange = onToChange,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
@@ -271,21 +269,21 @@ fun TopSection1(
             PopularDestinationsList(
                 destinations = popularTo,
                 onDestinationSelected = {
-                    to.value = it
+                    onToChange(it)
                     onEnterLink(findLocationLink(it))
                     showSuggestionsTo.value = false
                 }
             )
         }
 
-        if (to.value != "" && from.value != "") {
-            onEnterLink(find2Locations(from.value, to.value))
+        if (to.isNotEmpty() && from.isNotEmpty()) {
+            onEnterLink(find2Locations(from, to))
         }
 
 
         Button(
             onClick = {
-                onButtonClick(from.value, to.value)
+                onButtonClick(from, to)
             },
             modifier = Modifier
                 .fillMaxWidth()

@@ -20,14 +20,30 @@ data class LocationState(
     val offsetX: Float = 0f,
     val offsetY: Float = 0f,
     val showNewTopSection: Boolean = DataHolder.showNewTopSection,
-    val defaultLink: String = "https://api.maptiler.com/maps/01969592-b55a-7cf6-a450-cda9af40bac7/?key=PHHZ2OozEcXHfqqJCqIr#18.31/55.766431/37.685916"
+    val defaultLink: String = "https://api.maptiler.com/maps/01969592-b55a-7cf6-a450-cda9af40bac7/?key=PHHZ2OozEcXHfqqJCqIr#18.31/55.766431/37.685916",
+    val messageLocation1: String = "",
+    val messageLocation2: String = "",
+    val currentMapLink: String = defaultLink
 )
 
-class LocationViewModel : ViewModel() {
+class LocationViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(LocationState())
     val uiState = _uiState.asStateFlow()
-    val messageLocation1 = mutableStateOf("")
-    val messageLocation2 = mutableStateOf("")
+
+    fun updateMessageLocation1(value: String) {
+        _uiState.update { it.copy(messageLocation1 = value) }
+    }
+
+    fun updateMessageLocation2(value: String) {
+        _uiState.update { it.copy(messageLocation2 = value) }
+    }
+
+    fun updateMapLink(link: String?) {
+        _uiState.update { state ->
+            val newLink = link ?: state.defaultLink
+            state.copy(currentMapLink = newLink)
+        }
+    }
 
     fun selectNode(nodeId: UUID) {
         val node = DataHolder.nodes.find { it.nodeId == nodeId }?.toDomain()
@@ -51,8 +67,5 @@ class LocationViewModel : ViewModel() {
         _uiState.update { it.copy(showNewTopSection = visible) }
         DataHolder.showNewTopSection = visible
     }
-
-    fun updateMapLink(link: String?): MutableState<String> =
-        mutableStateOf(link ?: uiState.value.defaultLink)
 }
 
