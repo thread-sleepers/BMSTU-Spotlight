@@ -6,8 +6,8 @@ import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModel
 
 val scheduleModule = module {
-    single<ScheduleRepository> {
-        ScheduleRepository()
+    single {
+        ScheduleRepository(get())
     }
     factory {
         GetScheduleCase(get())
