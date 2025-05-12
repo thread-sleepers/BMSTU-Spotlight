@@ -43,33 +43,33 @@ fun ScheduleList(
             .background(ColorBack1)
     ) {
 
-        items(items) { lesson  ->
+        items(items) { lesson ->
             Row(
                 modifier = modifier
                     .height(100.dp)
                     .fillMaxWidth()
             ) {
                 if (lesson.name == null) {
-                    val scheduleRow = remember (lesson) { "${lesson.startTime}-${lesson.endTime} | " }
-                    Text(text=scheduleRow,
-                        modifier = modifier.weight(2.0f))
-                }
-                else {
-                    if (lesson.typeOfLesson != null) {
-                        val scheduleRow = remember (lesson) {"${lesson.startTime}-${lesson.endTime} | ${lesson.name}\n | ${lesson.typeOfLesson}"}
-                        Text(text=scheduleRow,
-                            modifier = modifier.weight(2.0f))
-                        Button(onClick = {},
-                            modifier = modifier.weight(1.0f),
-                            colors = ButtonColors(Purple40, Color.White, Purple40, Purple40)
-                        ) {
-                            val scheduleClassroom = remember(lesson) {"${lesson.classroom}"}
-                            Text(text=scheduleClassroom)
-                        }
-                    } else {
-                        val scheduleRow = remember(lesson) {"${lesson.startTime}-${lesson.endTime} | ${lesson.name}"}
-                        Text(text=scheduleRow,
-                            modifier = modifier.weight(2.0f))
+                    val scheduleRow =
+                        remember(lesson) { "${lesson.startTime}-${lesson.endTime} | " }
+                    Text(
+                        text = scheduleRow,
+                        modifier = modifier.weight(2.0f)
+                    )
+                } else {
+                    val scheduleRow =
+                        remember(lesson) { "${lesson.startTime}-${lesson.endTime} | ${lesson.name}\n | ${lesson.typeOfLesson}" }
+                    Text(
+                        text = scheduleRow,
+                        modifier = modifier.weight(2.0f)
+                    )
+                    Button(
+                        onClick = {},
+                        modifier = modifier.weight(1.0f),
+                        colors = ButtonColors(Purple40, Color.White, Purple40, Purple40)
+                    ) {
+                        val scheduleClassroom = remember(lesson) { "${lesson.classroom}" }
+                        Text(text = scheduleClassroom)
                     }
                 }
             }
