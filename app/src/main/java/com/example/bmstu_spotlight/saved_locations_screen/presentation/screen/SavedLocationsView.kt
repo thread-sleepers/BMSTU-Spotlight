@@ -24,8 +24,6 @@ import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTop
 import com.example.bmstu_spotlight.saved_locations_screen.data.repository.LocationDetails
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.components.SectionHeader
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.components.LocationList
-//import com.example.bmstu_spotlight.ui.theme.ColorBack2
-//import com.example.bmstu_spotlight.ui.theme.ColorBack3
 
 @Composable
 fun SavedLocationsView(

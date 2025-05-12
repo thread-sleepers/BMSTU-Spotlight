@@ -23,8 +23,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bmstu_spotlight.R
-//import com.example.bmstu_spotlight.ui.theme.ColorBack1
-//import com.example.bmstu_spotlight.ui.theme.ColorText2
 
 // Герб мгту
 @Composable

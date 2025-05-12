@@ -22,7 +22,6 @@ import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTop
 import com.example.bmstu_spotlight.schedule_screen.domain.model.Lesson
 import com.example.bmstu_spotlight.schedule_screen.presentation.components.ScheduleList
 import com.example.bmstu_spotlight.schedule_screen.presentation.components.ScheduleWeekDayList
-//import com.example.bmstu_spotlight.ui.theme.ColorBack3
 
 @Composable
 fun ScheduleView(state: List<Lesson>) {

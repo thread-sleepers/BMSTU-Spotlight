@@ -37,12 +37,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.bmstu_spotlight.DataHolder
 import com.example.bmstu_spotlight.R
-//import com.example.bmstu_spotlight.ui.theme.ColorBack1
-//import com.example.bmstu_spotlight.ui.theme.ColorBack2
-//import com.example.bmstu_spotlight.ui.theme.ColorButton1
-//import com.example.bmstu_spotlight.ui.theme.ColorButton2
-//import com.example.bmstu_spotlight.ui.theme.ColorInput1
-//import com.example.bmstu_spotlight.ui.theme.ColorText2
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme

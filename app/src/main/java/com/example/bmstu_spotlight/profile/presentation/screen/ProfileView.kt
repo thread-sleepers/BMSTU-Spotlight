@@ -1,6 +1,5 @@
 package com.example.bmstu_spotlight.profile.presentation.screen
 
-//import com.example.bmstu_spotlight.ui.theme.ColorBack3
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

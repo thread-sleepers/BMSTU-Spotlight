@@ -27,7 +27,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.bmstu_spotlight.ui.screens.BottomBarScreen
 import com.example.bmstu_spotlight.ui.screens.BottomNavGraph
-//import com.example.bmstu_spotlight.ui.theme.ColorBack1
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

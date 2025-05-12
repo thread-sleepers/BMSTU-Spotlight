@@ -28,12 +28,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bmstu_spotlight.DataHolder
-//import com.example.bmstu_spotlight.ui.theme.ColorBack1
-//import com.example.bmstu_spotlight.ui.theme.ColorBack2
-//import com.example.bmstu_spotlight.ui.theme.ColorBack3
-//import com.example.bmstu_spotlight.ui.theme.ColorButton1
-//import com.example.bmstu_spotlight.ui.theme.ColorText1
-//import com.example.bmstu_spotlight.ui.theme.ColorText2
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.getValue
