@@ -23,9 +23,6 @@ val appModule = module {
                 )
             )
             .build()
-    }
-
-    single<NetworkService> {
-        get<Retrofit>().create(NetworkService::class.java)
+            .create(NetworkService::class.java)
     }
 }
