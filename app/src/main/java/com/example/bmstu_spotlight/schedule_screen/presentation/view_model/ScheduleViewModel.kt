@@ -5,10 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bmstu_spotlight.schedule_screen.domain.model.Lesson
+import com.example.bmstu_spotlight.schedule_screen.domain.repository.ScheduleRepository
 import com.example.bmstu_spotlight.schedule_screen.domain.usecase.GetScheduleCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.koin.java.KoinJavaComponent.inject
 
 class ScheduleViewModel(
     private val getScheduleCase: GetScheduleCase
