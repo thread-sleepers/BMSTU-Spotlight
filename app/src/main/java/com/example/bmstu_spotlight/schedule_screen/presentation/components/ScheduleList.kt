@@ -60,11 +60,11 @@ fun ScheduleList(
                             modifier = modifier.weight(1.0f),
                             colors = ButtonColors(MaterialTheme.colorScheme.tertiary, Color.White, MaterialTheme.colorScheme.tertiary, MaterialTheme.colorScheme.tertiary)
                         ) {
-                            val scheduleClassroom = remember(lesson) {"${lesson.classroom}"}
+                            val scheduleClassroom = remember (lesson) {"${lesson.classroom}"}
                             Text(text=scheduleClassroom)
                         }
                     } else {
-                        val scheduleRow = remember(lesson) {"${lesson.startTime}-${lesson.endTime} | ${lesson.name}"}
+                        val scheduleRow = remember (lesson) {"${lesson.startTime}-${lesson.endTime} | ${lesson.name}"}
                         Text(text=scheduleRow,
                             modifier = modifier.weight(2.0f))
                     }
