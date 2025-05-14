@@ -1,16 +1,9 @@
 package com.example.bmstu_spotlight
 
-import android.annotation.SuppressLint
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
@@ -63,9 +56,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.bmstu_spotlight.di.appModule
 import com.example.bmstu_spotlight.profile.di.ProfileModule
-import com.example.bmstu_spotlight.saved_locations_screen.di.appModule
+import com.example.bmstu_spotlight.saved_locations_screen.di.locationsModule
 import com.example.bmstu_spotlight.schedule_screen.di.scheduleModule
+import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightTheme
 import org.koin.core.context.GlobalContext.startKoin
 
 
@@ -74,6 +69,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         startKoin {
             modules(appModule)
+            modules(locationsModule)
             modules(scheduleModule)
             modules(ProfileModule)
         }

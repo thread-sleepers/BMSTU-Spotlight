@@ -269,7 +269,7 @@ fun SecondMenuSection(
                         //.background(ColorBack2)
                         .clickable {
                             DataHolder.selectedNodeId = node.id
-                            navController.navigate(BottomBarScreen.Location.route)
+                            navController.navigate(BottomBarScreen.Location.route + "?mapLink=${node.reference}")
                         },
                     contentAlignment = Alignment.Center
                 ) {

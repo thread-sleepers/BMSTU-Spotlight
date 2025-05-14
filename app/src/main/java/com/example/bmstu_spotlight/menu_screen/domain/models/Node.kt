@@ -11,5 +11,6 @@ data class Node(
     val xCoordinate: Float,
     val yCoordinate: Float,
     val roomNumber: String?,
-    val isAvailable: Boolean
+    val isAvailable: Boolean,
+    val reference: String
 )

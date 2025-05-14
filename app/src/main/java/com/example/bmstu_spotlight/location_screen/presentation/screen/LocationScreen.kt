@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
@@ -40,19 +42,31 @@ import com.example.bmstu_spotlight.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.*
+import com.example.bmstu_spotlight.location_screen.data.popularFrom
+import com.example.bmstu_spotlight.location_screen.data.popularTo
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationViewModel
+import com.example.bmstu_spotlight.ui.helper_functions.findLocationLink
+import com.example.bmstu_spotlight.ui.helper_functions.findLocationName
+import com.example.bmstu_spotlight.ui.helper_functions.findRoute
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
-
+import com.example.bmstu_spotlight.ui.helper_functions.find2Locations
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?) {
     val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(mapLink) {
+        viewModel.updateMapLink(mapLink)
+    }
+
     // Box для наложения элементов экрана поверх карты
     Box(
         modifier = Modifier
@@ -70,11 +84,17 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                     webViewClient = WebViewClient()
                     webChromeClient = WebChromeClient()
                     settings.javaScriptEnabled = true
-                    loadUrl(mapLink ?: uiState.defaultLink)
+                    loadUrl(uiState.currentMapLink)
+
+                    if (uiState.currentMapLink != uiState.defaultLink) {
+                        viewModel.updateMessageLocation2(
+                            findLocationName(uiState.currentMapLink).toString()
+                        )
+                    }
                 }
             },
             update = {
-                it.loadUrl(mapLink ?: uiState.defaultLink)
+                it.loadUrl(uiState.currentMapLink)
             }
         )
         // Основное содержимое поверх карты
@@ -90,11 +110,25 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                 RouteBar()
                 //}
             } else { // Когда маршрут ещё не начат
-                TopSection1 { loc1, loc2 ->
-                    DataHolder.location1 = loc1 // Сохранение данных в DataHolder
-                    DataHolder.location2 = loc2
-                    viewModel.toggleTopSection(true)
-                }
+                TopSection1(
+                    from = uiState.messageLocation1,
+                    to = uiState.messageLocation2,
+                    onFromChange = {
+                        viewModel.updateMessageLocation1(it)
+                    },
+                    onToChange = {
+                        viewModel.updateMessageLocation2(it)
+                    },
+                    onButtonClick = { loc1, loc2 ->
+                        DataHolder.location1 = loc1 // Сохранение данных в DataHolder
+                        DataHolder.location2 = loc2
+                        viewModel.toggleTopSection(true)
+                        viewModel.updateMapLink(findRoute(loc1, loc2))
+                    },
+                    onEnterLink = {
+                        link -> viewModel.updateMapLink(link)
+                    }
+                )
             }
         }
     }
@@ -107,6 +141,8 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
 
     if (uiState.showSheet) {
         uiState.selectedNode?.let { node ->
+           viewModel.updateMessageLocation2(node.name)
+
             ModalBottomSheet(
                 onDismissRequest = { viewModel.closeSheet() },
                 sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
@@ -114,7 +150,9 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                 scrimColor = Color.Transparent,
             ) {
                 LazyColumn(
-                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     item {
@@ -140,7 +178,17 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
 }
 
 @Composable
-fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко ввода начальной и конечной локации
+fun TopSection1(
+    from: String,
+    to: String,
+    onFromChange: (String) -> Unit,
+    onToChange: (String) -> Unit,
+    onButtonClick: (String, String) -> Unit,
+    onEnterLink: (String?) -> Unit
+) { //Окошко ввода начальной и конечной локации
+    val showSuggestionsFrom = remember { mutableStateOf(false) }
+    val showSuggestionsTo = remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -148,49 +196,87 @@ fun TopSection1(onButtonClick: (String, String) -> Unit) { //Окошко вво
             .padding(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        val message_location1 = remember { mutableStateOf("") }
-        val message_location2 = remember { mutableStateOf("") }
-
         OutlinedTextField(
-            value = message_location1.value,
-            onValueChange = { newText ->
-                message_location1.value = newText
-            },
+            value = from,
+            onValueChange = onFromChange,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
                 .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(28.dp)),
+            trailingIcon = {
+                IconButton(onClick = {
+                    showSuggestionsFrom.value = !showSuggestionsFrom.value
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search for Destinations",
+                        tint = Color.Gray
+                    )
+                }
+            },
             textStyle = TextStyle(fontSize = 20.sp),
             placeholder = { Text(stringResource(id = R.string.enter_the_starting_point), fontSize = 20.sp) },
             singleLine = true,
             shape = RoundedCornerShape(28.dp),
         )
 
+        if (showSuggestionsFrom.value) {
+            PopularDestinationsList(
+                destinations = popularFrom,
+                onDestinationSelected = {
+                    onFromChange(it)
+                    onEnterLink(findLocationLink(it))
+                    showSuggestionsFrom.value = false
+                }
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
         OutlinedTextField(
-            value = message_location2.value,
-            onValueChange = { newText ->
-                message_location2.value = newText
-                // Проверяем, соответствует ли ввод имени маркера УДАЛИТЬ КОГДА ПОЯВЯТСЯ КАРТЫ!!!
-                when (newText) {
-                    "1" -> DataHolder.targetMarkerIndex = 0
-                    "2" -> DataHolder.targetMarkerIndex = 1
-                    "3" -> DataHolder.targetMarkerIndex = 2
-                    "4" -> DataHolder.targetMarkerIndex = 3
-                    else -> DataHolder.targetMarkerIndex = null
-                }//УДАЛИТЬ КОГДА ПОЯВЯТСЯ КАРТЫ!!!
-            },
+            value = to,
+            onValueChange = onToChange,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
                 .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(28.dp)),
+            trailingIcon = {
+                IconButton(onClick = {
+                    showSuggestionsTo.value = !showSuggestionsTo.value
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search for Destinations",
+                        tint = Color.Gray
+                    )
+                }
+            },
             textStyle = TextStyle(fontSize = 20.sp),
             placeholder = { Text(stringResource(id = R.string.enter_the_ending_point), fontSize = 20.sp) },
             singleLine = true,
             shape = RoundedCornerShape(28.dp),
         )
 
+        if (showSuggestionsTo.value) {
+            PopularDestinationsList(
+                destinations = popularTo,
+                onDestinationSelected = {
+                    onToChange(it)
+                    onEnterLink(findLocationLink(it))
+                    showSuggestionsTo.value = false
+                }
+            )
+        }
+
+        if (to.isNotEmpty() && from.isNotEmpty()) {
+            onEnterLink(find2Locations(from, to))
+        }
+
+
         Button(
-            onClick = { onButtonClick(message_location1.value, message_location2.value) },
+            onClick = {
+                onButtonClick(from, to)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(54.dp)
@@ -237,7 +323,6 @@ fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар�
 
 @Composable
 fun CenterSection() {
-
 }
 
 @Composable
@@ -251,7 +336,7 @@ fun RouteBar() { //Окошко с временем маршрута
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            "Walk straight for 5 min",
+            "Пройдите вдоль коридора — 2 минуты",
             modifier = Modifier.fillMaxWidth(1f),
             fontSize = 20.sp,
             textAlign = TextAlign.Center
