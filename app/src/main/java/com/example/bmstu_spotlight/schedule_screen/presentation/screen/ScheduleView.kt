@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -21,12 +22,11 @@ import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTop
 import com.example.bmstu_spotlight.schedule_screen.domain.model.Lesson
 import com.example.bmstu_spotlight.schedule_screen.presentation.components.ScheduleList
 import com.example.bmstu_spotlight.schedule_screen.presentation.components.ScheduleWeekDayList
-import com.example.bmstu_spotlight.ui.theme.ColorBack3
 
 @Composable
 fun ScheduleView(state: List<Lesson>) {
     Column(modifier = Modifier
-        .background(Color.White)
+        //.background(Color.White)
         .fillMaxSize()
         .padding(8.dp)) {
         CustomTopBar(stringResource(R.string.schedule))

@@ -1,5 +1,6 @@
 package com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -26,7 +27,7 @@ fun LocationList(
     modifier: Modifier,
     onReferenceClick: (String) -> Unit
 ) {
-    LazyColumn {
+    LazyColumn(modifier = modifier.background(MaterialTheme.colorScheme.surfaceVariant)) {
         items(items) { it ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -43,7 +44,7 @@ fun LocationList(
                 Text(
                     text = it.locationName,
                     fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.weight(1f)
                 )
                 Icon(
@@ -55,7 +56,7 @@ fun LocationList(
                 Text(
                     text = it.time,
                     fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

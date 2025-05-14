@@ -59,8 +59,8 @@ fun ProfileField(label: String,
         icon?.invoke()
         Spacer(modifier = Modifier.width(8.dp))
         Column {
-            Text(text = label, fontWeight = FontWeight.Medium)
-            Text(text = value, color = Color.Gray)
+            Text(text = label, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(text = value, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
