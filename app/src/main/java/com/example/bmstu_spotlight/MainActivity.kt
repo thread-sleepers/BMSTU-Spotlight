@@ -60,7 +60,6 @@ import com.example.bmstu_spotlight.di.appModule
 import com.example.bmstu_spotlight.profile.di.ProfileModule
 import com.example.bmstu_spotlight.saved_locations_screen.di.locationsModule
 import com.example.bmstu_spotlight.schedule_screen.di.scheduleModule
-import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightTheme
 import org.koin.core.context.GlobalContext.startKoin
 
 
