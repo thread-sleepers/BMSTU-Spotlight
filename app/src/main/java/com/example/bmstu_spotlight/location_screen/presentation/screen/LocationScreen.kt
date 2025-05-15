@@ -69,7 +69,6 @@ import com.example.bmstu_spotlight.ui.helper_functions.findLinkLocation
 import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightAppNewTheme
 import com.example.bmstu_spotlight.ui.helper_functions.findLocationFloor
 import kotlin.math.floor
-
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
