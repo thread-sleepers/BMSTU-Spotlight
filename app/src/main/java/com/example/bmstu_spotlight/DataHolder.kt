@@ -8,10 +8,7 @@ import java.util.UUID
 object DataHolder {
     var location1: String = ""
     var location2: String = ""
-    var location3: String = ""
     var floor1: Int = 3
-    var floor2: Int = 3
-    var signal: Int = 1
     var link: String = ""
     var showNewTopSection: Boolean = false
 

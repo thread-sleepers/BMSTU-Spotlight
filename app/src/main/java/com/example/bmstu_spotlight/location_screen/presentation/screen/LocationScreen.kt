@@ -315,6 +315,7 @@ fun TopSection1(
                 destinations = popularTo,
                 onDestinationSelected = {
                     onToChange(it)
+                    onEnterFloor(findLocationFloor(it))
                     onEnterLink(findLocationLink(it))
                     onEnterFloor(findLocationFloor(it))
                     showSuggestionsTo.value = false
