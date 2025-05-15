@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -49,22 +51,35 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.lifecycle.Lifecycle
 import com.example.bmstu_spotlight.location_screen.data.popularFrom
 import com.example.bmstu_spotlight.location_screen.data.popularTo
+import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationState
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationViewModel
 import com.example.bmstu_spotlight.ui.helper_functions.findLocationLink
 import com.example.bmstu_spotlight.ui.helper_functions.findLocationName
 import com.example.bmstu_spotlight.ui.helper_functions.findRoute
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 import com.example.bmstu_spotlight.ui.helper_functions.find2Locations
+import com.example.bmstu_spotlight.ui.helper_functions.findLocationFloor
+import com.example.bmstu_spotlight.ui.theme.ColorText1
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?) {
     val uiState by viewModel.uiState.collectAsState()
+    var selectedFloor = DataHolder.floor1
+    var signal: Int = 1 // для разделения изменений ссылки (разделение пока не реализовано)
 
-    LaunchedEffect(mapLink) {
-        viewModel.updateMapLink(mapLink)
+    LaunchedEffect(mapLink, selectedFloor) {
+        if(mapLink != null) {
+            viewModel.updateMapLink(mapLink, selectedFloor)
+        }
+        else{
+            viewModel.updateMapLink(DataHolder.link, selectedFloor)
+        }
     }
 
     // Box для наложения элементов экрана поверх карты
@@ -86,7 +101,7 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                     settings.javaScriptEnabled = true
                     loadUrl(uiState.currentMapLink)
 
-                    if (uiState.currentMapLink != uiState.defaultLink) {
+                    if (uiState.currentMapLink != uiState.defaultLink3) {
                         viewModel.updateMessageLocation2(
                             findLocationName(uiState.currentMapLink).toString()
                         )
@@ -106,7 +121,10 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             if (uiState.showNewTopSection) {
-                TopSection2(onButtonClick = { viewModel.toggleTopSection(false) })
+                TopSection2(onButtonClick = {
+                    viewModel.toggleTopSection(false)
+                    DataHolder.location1 = ""
+                    DataHolder.location2 = ""})
                 RouteBar()
                 //}
             } else { // Когда маршрут ещё не начат
@@ -123,15 +141,40 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                         DataHolder.location1 = loc1 // Сохранение данных в DataHolder
                         DataHolder.location2 = loc2
                         viewModel.toggleTopSection(true)
-                        viewModel.updateMapLink(findRoute(loc1, loc2))
+                        DataHolder.floor1 = selectedFloor
                     },
                     onEnterLink = {
-                        link -> viewModel.updateMapLink(link)
+                        link ->
+                        viewModel.updateMapLink(link,selectedFloor)
+                    },
+                    onEnterFloor = {
+                        floor ->
+                        selectedFloor = floor
                     }
                 )
             }
+
+            var loc1 = DataHolder.location1
+            var loc2 = DataHolder.location2
+
+            FloorsColumn(
+                clickedFloor = selectedFloor,
+                onFloorClick = { floor ->
+                    selectedFloor = floor
+                    DataHolder.floor1 = selectedFloor
+                    signal = 1
+                    viewModel.updateMapLink(findRoute(loc1, loc2, selectedFloor), selectedFloor)
+                })
+
+            if (signal == 1){
+                viewModel.updateMapLink(findRoute(loc1, loc2, selectedFloor), selectedFloor)
+            }
+
+            Text(text = "Выбран этаж: $selectedFloor Локация1 $loc1 Локация2 $loc2 Cсылка1 ${DataHolder.link} Ccskr ${uiState.currentMapLink}", modifier = Modifier.padding(16.dp))
+
         }
     }
+    DataHolder.link = uiState.currentMapLink
 
     LaunchedEffect(Unit) {
         DataHolder.selectedNodeId?.let { nodeId ->
@@ -184,7 +227,8 @@ fun TopSection1(
     onFromChange: (String) -> Unit,
     onToChange: (String) -> Unit,
     onButtonClick: (String, String) -> Unit,
-    onEnterLink: (String?) -> Unit
+    onEnterLink: (String?) -> Unit,
+    onEnterFloor:(Int)-> Unit
 ) { //Окошко ввода начальной и конечной локации
     val showSuggestionsFrom = remember { mutableStateOf(false) }
     val showSuggestionsTo = remember { mutableStateOf(false) }
@@ -226,6 +270,8 @@ fun TopSection1(
                 onDestinationSelected = {
                     onFromChange(it)
                     onEnterLink(findLocationLink(it))
+                    onEnterFloor(findLocationFloor(it))
+                    DataHolder.floor1 = findLocationFloor(it)
                     showSuggestionsFrom.value = false
                 }
             )
@@ -262,7 +308,9 @@ fun TopSection1(
                 destinations = popularTo,
                 onDestinationSelected = {
                     onToChange(it)
+                    onEnterFloor(findLocationFloor(it))
                     onEnterLink(findLocationLink(it))
+                    DataHolder.floor1 = findLocationFloor(it)
                     showSuggestionsTo.value = false
                 }
             )
@@ -270,6 +318,7 @@ fun TopSection1(
 
         if (to.isNotEmpty() && from.isNotEmpty()) {
             onEnterLink(find2Locations(from, to))
+            DataHolder.floor1 = findLocationFloor(from)
         }
 
 
@@ -341,5 +390,40 @@ fun RouteBar() { //Окошко с временем маршрута
             fontSize = 20.sp,
             textAlign = TextAlign.Center
         )
+    }
+}
+
+@Composable // навигация по этажам
+fun FloorsColumn(
+    clickedFloor: Int?,
+    onFloorClick: (Int) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .width(80.dp)
+            .wrapContentSize()
+            .padding(8.dp),
+        verticalArrangement = Arrangement.spacedBy(0.dp)
+    ) {
+        val floors = listOf(5, 4, 3, 2, 1, 0)
+
+        floors.forEach { floor ->
+            val isSelected = clickedFloor == floor
+
+            Button(
+                onClick = { onFloorClick(floor) },
+                shape = RectangleShape,
+                enabled = !isSelected,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isSelected) ColorButton2 else ColorButton1,
+                    contentColor = if (isSelected) ColorText1 else ColorText2,
+                    disabledContainerColor = ColorButton2,
+                    disabledContentColor = ColorText1
+                ),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("$floor")
+            }
+        }
     }
 }
