@@ -3,6 +3,7 @@ package com.example.bmstu_spotlight.data.datasource.local.db
 import android.content.Context
 import androidx.room.Room
 import com.example.bmstu_spotlight.data.datasource.local.dao.BuildingDao
+import com.example.bmstu_spotlight.data.datasource.local.dao.EdgeDao
 import com.example.bmstu_spotlight.data.datasource.local.dao.FloorDao
 import com.example.bmstu_spotlight.data.datasource.local.dao.NodeDao
 
@@ -17,4 +18,5 @@ class DatabaseBuilder(private val context: Context) {
     val buildingDao: BuildingDao get() = database.buildingDao()
     val floorDao: FloorDao get() = database.floorDao()
     val nodeDao: NodeDao get() = database.nodeDao()
+    val edgeDao: EdgeDao get() = database.edgeDao()
 }

@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.devtools.ksp)
 }
 
@@ -92,5 +92,10 @@ dependencies {
     implementation(libs.coil.network.okhttp)
 
     implementation(libs.androidx.material.icons.extended)
+
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.datastore.preferences)
 
 }
