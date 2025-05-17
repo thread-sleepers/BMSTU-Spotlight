@@ -32,14 +32,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bmstu_spotlight.BMSTUSpotlightApp
 import com.example.bmstu_spotlight.R
+import com.example.bmstu_spotlight.auth_screen.data.FakeAuthRepository
+import com.example.bmstu_spotlight.auth_screen.presentation.view_model.AuthViewModel
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 import com.example.bmstu_spotlight.profile.domain.model.UserProfile
 import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightAppNewTheme
 
 @Composable
 fun AuthView(
-    //user: String,
-    //password: String
+    viewModel : AuthViewModel
 ) {
     val mContext = LocalContext.current
     Column(
@@ -108,6 +109,9 @@ fun AuthView(
             if(mUsername.value.isNotEmpty() and mPassword.value.isNotEmpty()){
                 Toast.makeText(mContext, mContext.getString(R.string.successful_enter), Toast.LENGTH_SHORT).show()
             }
+            viewModel.setUsername(mUsername.toString())
+            viewModel.setPassword(mPassword.toString())
+            viewModel.login()
         },
             modifier = Modifier.fillMaxWidth().padding(8.dp).background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(20.dp))
             //colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58)),
@@ -121,6 +125,6 @@ fun AuthView(
 @Composable
 fun DefaultPreview() {
     BMSTUSpotlightAppNewTheme {
-        AuthView()
+        AuthView(AuthViewModel(FakeAuthRepository()))
     }
 }

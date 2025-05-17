@@ -74,7 +74,10 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             BMSTUSpotlightAppNewTheme {
-                BMSTUSpotlightApp()
+                if (isRegistered)
+                    BMSTUSpotlightApp()
+                else
+
             }
         }
     }
