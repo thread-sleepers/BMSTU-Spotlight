@@ -37,32 +37,33 @@ fun ScheduleList(
     items: List<Lesson>,
     modifier: Modifier
 ) {
-    LazyColumn(
+    Column(
         modifier = modifier
             .clip(shape = RoundedCornerShape(25.dp))
             .background(ColorBack1)
     ) {
-
-        items(items) { lesson ->
-            Row(
-                modifier = modifier
-                    .height(100.dp)
-                    .fillMaxWidth()
-            ) {
-                if (lesson.name == null) {
-                    val scheduleRow =
-                        remember(lesson) { "${lesson.startTime}-${lesson.endTime} | " }
-                    Text(
-                        text = scheduleRow,
-                        modifier = modifier.weight(2.0f)
-                    )
-                } else {
-                    val scheduleRow =
-                        remember(lesson) { "${lesson.startTime}-${lesson.endTime} | ${lesson.name}\n | ${lesson.typeOfLesson}" }
-                    Text(
-                        text = scheduleRow,
-                        modifier = modifier.weight(2.0f)
-                    )
+        if (items.isNotEmpty()){
+            items.forEach { lesson ->
+                Row(
+                    modifier = modifier
+                        .height(100.dp)
+                        .fillMaxWidth()
+                ) {
+                    if (lesson.typeOfLesson == null) {
+                        val scheduleRow =
+                            remember(lesson) { "${lesson.startTime}-${lesson.endTime} | ${lesson.name}\n" }
+                        Text(
+                            text = scheduleRow,
+                            modifier = modifier.weight(2.0f)
+                        )
+                    } else {
+                        val scheduleRow =
+                            remember(lesson) { "${lesson.startTime}-${lesson.endTime} | ${lesson.name}\n | ${lesson.typeOfLesson}" }
+                        Text(
+                            text = scheduleRow,
+                            modifier = modifier.weight(2.0f)
+                        )
+                    }
                     Button(
                         onClick = {},
                         modifier = modifier.weight(1.0f),
@@ -73,6 +74,12 @@ fun ScheduleList(
                     }
                 }
             }
+//            } else {
+//                Text(
+//                    text = "Расписание ещё не готово",
+//                    modifier = modifier.weight(2.0f)
+//                )
+//            }
         }
     }
 }
