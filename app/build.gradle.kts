@@ -1,9 +1,12 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
     alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.vk.id)
 }
 
 android {
@@ -16,8 +19,28 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val localProperties = Properties().apply {
+            val file = File(rootProject.projectDir, "local.properties")
+            if (file.exists()) {
+                load(FileInputStream(file))
+            }
+        }
+
+        val vkAppId = localProperties.getProperty("vk.app.id", "").takeIf { it.isNotEmpty() }
+            ?: throw GradleException("Missing 'vk.app.id' in local.properties")
+
+        val vkClientSecret = localProperties.getProperty("vk.client.secret", "").takeIf { it.isNotEmpty() }
+            ?: throw GradleException("Missing 'vk.client.secret' in local.properties")
+
+        
+        addManifestPlaceholders(mapOf(
+            "VKIDRedirectHost" to "vk.com",
+            "VKIDRedirectScheme" to "vk{$vkAppId}",
+            "VKIDClientID" to vkAppId,
+            "VKIDClientSecret" to vkClientSecret
+        ))
     }
 
     buildTypes {
@@ -32,6 +55,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -93,4 +117,10 @@ dependencies {
 
     implementation(libs.androidx.material.icons.extended)
 
+    implementation(libs.vk.id)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation(libs.onetap.compose)
+
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.datastore.preferences)
 }

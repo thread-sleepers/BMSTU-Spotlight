@@ -55,40 +55,81 @@ import androidx.compose.runtime.internal.composableLambda
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.bmstu_spotlight.auth_screen.di.authModule
+import com.example.bmstu_spotlight.data.repository.AppPreferencesManager
 import com.example.bmstu_spotlight.di.appModule
 import com.example.bmstu_spotlight.profile.di.ProfileModule
 import com.example.bmstu_spotlight.saved_locations_screen.di.locationsModule
 import com.example.bmstu_spotlight.schedule_screen.di.scheduleModule
+import com.example.bmstu_spotlight.ui.screens.BottomBarScreen
+import com.vk.id.VKID
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.koin.android.ext.android.inject
 import org.koin.core.context.GlobalContext.startKoin
-
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
+    private lateinit var startDestination: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startKoin {
-            modules(appModule)
-            modules(locationsModule)
-            modules(scheduleModule)
-            modules(ProfileModule)
-        }
-        setContent {
-            BMSTUSpotlightAppNewTheme {
-                if (isRegistered)
-                    BMSTUSpotlightApp()
-                else
+        val pref: AppPreferencesManager by inject()
 
+        lifecycleScope.launch {
+            val isAuth = pref.isAuthenticated.first()
+            startDestination = if (isAuth) {
+                BottomBarScreen.Location.route
+            } else {
+                BottomBarScreen.Auth.route
+            }
+
+            setContent {
+                BMSTUSpotlightAppNewTheme {
+                    BMSTUSpotlightApp(startDestination)
+                }
             }
         }
     }
 }
+//class MainActivity : ComponentActivity() {
+//    private lateinit var startDestination: String
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        val pref: AppPreferencesManager by inject()
+//
+//        runBlocking {
+//            pref.isAuthenticated.collect { isAuth ->
+//                if (isAuth) {
+//                    startDestination = BottomBarScreen.Location.route
+//                } else {
+//                    startDestination = BottomBarScreen.Auth.route
+//                }
+//                return@collect
+//            }
+//            return@runBlocking
+//        }
+//        setContent {
+//            BMSTUSpotlightAppNewTheme {
+//                BMSTUSpotlightApp(startDestination)
+//            }
+//        }
+//    }
+//}
 
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    BMSTUSpotlightAppNewTheme {
-        BMSTUSpotlightApp()
-    }
-}
+
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+//    BMSTUSpotlightAppNewTheme {
+//        BMSTUSpotlightApp()
+//    }
+//}
 

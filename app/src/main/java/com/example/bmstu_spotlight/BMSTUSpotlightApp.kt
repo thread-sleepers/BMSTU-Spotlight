@@ -23,15 +23,50 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.bmstu_spotlight.auth_screen.presentation.screen.AuthScreen
+import com.example.bmstu_spotlight.location_screen.presentation.screen.LocationScreen
+import com.example.bmstu_spotlight.menu_screen.presentation.screen.MenuScreen
 import com.example.bmstu_spotlight.ui.screens.BottomBarScreen
 import com.example.bmstu_spotlight.ui.screens.BottomNavGraph
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BMSTUSpotlightApp(navController: NavHostController = rememberNavController()) {
-    Scaffold(
+fun BMSTUSpotlightApp(startDestination: String, navController: NavHostController = rememberNavController()) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination,
+        modifier = Modifier.systemBarsPadding().background(MaterialTheme.colorScheme.background)
+    ) {
+        composable(route = BottomBarScreen.Auth.route) {
+            AuthScreen()
+        }
+        composable(route = BottomBarScreen.Auth.route){
+            val navController: NavHostController = rememberNavController()
+            Scaffold(
+                bottomBar = {
+                    BottomBar(
+                        navController = navController,
+                        modifier = Modifier.systemBarsPadding()
+                    )
+                }
+            ) {
+                BottomNavGraph(
+                    navController = navController,
+                    modifier = Modifier
+                        .systemBarsPadding()
+                        .background(MaterialTheme.colorScheme.background),
+                    startDestination = startDestination
+                )
+            }
+        }
+    }
+    /*Scaffold(
         bottomBar = {
             BottomBar(
                 navController = navController,
@@ -43,7 +78,7 @@ fun BMSTUSpotlightApp(navController: NavHostController = rememberNavController()
             navController = navController,
             modifier = Modifier.systemBarsPadding().background(MaterialTheme.colorScheme.background)
         )
-    }
+    }*/
 }
 
 @Composable

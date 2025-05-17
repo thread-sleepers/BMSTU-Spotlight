@@ -10,39 +10,39 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.bmstu_spotlight.BMSTUSpotlightApp
 import com.example.bmstu_spotlight.R
 import com.example.bmstu_spotlight.auth_screen.data.FakeAuthRepository
 import com.example.bmstu_spotlight.auth_screen.presentation.view_model.AuthViewModel
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
-import com.example.bmstu_spotlight.profile.domain.model.UserProfile
 import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightAppNewTheme
+import com.vk.id.VKIDAuthFail
+import com.vk.id.onetap.common.OneTapStyle
+import com.vk.id.onetap.common.button.style.OneTapButtonCornersStyle
+import com.vk.id.onetap.common.button.style.OneTapButtonElevationStyle
+import com.vk.id.onetap.common.button.style.OneTapButtonSizeStyle
+import com.vk.id.onetap.compose.onetap.OneTap
+import com.vk.id.onetap.compose.onetap.OneTapTitleScenario
 
 @Composable
 fun AuthView(
-    viewModel : AuthViewModel
+    viewModel: AuthViewModel
 ) {
-    val mContext = LocalContext.current
+    LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -52,6 +52,7 @@ fun AuthView(
     ) {
         val mUsername = remember { mutableStateOf("") }
         val mPassword = remember { mutableStateOf("") }
+        val mContext = LocalContext.current
 
         CustomTopBar(stringResource(R.string.login))
 
@@ -61,7 +62,8 @@ fun AuthView(
             value = mUsername.value,
             onValueChange = { mUsername.value = it },
             label = { Text(text = stringResource(R.string.username)) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(8.dp),
             shape = RoundedCornerShape(28.dp),
             colors = TextFieldDefaults.colors(
@@ -72,7 +74,8 @@ fun AuthView(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
-                errorIndicatorColor = Color.Transparent)
+                errorIndicatorColor = Color.Transparent
+            )
         )
 
         TextField(
@@ -80,7 +83,8 @@ fun AuthView(
             onValueChange = { mPassword.value = it },
             label = { Text(text = stringResource(R.string.password)) },
             visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(8.dp),
             shape = RoundedCornerShape(28.dp),
             colors = TextFieldDefaults.colors(
@@ -91,7 +95,8 @@ fun AuthView(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
-                errorIndicatorColor = Color.Transparent)
+                errorIndicatorColor = Color.Transparent
+            )
         )
 
         Spacer(modifier = Modifier.height(50.dp))
@@ -114,10 +119,32 @@ fun AuthView(
             viewModel.login()
         },
             modifier = Modifier.fillMaxWidth().padding(8.dp).background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(20.dp))
-            //colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58)),
         ) {
             Text(text= stringResource(R.string.enter), color = Color.White)
         }
+
+        OneTap(
+            onAuth = { oAuth, token ->
+                viewModel.saveToken(token.token)
+            },
+            scenario = OneTapTitleScenario.SignUp,
+            signInAnotherAccountButtonEnabled = true,
+            style = OneTapStyle.Light(
+                cornersStyle = OneTapButtonCornersStyle.Custom(2f),
+                sizeStyle = OneTapButtonSizeStyle.SMALL_32,
+                elevationStyle = OneTapButtonElevationStyle.Custom(4f)
+            ),
+            onFail = { oAuth, fail ->
+                when (fail) {
+                    is VKIDAuthFail.Canceled -> TODO()
+                    is VKIDAuthFail.FailedApiCall -> TODO()
+                    is VKIDAuthFail.FailedOAuthState -> TODO()
+                    is VKIDAuthFail.FailedRedirectActivity -> TODO()
+                    is VKIDAuthFail.NoBrowserAvailable -> TODO()
+                    else -> TODO()
+                }
+            }
+        )
     }
 }
 

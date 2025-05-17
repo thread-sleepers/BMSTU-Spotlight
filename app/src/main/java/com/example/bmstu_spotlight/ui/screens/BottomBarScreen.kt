@@ -1,6 +1,7 @@
 package com.example.bmstu_spotlight.ui.screens
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -37,5 +38,10 @@ sealed class BottomBarScreen (
         route = "Schedule",
         title = "schedule",
         icon = Icons.Default.Notifications
+    )
+    object Auth: BottomBarScreen(
+        route = "Auth",
+        title = "auth",
+        icon = Icons.Default.AccountBox
     )
 }

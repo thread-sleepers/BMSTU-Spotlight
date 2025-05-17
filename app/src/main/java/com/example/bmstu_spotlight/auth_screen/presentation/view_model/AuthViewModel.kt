@@ -52,4 +52,10 @@ class AuthViewModel(private val authRepository: AuthRepository): ViewModel() {
             }
         }
     }
+
+    fun saveToken(token: String) {
+        viewModelScope.launch {
+            authRepository.saveToken(token)
+        }
+    }
 }

@@ -10,11 +10,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AuthScreen(
-    viewModel: AuthViewModel = koinViewModel()
 ) {
-    //val user by viewModel..collectAsState()
-    //val password by viewModel..collectAsState()
-
+    val viewModel: AuthViewModel = koinViewModel()
     AuthView(
         viewModel = viewModel
     )

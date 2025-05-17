@@ -1,5 +1,6 @@
 [versions]
 agp = "8.7.3"
+desugar_jdk_libs = "2.1.5"
 koinAndroid = "4.0.3"
 koinAndroidxCompose = "4.0.3"
 coilCompose = "3.1.0"
@@ -15,6 +16,7 @@ material = "1.7.8"
 material3AdaptiveNavigationSuite = "1.4.0-alpha11"
 mockitoCore = "4.8.0"
 mockitoKotlin = "4.1.0"
+onetapCompose = "2.4.0"
 roomCommon = "2.6.1"
 roomCommonJvm = "2.7.0-rc02"
 roomCompiler = "2.6.1"
@@ -24,6 +26,9 @@ roomRxjava2 = "2.6.1"
 roomTesting = "2.6.1"
 ksp = "2.0.21-1.0.27"
 koin-bom = "4.0.3"
+vkId = "1.1.0"
+vkSdkVersion = "2.4.0"
+datastore = "1.1.6"
 
 androidxNavigation = "2.8.9"
 composeUi = "1.0.0"
@@ -43,6 +48,7 @@ androidx-room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "roomTesting" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -70,9 +76,14 @@ androidx-material3-android = { group = "androidx.compose.material3", name = "mat
 navigation-compose = { module = "androidx.navigation:navigation-compose" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
+onetap-compose = { module = "com.vk.id:onetap-compose", version.ref = "onetapCompose" }
+vk-id = { module = "com.vk.id:vkid", version.ref = "vkSdkVersion"}
+androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+vk-id = { id = "vkid.manifest.placeholders", version.ref = "vkId"}
