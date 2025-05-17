@@ -29,4 +29,13 @@
     <string name="schedule">Расписание</string>
 
     <string name="navigator">Навигатор</string>
+
+    <string name="login">Вход в профиль</string>
+    <string name="enter">Войти</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="empty_username">Поле Username пустое</string>
+    <string name="empty_password">Поле Password пустое</string>
+    <string name="empty_username_and_pass">Поля Username и Password пустые</string>
+    <string name="successful_enter">Успешный вход</string>
 </resources>
