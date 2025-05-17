@@ -14,6 +14,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +26,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bmstu_spotlight.BMSTUSpotlightApp
@@ -49,18 +54,43 @@ fun AuthView(
 
         CustomTopBar(stringResource(R.string.login))
 
-        OutlinedTextField(
+        Spacer(modifier = Modifier.height(25.dp))
+
+        TextField(
             value = mUsername.value,
             onValueChange = { mUsername.value = it },
             label = { Text(text = stringResource(R.string.username)) },
-            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(18.dp))
+            modifier = Modifier.fillMaxWidth()
+                .padding(8.dp),
+            shape = RoundedCornerShape(28.dp),
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MaterialTheme.colorScheme.scrim,
+                unfocusedTextColor = MaterialTheme.colorScheme.scrim,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                focusedContainerColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                errorIndicatorColor = Color.Transparent)
         )
 
-        OutlinedTextField(
+        TextField(
             value = mPassword.value,
             onValueChange = { mPassword.value = it },
             label = { Text(text = stringResource(R.string.password)) },
-            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(18.dp))
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = Modifier.fillMaxWidth()
+                .padding(8.dp),
+            shape = RoundedCornerShape(28.dp),
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MaterialTheme.colorScheme.scrim,
+                unfocusedTextColor = MaterialTheme.colorScheme.scrim,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                focusedContainerColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                errorIndicatorColor = Color.Transparent)
         )
 
         Spacer(modifier = Modifier.height(50.dp))
@@ -79,7 +109,7 @@ fun AuthView(
                 Toast.makeText(mContext, mContext.getString(R.string.successful_enter), Toast.LENGTH_SHORT).show()
             }
         },
-            modifier = Modifier.background(MaterialTheme.colorScheme.primary)
+            modifier = Modifier.fillMaxWidth().padding(8.dp).background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(20.dp))
             //colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58)),
         ) {
             Text(text= stringResource(R.string.enter), color = Color.White)
