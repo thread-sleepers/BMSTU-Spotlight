@@ -28,6 +28,8 @@ roomRxjava2 = "2.6.1"
 roomTesting = "2.6.1"
 ksp = "2.0.21-1.0.27"
 koin-bom = "4.0.3"
+kotlinSerialization = "2.1.10"
+
 
 androidxNavigation = "2.8.9"
 composeUi = "1.0.0"
@@ -84,3 +86,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
