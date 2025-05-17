@@ -63,22 +63,21 @@ import com.example.bmstu_spotlight.ui.helper_functions.findRoute
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 import com.example.bmstu_spotlight.ui.helper_functions.find2Locations
 import com.example.bmstu_spotlight.ui.helper_functions.findLocationFloor
-import com.example.bmstu_spotlight.ui.theme.ColorText1
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?) {
     val uiState by viewModel.uiState.collectAsState()
-    var selectedFloor = DataHolder.floor1
-    var signal: Int = 1 // для разделения изменений ссылки (разделение пока не реализовано)
+    //var selectedFloor = uiState.currentFloor
+    //var selectedFloor2 = DataHolder.floor2 // для разделения изменений ссылки (разделение пока не реализовано)
 
-    LaunchedEffect(mapLink, selectedFloor) {
+    LaunchedEffect(mapLink, uiState.currentFloor) {
         if(mapLink != null) {
-            viewModel.updateMapLink(mapLink, selectedFloor)
+            viewModel.updateMapLink(mapLink, uiState.currentFloor)
         }
         else{
-            viewModel.updateMapLink(DataHolder.link, selectedFloor)
+           viewModel.updateMapLink(uiState.currentMapLink, uiState.currentFloor)
         }
     }
 
@@ -123,8 +122,12 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
             if (uiState.showNewTopSection) {
                 TopSection2(onButtonClick = {
                     viewModel.toggleTopSection(false)
-                    DataHolder.location1 = ""
-                    DataHolder.location2 = ""})
+                    uiState.messageLocation1 = ""
+                    uiState.messageLocation2 = ""
+                    viewModel.updaten1Floor(6)
+                    viewModel.updaten2Floor(6)
+                  //  DataHolder.signal = 0
+                })
                 RouteBar()
                 //}
             } else { // Когда маршрут ещё не начат
@@ -133,48 +136,66 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                     to = uiState.messageLocation2,
                     onFromChange = {
                         viewModel.updateMessageLocation1(it)
+                        viewModel.updateFloor(findLocationFloor(it))
+                        // viewModel.updateMapLink(findLocationLink(it), uiState.currentFloor)
+                      //  DataHolder.signal = 0
+                      //  DataHolder.floor1 = selectedFloor
+                       // DataHolder.location3 = it
                     },
                     onToChange = {
                         viewModel.updateMessageLocation2(it)
+                        viewModel.updateFloor(findLocationFloor(it))
+                       // viewModel.updateMapLink(findLocationLink(it), uiState.currentFloor)
+                       // DataHolder.signal = 0
+                       // DataHolder.floor1 = selectedFloor
+                       // DataHolder.location3 = it
                     },
                     onButtonClick = { loc1, loc2 ->
-                        DataHolder.location1 = loc1 // Сохранение данных в DataHolder
-                        DataHolder.location2 = loc2
+                        uiState.messageLocation1 = loc1
+                        uiState.messageLocation2 = loc2
+                        //DataHolder.location3 = ""
                         viewModel.toggleTopSection(true)
-                        DataHolder.floor1 = selectedFloor
+                        viewModel.updateMapLink(findRoute(loc1, loc2, uiState.currentFloor), uiState.currentFloor)
+                        viewModel.updaten1Floor(findLocationFloor(loc1))
+                        viewModel.updaten2Floor(findLocationFloor(loc2))
+                       // DataHolder.signal = 1
                     },
                     onEnterLink = {
                         link ->
-                        viewModel.updateMapLink(link,selectedFloor)
+                        viewModel.updateMapLink(link,uiState.currentFloor)
+
                     },
                     onEnterFloor = {
                         floor ->
-                        selectedFloor = floor
+                        viewModel.updateFloor(floor)
                     }
                 )
             }
 
-            var loc1 = DataHolder.location1
-            var loc2 = DataHolder.location2
+            //var loc1 = uiState.messageLocation1
+            //var loc2 = uiState.messageLocation2
+           // var loc3 = DataHolder.location3
+
 
             FloorsColumn(
-                clickedFloor = selectedFloor,
+                clickedFloor = uiState.currentFloor,
                 onFloorClick = { floor ->
-                    selectedFloor = floor
-                    DataHolder.floor1 = selectedFloor
-                    signal = 1
-                    viewModel.updateMapLink(findRoute(loc1, loc2, selectedFloor), selectedFloor)
+                    viewModel.updateFloor(floor)
+                    viewModel.updateMapLink(findRoute(uiState.messageLocation1, uiState.messageLocation2, floor), floor)
                 })
 
-            if (signal == 1){
-                viewModel.updateMapLink(findRoute(loc1, loc2, selectedFloor), selectedFloor)
-            }
+           // if (DataHolder.signal == 1){
+           //     viewModel.updateMapLink(findRoute(loc1, loc2, selectedFloor), selectedFloor)
+           // }
+           // else{
+                //viewModel.updateMapLink(findLocationLink(loc3), selectedFloor)
+          //  }
 
-            Text(text = "Выбран этаж: $selectedFloor Локация1 $loc1 Локация2 $loc2 Cсылка1 ${DataHolder.link} Ccskr ${uiState.currentMapLink}", modifier = Modifier.padding(16.dp))
+
+          //  Text(text = "Сигнал = {$DataHolder.signal} Выбран этаж: $selectedFloor этаж2: $selectedFloor2 Локация1 $loc1 Локация2 $loc2 Локация2 $loc3 Cсылка1 ${DataHolder.link} Ccskr ${uiState.currentMapLink}", modifier = Modifier.padding(16.dp))
 
         }
     }
-    DataHolder.link = uiState.currentMapLink
 
     LaunchedEffect(Unit) {
         DataHolder.selectedNodeId?.let { nodeId ->
@@ -206,7 +227,10 @@ fun LocationScreen(viewModel: LocationViewModel = viewModel(), mapLink: String?)
                     }
                     item {
                         Button(
-                            modifier = Modifier.fillMaxWidth().height(54.dp).padding(4.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(54.dp)
+                                .padding(4.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
                             shape = RoundedCornerShape(28.dp),
                             onClick = { viewModel.closeSheet() }
@@ -271,7 +295,7 @@ fun TopSection1(
                     onFromChange(it)
                     onEnterLink(findLocationLink(it))
                     onEnterFloor(findLocationFloor(it))
-                    DataHolder.floor1 = findLocationFloor(it)
+                   // DataHolder.floor1 = findLocationFloor(it)
                     showSuggestionsFrom.value = false
                 }
             )
@@ -308,9 +332,9 @@ fun TopSection1(
                 destinations = popularTo,
                 onDestinationSelected = {
                     onToChange(it)
-                    onEnterFloor(findLocationFloor(it))
                     onEnterLink(findLocationLink(it))
-                    DataHolder.floor1 = findLocationFloor(it)
+                    onEnterFloor(findLocationFloor(it))
+                   // DataHolder.floor1 = findLocationFloor(it)
                     showSuggestionsTo.value = false
                 }
             )
@@ -318,7 +342,8 @@ fun TopSection1(
 
         if (to.isNotEmpty() && from.isNotEmpty()) {
             onEnterLink(find2Locations(from, to))
-            DataHolder.floor1 = findLocationFloor(from)
+            onEnterFloor(findLocationFloor(to))
+            //DataHolder.floor1 = findLocationFloor(to)
         }
 
 
@@ -415,10 +440,10 @@ fun FloorsColumn(
                 shape = RectangleShape,
                 enabled = !isSelected,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (isSelected) ColorButton2 else ColorButton1,
-                    contentColor = if (isSelected) ColorText1 else ColorText2,
-                    disabledContainerColor = ColorButton2,
-                    disabledContentColor = ColorText1
+                    containerColor = if (isSelected) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.primary,
+                    contentColor = if (isSelected)  MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onPrimary,
+                    disabledContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    disabledContentColor = MaterialTheme.colorScheme.onTertiaryContainer
                 ),
                 modifier = Modifier.fillMaxWidth()
             ) {
