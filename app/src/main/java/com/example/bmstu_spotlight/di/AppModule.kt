@@ -1,7 +1,6 @@
 package com.example.bmstu_spotlight.di
 
 import com.example.bmstu_spotlight.data.datasource.remote.NetworkService
-import com.example.bmstu_spotlight.schedule_screen.domain.repository.ScheduleRepository
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType

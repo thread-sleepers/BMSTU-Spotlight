@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class LessonDto(
     @SerialName("start_time")
-    val startTime: String,
+    val startTime: String? = null,
     @SerialName("end_time")
-    val endTime: String,
+    val endTime: String? = null,
     @SerialName("title")
     val name: String? = null,
     @SerialName("type")

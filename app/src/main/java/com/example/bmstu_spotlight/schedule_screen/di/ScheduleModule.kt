@@ -1,5 +1,5 @@
 package com.example.bmstu_spotlight.schedule_screen.di
-import com.example.bmstu_spotlight.schedule_screen.domain.repository.ScheduleRepository
+import com.example.bmstu_spotlight.schedule_screen.data.repository.ScheduleRepository
 import com.example.bmstu_spotlight.schedule_screen.domain.usecase.GetScheduleCase
 import com.example.bmstu_spotlight.schedule_screen.presentation.view_model.ScheduleViewModel
 import org.koin.dsl.module

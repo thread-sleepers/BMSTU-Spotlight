@@ -23,12 +23,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bmstu_spotlight.schedule_screen.domain.model.Lesson
+import com.example.bmstu_spotlight.schedule_screen.presentation.model.LessonUi
+import com.example.bmstu_spotlight.ui.theme.Purple40
 import java.time.format.TextStyle
 
 @Composable
 fun ScheduleWeekDayList(
     items: List<String>,
-    lessons: List<Lesson>,
+    lessons: List<LessonUi>,
     modifier: Modifier
 ) {
     LazyColumn(
@@ -37,7 +39,7 @@ fun ScheduleWeekDayList(
             Column(
                 modifier = modifier.height(600.dp).fillParentMaxWidth()
             ) {
-                Text(text="${item}",
+                Text(text = item,
                     modifier = modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.tertiary,
                     fontSize = 30.sp,
@@ -50,8 +52,7 @@ fun ScheduleWeekDayList(
                             end = 10.dp,
                             top = 8.dp,
                             bottom = 8.dp
-                        )
-                        ,
+                        ),
                     items = lessons
                 )
             }
