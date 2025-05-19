@@ -18,9 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.bmstu_spotlight.schedule_screen.presentation.model.LessonUi
-import com.example.bmstu_spotlight.ui.theme.ColorBack1
-import com.example.bmstu_spotlight.ui.theme.Purple40
-import com.example.bmstu_spotlight.schedule_screen.domain.model.Lesson
+
 
 
 @Composable
