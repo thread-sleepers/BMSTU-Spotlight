@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.kotlinx.coroutines.core)
-
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.datastore.preferences)
 
 }
