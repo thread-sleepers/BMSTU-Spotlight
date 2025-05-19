@@ -20,10 +20,15 @@ data class LocationState(
     val offsetX: Float = 0f,
     val offsetY: Float = 0f,
     val showNewTopSection: Boolean = DataHolder.showNewTopSection,
-    val defaultLink: String = "https://api.maptiler.com/maps/01969592-b55a-7cf6-a450-cda9af40bac7/?key=PHHZ2OozEcXHfqqJCqIr#18.31/55.766431/37.685916",
-    val messageLocation1: String = "",
-    val messageLocation2: String = "",
-    val currentMapLink: String = defaultLink
+    val defaultLink3: String = "https://api.maptiler.com/maps/01969592-b55a-7cf6-a450-cda9af40bac7/?key=PHHZ2OozEcXHfqqJCqIr#18.31/55.766431/37.685916",
+    val defaultLink4: String = "https://api.maptiler.com/maps/0196bb8a-6a2d-70a0-babe-6b793c074544/?key=pEC9gVZBA06hIDiYD3bk#16.5/55.76659/37.68624",
+    val defaultFloor: Int = 3,
+    var messageLocation1: String = "",
+    var messageLocation2: String = "",
+    var currentMapLink: String = defaultLink3,
+    var currentFloor: Int = defaultFloor,
+    var needFloor1: Int = 6,
+    var needFloor2: Int = 6
 )
 
 class LocationViewModel: ViewModel() {
@@ -38,10 +43,31 @@ class LocationViewModel: ViewModel() {
         _uiState.update { it.copy(messageLocation2 = value) }
     }
 
-    fun updateMapLink(link: String?) {
+    fun updateMapLink(link: String?, floor: Int?) {
         _uiState.update { state ->
-            val newLink = link ?: state.defaultLink
+            val newLink = when(floor) {
+                3 -> link ?: state.defaultLink3
+                4 -> link ?: state.defaultLink4
+                else -> link ?: state.defaultLink4}
             state.copy(currentMapLink = newLink)
+        }
+    }
+
+    fun updateFloor(floor: Int?){
+        _uiState.update { state ->
+            state.copy(currentFloor = floor ?: 0)
+        }
+    }
+
+    fun updaten1Floor(floor: Int?){
+        _uiState.update { state ->
+            state.copy(needFloor1 = floor ?: 0)
+        }
+    }
+
+    fun updaten2Floor(floor: Int?){
+        _uiState.update { state ->
+            state.copy(needFloor2 = floor ?: 0)
         }
     }
 
