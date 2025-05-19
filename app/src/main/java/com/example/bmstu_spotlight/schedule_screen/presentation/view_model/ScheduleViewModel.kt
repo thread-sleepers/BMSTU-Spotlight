@@ -8,30 +8,34 @@ import com.example.bmstu_spotlight.schedule_screen.domain.response_state.Respons
 import com.example.bmstu_spotlight.schedule_screen.domain.usecase.GetScheduleCase
 import com.example.bmstu_spotlight.schedule_screen.presentation.model.LessonUi
 import com.example.bmstu_spotlight.schedule_screen.presentation.model.toPresentation
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ScheduleViewModel(
     private val getScheduleCase: GetScheduleCase
 ) : ViewModel() {
-    private val _state = mutableStateOf<ResponseState.DataState>(ResponseState.DataState.LOADING)
-    val state: State<ResponseState.DataState> = _state
-    private val _schedule = mutableStateOf<List<LessonUi>>(emptyList())
-    val schedule: State<List<LessonUi>> = _schedule
+    private val _state = MutableStateFlow<ResponseState.DataState>(ResponseState.DataState.LOADING)
+    val state: StateFlow<ResponseState.DataState> = _state.asStateFlow()
+    private val _schedule = MutableStateFlow<List<LessonUi>>(emptyList())
+    val schedule: StateFlow<List<LessonUi>> = _schedule.asStateFlow()
 
     init {
         loadSchedule()
     }
 
-    //sth is wrong here
     internal fun loadSchedule() {
+        _state.value = ResponseState.DataState.LOADING
         viewModelScope.launch {
-            if (getScheduleCase().data.isNullOrEmpty()) {               // if currentState is not Success
-                _state.value = getScheduleCase.getState()
+            val response = getScheduleCase()
+            if (response.data.isNullOrEmpty()) {               // if currentState is not Success
+                _state.value = response.state
             } else {
-                _schedule.value = getScheduleCase().data!!.map {
+                _schedule.value = response.data.map {
                     it.toPresentation()
                 }
-                _state.value = getScheduleCase.getState()
+                _state.value = response.state
             }
         }
     }

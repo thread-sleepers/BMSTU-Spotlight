@@ -3,7 +3,9 @@ package com.example.bmstu_spotlight.schedule_screen.presentation.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,6 +36,7 @@ fun ScheduleWeekDayList(
     modifier: Modifier
 ) {
     LazyColumn(
+        contentPadding = PaddingValues(bottom = 80.dp)
     ) {
         items(items) { item ->
             Column(

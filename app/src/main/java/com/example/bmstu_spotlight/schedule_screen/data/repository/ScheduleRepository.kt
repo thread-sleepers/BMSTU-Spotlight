@@ -8,8 +8,8 @@ import com.example.bmstu_spotlight.schedule_screen.domain.response_state.Respons
 class ScheduleRepository(
     private val networkService: NetworkService
 ) {
-    var currentState = ResponseState.loading<List<Lesson>>()
     suspend fun getSchedule(): ResponseState<List<Lesson>> {
+        var currentState = ResponseState.loading<List<Lesson>>()
         try {
             val response = networkService.getSchedule()
             if (response.isSuccessful) {

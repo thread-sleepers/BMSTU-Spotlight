@@ -7,9 +7,6 @@ import com.example.bmstu_spotlight.schedule_screen.domain.response_state.Respons
 class GetScheduleCase (
     private val repository: ScheduleRepository
 ) {
-    fun getState(): ResponseState.DataState {
-        return repository.currentState.state
-    }
     suspend operator fun invoke(): ResponseState<List<Lesson>> {
        return repository.getSchedule()
     }

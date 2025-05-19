@@ -25,7 +25,8 @@ fun ScheduleView(
     isLoading: Boolean = false,
     isSuccess: Boolean = false,
     isError: Boolean = false,
-    onRetry: () -> Unit) {
+    onRetry: () -> Unit
+) {
     Column(
         modifier = Modifier
 //            .background(Color.White)
