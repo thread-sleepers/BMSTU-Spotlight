@@ -62,7 +62,6 @@ fun BottomBar(
     val currentDestination = navBackStackEntry?.destination
 
     BottomNavigation(
-        //backgroundColor = Color.Transparent,
         modifier = modifier
     ) {
         screens.forEach { screen ->

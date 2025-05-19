@@ -1,6 +1,5 @@
 package com.example.bmstu_spotlight.schedule_screen.presentation.screen
 
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue

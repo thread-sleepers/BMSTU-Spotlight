@@ -1,7 +1,5 @@
 package com.example.bmstu_spotlight.schedule_screen.presentation.view_model
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bmstu_spotlight.schedule_screen.domain.response_state.ResponseState
