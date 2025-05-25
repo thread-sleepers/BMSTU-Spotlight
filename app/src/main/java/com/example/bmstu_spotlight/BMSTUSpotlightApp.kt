@@ -30,7 +30,7 @@ import com.example.bmstu_spotlight.ui.screens.BottomNavGraph
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BMSTUSpotlightApp(navController: NavHostController = rememberNavController()) {
+fun BMSTUSpotlightApp(rootNavController: NavHostController, navController: NavHostController = rememberNavController()) {
     Scaffold(
         bottomBar = {
             BottomBar(
@@ -40,6 +40,7 @@ fun BMSTUSpotlightApp(navController: NavHostController = rememberNavController()
         }
     ) {
         BottomNavGraph(
+            rootNavController,
             navController = navController,
             modifier = Modifier.systemBarsPadding().background(MaterialTheme.colorScheme.background)
         )
