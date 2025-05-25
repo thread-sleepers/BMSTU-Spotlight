@@ -1,6 +1,7 @@
 package com.example.bmstu_spotlight
 
 import android.app.Application
+import com.example.bmstu_spotlight.auth_screen.di.authModule
 import com.example.bmstu_spotlight.data.repository.StartupManager
 import com.example.bmstu_spotlight.di.appModule
 import com.example.bmstu_spotlight.location_screen.di.searchLocationsModule
@@ -21,6 +22,7 @@ class BMSTUSpotlightApplication: Application() {
 
         val allModules = listOf(
             appModule,
+            authModule,
             searchLocationsModule,
             locationsModule,
             scheduleModule,

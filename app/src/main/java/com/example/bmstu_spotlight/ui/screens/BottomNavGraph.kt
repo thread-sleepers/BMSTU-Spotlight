@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.compose.runtime.*
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.example.bmstu_spotlight.auth_screen.presentation.screen.AuthScreen
 import com.example.bmstu_spotlight.menu_screen.presentation.screen.MenuScreen
 import com.example.bmstu_spotlight.profile.presentation.screen.ProfileScreen
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.SavedLocationsScreen
