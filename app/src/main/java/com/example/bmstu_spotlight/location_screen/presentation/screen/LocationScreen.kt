@@ -65,8 +65,10 @@ import com.example.bmstu_spotlight.ui.helper_functions.findLocationName
 import com.example.bmstu_spotlight.ui.helper_functions.findRoute
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 import com.example.bmstu_spotlight.ui.helper_functions.find2Locations
+import com.example.bmstu_spotlight.ui.helper_functions.findLinkLocation
 import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightAppNewTheme
 import com.example.bmstu_spotlight.ui.helper_functions.findLocationFloor
+import kotlin.math.floor
 
 import org.koin.androidx.compose.koinViewModel
 
@@ -74,10 +76,15 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), mapLink: String?) {
     val uiState by viewModel.uiState.collectAsState()
+    var currentMapLink by remember { mutableStateOf(mapLink) }
 
     LaunchedEffect(mapLink, uiState.currentFloor) {
-        if(mapLink != null) {
-            viewModel.updateMapLink(mapLink, uiState.currentFloor)
+        if(currentMapLink != null) {
+            val loc3 = findLinkLocation(mapLink.toString()) // находит адуиторию по ссылке
+            viewModel.updateFloor(findLocationFloor(loc3.toString()))
+            viewModel.updateMessageLocation2(loc3.toString())
+            viewModel.updateMapLink(currentMapLink, uiState.currentFloor)
+            currentMapLink = null // исправил баг с аудиторией из избранных
         }
         else{
            viewModel.updateMapLink(uiState.currentMapLink, uiState.currentFloor)
@@ -103,11 +110,6 @@ fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), mapLink: Stri
                     settings.javaScriptEnabled = true
                     loadUrl(uiState.currentMapLink)
 
-                    if (uiState.currentMapLink != uiState.defaultLink3) {
-                        viewModel.updateMessageLocation2(
-                            findLocationName(uiState.currentMapLink).toString()
-                        )
-                    }
                 }
             },
             update = {
@@ -131,7 +133,6 @@ fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), mapLink: Stri
                     viewModel.updaten2Floor(6)
                 })
                 RouteBar()
-                //}
             } else { // Когда маршрут ещё не начат
                 TopSection1(
                     from = uiState.messageLocation1,
@@ -147,7 +148,6 @@ fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), mapLink: Stri
                     onButtonClick = { loc1, loc2 ->
                         uiState.messageLocation1 = loc1
                         uiState.messageLocation2 = loc2
-                        //DataHolder.location3 = ""
                         DataHolder.location1 = loc1 // Сохранение данных в DataHolder
                         DataHolder.location2 = loc2
                         viewModel.findRoute(loc1, loc2)
@@ -155,7 +155,6 @@ fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), mapLink: Stri
                         viewModel.updateMapLink(findRoute(loc1, loc2, uiState.currentFloor), uiState.currentFloor)
                         viewModel.updaten1Floor(findLocationFloor(loc1))
                         viewModel.updaten2Floor(findLocationFloor(loc2))
-                       // DataHolder.signal = 1
                     },
                     onEnterLink = {
                         link ->
@@ -172,6 +171,8 @@ fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), mapLink: Stri
 
             FloorsColumn(
                 clickedFloor = uiState.currentFloor,
+                needFloor1 = uiState.needFloor1,
+                needFloor2 = uiState.needFloor2,
                 onFloorClick = { floor ->
                     viewModel.updateFloor(floor)
                     viewModel.updateMapLink(findRoute(uiState.messageLocation1, uiState.messageLocation2, floor), floor)
@@ -315,7 +316,6 @@ fun TopSection1(
                 destinations = popularTo,
                 onDestinationSelected = {
                     onToChange(it)
-                    onEnterFloor(findLocationFloor(it))
                     onEnterLink(findLocationLink(it))
                     onEnterFloor(findLocationFloor(it))
                     showSuggestionsTo.value = false
@@ -323,9 +323,22 @@ fun TopSection1(
             )
         }
 
-        if (to.isNotEmpty() && from.isNotEmpty()) {
-            onEnterLink(find2Locations(from, to))
-            onEnterFloor(findLocationFloor(to))
+        when {
+            to.isEmpty() && from.isEmpty() -> {
+
+            }
+            to.isNotEmpty() && from.isNotEmpty() -> {
+                onEnterLink(find2Locations(from, to))
+                onEnterFloor(findLocationFloor(to))
+            }
+            to.isEmpty() && from.isNotEmpty() -> {
+                onEnterLink(findLocationLink(from))
+                onEnterFloor(findLocationFloor(from))
+            }
+            else -> {
+                onEnterLink(findLocationLink(to))
+                onEnterFloor(findLocationFloor(to))
+            }
         }
 
 
@@ -425,6 +438,8 @@ fun RouteBar() { //Окошко с временем маршрута
 @Composable // навигация по этажам
 fun FloorsColumn(
     clickedFloor: Int?,
+    needFloor1: Int?,
+    needFloor2: Int?,
     onFloorClick: (Int) -> Unit
 ) {
     Column(
@@ -438,13 +453,20 @@ fun FloorsColumn(
 
         floors.forEach { floor ->
             val isSelected = clickedFloor == floor
+            val isneed1 = needFloor1 == floor
+            val isneed2 = needFloor2 == floor
 
             Button(
                 onClick = { onFloorClick(floor) },
                 shape = RectangleShape,
                 enabled = !isSelected,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (isSelected) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.primary,
+                    containerColor = when {
+                        isSelected -> MaterialTheme.colorScheme.tertiaryContainer
+                        isneed1 -> MaterialTheme.colorScheme.primaryContainer
+                        isneed2 -> MaterialTheme.colorScheme.primaryContainer
+                        else -> MaterialTheme.colorScheme.primary
+                    },
                     contentColor = if (isSelected)  MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onPrimary,
                     disabledContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
                     disabledContentColor = MaterialTheme.colorScheme.onTertiaryContainer
