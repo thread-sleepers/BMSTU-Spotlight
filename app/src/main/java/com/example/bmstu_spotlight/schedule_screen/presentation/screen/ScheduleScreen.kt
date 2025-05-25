@@ -19,17 +19,19 @@ fun ScheduleScreen(viewModel: ScheduleViewModel = koinViewModel(), onNameClick: 
         ResponseState.DataState.LOADING -> ScheduleView(
             schedule = schedule,
             isLoading = true,
-            onRetry = onRetry)
+            onRetry = onRetry,
+            onNameClick = {clickedName -> onNameClick(clickedName)})
 
         ResponseState.DataState.SUCCESS -> ScheduleView(
             schedule = schedule,
-
             isSuccess = true,
-            onRetry = onRetry)
+            onRetry = onRetry,
+            onNameClick = {clickedName -> onNameClick(clickedName)})
 
         ResponseState.DataState.ERROR -> ScheduleView(
             schedule = schedule,
             isError = true,
-            onRetry = onRetry)
+            onRetry = onRetry,
+            onNameClick = {clickedName -> onNameClick(clickedName)})
     }
 }

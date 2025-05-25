@@ -44,7 +44,7 @@ fun ScheduleList(
                         modifier = modifier.weight(2.0f)
                     )
                     Button(
-                        onClick = {onNameClick(scheduleClassroom)},
+                        onClick = {onNameClick(lesson.location)},
                         modifier = modifier.weight(1.0f),
                         colors = ButtonColors(MaterialTheme.colorScheme.tertiary, Color.White, MaterialTheme.colorScheme.tertiary, MaterialTheme.colorScheme.tertiary)
                     ) {

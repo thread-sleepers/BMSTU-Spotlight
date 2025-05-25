@@ -48,7 +48,8 @@ class EdgeJsonImporter(
                 roomNumber = if (type == NodeType.CLASSROOM) reference else null,
                 isAvailable = true,
                 foreignFloorId = defaultFloorId,
-                reference = reference
+                reference = reference,
+                floor = 6
             )
         }
 
