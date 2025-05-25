@@ -51,33 +51,6 @@ fun ScheduleList(
                         val scheduleClassroom = remember(lesson) { lesson.location }
                         Text(text = scheduleClassroom)
 
- /*       items(items) { lesson  ->
-            Row(
-                modifier = modifier
-                    .height(100.dp)
-                    .fillMaxWidth()
-            ) {
-                if (lesson.name == null) {
-                    val scheduleRow = remember (lesson) { "${lesson.startTime}-${lesson.endTime} | " }
-                    Text(text=scheduleRow,
-                        modifier = modifier.weight(2.0f))
-                }
-                else {
-                    if (lesson.typeOfLesson != null) {
-                        val scheduleRow = remember (lesson) {"${lesson.startTime}-${lesson.endTime} | ${lesson.name}\n | ${lesson.typeOfLesson}"}
-                        val scheduleClassroom = remember(lesson) {"${lesson.classroom}"}
-                        Text(text=scheduleRow,
-                            modifier = modifier.weight(2.0f))
-                        Button(onClick = {onNameClick(scheduleClassroom)},
-                            modifier = modifier.weight(1.0f),
-                            colors = ButtonColors(MaterialTheme.colorScheme.tertiary, Color.White, MaterialTheme.colorScheme.tertiary, MaterialTheme.colorScheme.tertiary)
-                        ) {
-                            Text(text=scheduleClassroom)
-                        }
-                    } else {
-                        val scheduleRow = remember(lesson) {"${lesson.startTime}-${lesson.endTime} | ${lesson.name}"}
-                        Text(text=scheduleRow,
-                            modifier = modifier.weight(2.0f))*/
                     }
                 }
             }

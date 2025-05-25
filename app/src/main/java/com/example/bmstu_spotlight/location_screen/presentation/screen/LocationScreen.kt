@@ -131,7 +131,7 @@ fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), locationName:
                     viewModel.updaten1Floor(6)
                     viewModel.updaten2Floor(6)
                 })
-                RouteBar()
+                RouteToast(uiState)
             } else { // Когда маршрут ещё не начат
                 TopSection1(
                     from = uiState.messageLocation1,
@@ -389,10 +389,6 @@ fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар�
 }
 
 @Composable
-fun CenterSection() {
-}
-
-@Composable
 fun RouteToast(uiState: LocationState) {
     val context = LocalContext.current
 
@@ -410,26 +406,6 @@ fun RouteToast(uiState: LocationState) {
                 ).show()
             }
         }
-    }
-}
-
-
-@Composable
-fun RouteBar() { //Окошко с временем маршрута
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp)
-            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(18.dp))
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            "Пройдите вдоль коридора — 2 минуты",
-            modifier = Modifier.fillMaxWidth(1f),
-            fontSize = 20.sp,
-            textAlign = TextAlign.Center
-        )
     }
 }
 

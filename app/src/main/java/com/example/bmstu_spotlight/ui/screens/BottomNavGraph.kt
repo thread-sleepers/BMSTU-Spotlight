@@ -17,6 +17,7 @@ import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.Sa
 import com.example.bmstu_spotlight.schedule_screen.presentation.screen.ScheduleScreen
 import com.example.bmstu_spotlight.location_screen.presentation.screen.LocationScreen
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
@@ -26,7 +27,7 @@ fun BottomNavGraph(
         modifier: Modifier = Modifier
     ) {
 
-    val viewModel: LocationViewModel = viewModel()
+    val viewModel: LocationViewModel = koinViewModel()
 
     NavHost(
         navController = navController,
