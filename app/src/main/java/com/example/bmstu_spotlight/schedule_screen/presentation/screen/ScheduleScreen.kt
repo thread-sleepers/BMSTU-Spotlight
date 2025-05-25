@@ -8,7 +8,7 @@ import com.example.bmstu_spotlight.schedule_screen.presentation.view_model.Sched
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ScheduleScreen(viewModel: ScheduleViewModel = koinViewModel()) {
+fun ScheduleScreen(viewModel: ScheduleViewModel = koinViewModel(), onNameClick: (String) -> Unit) {
     val schedule by viewModel.schedule.collectAsState()
     val dataState by viewModel.state.collectAsState()
     val onRetry = {
@@ -23,6 +23,7 @@ fun ScheduleScreen(viewModel: ScheduleViewModel = koinViewModel()) {
 
         ResponseState.DataState.SUCCESS -> ScheduleView(
             schedule = schedule,
+
             isSuccess = true,
             onRetry = onRetry)
 

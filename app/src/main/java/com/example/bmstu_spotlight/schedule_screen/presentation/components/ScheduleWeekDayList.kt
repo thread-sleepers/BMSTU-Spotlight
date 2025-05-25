@@ -20,6 +20,7 @@ import com.example.bmstu_spotlight.schedule_screen.presentation.model.LessonUi
 fun ScheduleWeekDayList(
     items: List<String>,
     lessons: List<LessonUi>,
+    onNameClick: (String) -> Unit,
     modifier: Modifier
 ) {
     LazyColumn(
@@ -39,6 +40,7 @@ fun ScheduleWeekDayList(
                     textAlign = TextAlign.Center
                 )
                 ScheduleList(
+                    onNameClick = {clickedName -> onNameClick(clickedName)},
                     modifier = modifier
                         .fillMaxWidth()
                         .padding(

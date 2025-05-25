@@ -74,13 +74,13 @@ import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), mapLink: String?) {
+fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), locationName: String?) {
     val uiState by viewModel.uiState.collectAsState()
-    var currentMapLink by remember { mutableStateOf(mapLink) }
+    var currentMapLink by remember { mutableStateOf(findLocationLink(locationName.toString())) }
 
-    LaunchedEffect(mapLink, uiState.currentFloor) {
+    LaunchedEffect(locationName, uiState.currentFloor) {
         if(currentMapLink != null) {
-            val loc3 = findLinkLocation(mapLink.toString()) // находит адуиторию по ссылке
+            val loc3 = locationName.toString() // находит адуиторию по ссылке
             viewModel.updateFloor(findLocationFloor(loc3.toString()))
             viewModel.updateMessageLocation2(loc3.toString())
             viewModel.updateMapLink(currentMapLink, uiState.currentFloor)
@@ -177,7 +177,6 @@ fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), mapLink: Stri
                     viewModel.updateFloor(floor)
                     viewModel.updateMapLink(findRoute(uiState.messageLocation1, uiState.messageLocation2, floor), floor)
                 })
-
 
         }
     }

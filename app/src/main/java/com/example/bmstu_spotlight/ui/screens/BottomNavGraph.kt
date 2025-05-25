@@ -37,28 +37,30 @@ fun BottomNavGraph(
             MenuScreen(navController)
         }
         composable(
-            route = BottomBarScreen.Location.route + "?mapLink={mapLink}",
+            route = BottomBarScreen.Location.route + "?locationName={locationName}",
             arguments = listOf(
-                navArgument("mapLink")
+                navArgument("locationName")
                 {
                     type = NavType.StringType
                     nullable = true
                 })
         ) { backStackEntry ->
-            val mapLink = backStackEntry.arguments?.getString("mapLink")
-            LocationScreen(viewModel = viewModel, mapLink = mapLink)
+            val locationName = backStackEntry.arguments?.getString("locationName")
+            LocationScreen(viewModel = viewModel, locationName = locationName)
         }
 
         composable(route = BottomBarScreen.SavedLocationsScreen.route) {
             SavedLocationsScreen {
-                    link -> navController.navigate(BottomBarScreen.Location.route + "?mapLink=$link")
+                    name -> navController.navigate(BottomBarScreen.Location.route + "?locationName=$name")
             }
         }
         composable(route = BottomBarScreen.Account.route) {
            ProfileScreen(navController = rootNavController)
         }
         composable(route = BottomBarScreen.Schedule.route) {
-            ScheduleScreen()
+            ScheduleScreen{
+                    name -> navController.navigate(BottomBarScreen.Location.route + "?locationName=$name")
+            }
         }
     }
 }
