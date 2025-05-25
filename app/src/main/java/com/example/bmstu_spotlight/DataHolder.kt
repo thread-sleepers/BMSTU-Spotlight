@@ -29,21 +29,21 @@ object DataHolder {
 
     val nodes = listOf(
         // Аудитории (10 элементов)
-        NodeEntity(UUID.randomUUID(), "Аудитория 384", "Лекционная аудитория", 150f, 300f, NodeType.CLASSROOM, "384", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 389", "Аудитория для конференций", 200f, 350f, NodeType.CLASSROOM, "389", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 385", "Аудитория для групповых занятий", 160f, 310f, NodeType.CLASSROOM, "385", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 386", "Компьютерный класс", 170f, 320f, NodeType.CLASSROOM, "386", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 387", "Аудитория с проектором", 180f, 330f, NodeType.CLASSROOM, "387", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 388", "Помещение для семинаров", 190f, 340f, NodeType.CLASSROOM, "388", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 390", "Класс с интерактивной доской", 210f, 360f, NodeType.CLASSROOM, "390", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 391", "Класс для лабораторных работ", 220f, 370f, NodeType.CLASSROOM, "391", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 392", "Помещение для практических занятий", 230f, 380f, NodeType.CLASSROOM, "392", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 393", "Большой лекционный зал", 240f, 390f, NodeType.CLASSROOM, "393", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 394", "Не менее большой лекционный зал", 250f, 400f, NodeType.CLASSROOM, "394", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
-        NodeEntity(UUID.randomUUID(), "Аудитория 395", "Технопарк", 260f, 410f, NodeType.CLASSROOM, "395", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
+        NodeEntity(UUID.randomUUID(), "384", "Лекционная аудитория", 150f, 300f, NodeType.CLASSROOM, "384", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
+        NodeEntity(UUID.randomUUID(), "389", "Аудитория для конференций", 200f, 350f, NodeType.CLASSROOM, "389", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
+        NodeEntity(UUID.randomUUID(), "385", "Аудитория для групповых занятий", 160f, 310f, NodeType.CLASSROOM, "385", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
+        NodeEntity(UUID.randomUUID(), "386", "Компьютерный класс", 170f, 320f, NodeType.CLASSROOM, "386", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
+        NodeEntity(UUID.randomUUID(), "387", "Аудитория с проектором", 180f, 330f, NodeType.CLASSROOM, "387", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
+        NodeEntity(UUID.randomUUID(), "388", "Помещение для семинаров", 190f, 340f, NodeType.CLASSROOM, "388", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
+        NodeEntity(UUID.randomUUID(), "390", "Класс с интерактивной доской", 210f, 360f, NodeType.CLASSROOM, "390", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
+        NodeEntity(UUID.randomUUID(), "391", "Класс для лабораторных работ", 220f, 370f, NodeType.CLASSROOM, "391", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
+        NodeEntity(UUID.randomUUID(), "392", "Помещение для практических занятий", 230f, 380f, NodeType.CLASSROOM, "392", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
+        NodeEntity(UUID.randomUUID(), "393", "Большой лекционный зал", 240f, 390f, NodeType.CLASSROOM, "393", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
+        NodeEntity(UUID.randomUUID(), "394", "Не менее большой лекционный зал", 250f, 400f, NodeType.CLASSROOM, "394", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
+        NodeEntity(UUID.randomUUID(), "395", "Технопарк", 260f, 410f, NodeType.CLASSROOM, "395", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
 
-        NodeEntity(UUID.randomUUID(), "Аудитория 404", "Лекционная аудитория", 150f, 300f, NodeType.CLASSROOM, "404", true, UUID.randomUUID(), "https://api.maptiler.com/maps/0196bbb3-c1fe-7bfb-8fa3-f8ce5f14ffb8/?key=pEC9gVZBA06hIDiYD3bk#17.4/55.76656/37.68577",4),
-        NodeEntity(UUID.randomUUID(), "Аудитория 430", "Аудитория для групповых занятий", 160f, 310f, NodeType.CLASSROOM, "430", true, UUID.randomUUID(), "https://api.maptiler.com/maps/0196bbae-ed04-79d7-a6c0-40a04d3a5a0b/?key=pEC9gVZBA06hIDiYD3bk#17.4/55.76647/37.68655",4),
+        NodeEntity(UUID.randomUUID(), "404", "Лекционная аудитория", 150f, 300f, NodeType.CLASSROOM, "404", true, UUID.randomUUID(), "https://api.maptiler.com/maps/0196bbb3-c1fe-7bfb-8fa3-f8ce5f14ffb8/?key=pEC9gVZBA06hIDiYD3bk#18.14/55.766709/37.686255",4),
+        NodeEntity(UUID.randomUUID(), "430", "Аудитория для групповых занятий", 160f, 310f, NodeType.CLASSROOM, "430", true, UUID.randomUUID(), "https://api.maptiler.com/maps/0196bbae-ed04-79d7-a6c0-40a04d3a5a0b/?key=pEC9gVZBA06hIDiYD3bk#18.53/55.7662096/37.6859407",4),
         // Столовые (2 элемента)
         NodeEntity(UUID.randomUUID(), "Кафетерий", "Зона питания для студентов", 550f, 900f, NodeType.CANTEEN, "C1", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",3),
         NodeEntity(UUID.randomUUID(), "Ресторан в кампусе", "Меню для преподавателей и гостей", 570f, 920f, NodeType.CANTEEN, "C2", true, UUID.randomUUID(), "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604",3),
@@ -73,20 +73,20 @@ object DataHolder {
             "404",
             "430",
             "https://api.maptiler.com/maps/0196bbc0-7382-7a62-a88c-ad873513fbfa/?key=pEC9gVZBA06hIDiYD3bk#18.46/55.7665431/37.6864652",
-            "https://api.maptiler.com/maps/0196bbb7-8191-7629-bc2d-92b2a41ca4e2/?key=pEC9gVZBA06hIDiYD3bk#17.4/55.76647/37.68621",
+            "https://api.maptiler.com/maps/0196bbb7-8191-7629-bc2d-92b2a41ca4e2/?key=pEC9gVZBA06hIDiYD3bk#17.99/55.766435/37.686141",
             4
 
         ),
         Routes(
-            "Аудитория 384",
-            "Аудитория 430",
+            "384",
+            "430",
             "https://api.maptiler.com/maps/0197071b-cfd0-74f1-b719-cb703ec3589e/?key=8h4fgVgHGeknfj6KDYVq#18.0/55.76645/37.68609",
             "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635",
             3
         ),
         Routes(
-            "Аудитория 384",
-            "Аудитория 430",
+            "384",
+            "430",
             "https://api.maptiler.com/maps/01970793-283f-7ea4-ad09-e0c324f9405e/?key=H5ToKvoK3PBwIeIVgwqv#18/55.76643/37.68636",
             "https://api.maptiler.com/maps/0196bbae-ed04-79d7-a6c0-40a04d3a5a0b/?key=pEC9gVZBA06hIDiYD3bk#17.4/55.76647/37.68655",
             4

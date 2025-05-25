@@ -14,7 +14,7 @@ class FakeLocationRepository : LocationRepository {
                     "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635"
                 ),
                 LocationDetails(
-                    "Аудитория 389",
+                    "389",
                     "22 мин",
                     "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604"
                 ),
@@ -36,7 +36,7 @@ class FakeLocationRepository : LocationRepository {
                     "https://api.maptiler.com/maps/019695d9-8677-7225-a491-7793fd64cf7f/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76643/37.68604"
                 ),
                 LocationDetails(
-                    "Аудитория 384",
+                    "384",
                     "18 мин",
                     "https://api.maptiler.com/maps/019695d5-f77b-724d-9753-73c3109d9dc2/?key=PHHZ2OozEcXHfqqJCqIr#17.7/55.76644/37.68635"
                 )
