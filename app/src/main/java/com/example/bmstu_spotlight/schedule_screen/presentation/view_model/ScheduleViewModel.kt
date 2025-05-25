@@ -27,7 +27,7 @@ class ScheduleViewModel(
         _state.value = ResponseState.DataState.LOADING
         viewModelScope.launch {
             val response = getScheduleCase()
-            if (response.data.isNullOrEmpty()) {               // if currentState is not Success
+            if (response.data.isNullOrEmpty()) {
                 _state.value = response.state
             } else {
                 _schedule.value = response.data.map {
