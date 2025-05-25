@@ -1,6 +1,5 @@
 package com.example.bmstu_spotlight.route.domain.usecases
 
-import com.example.bmstu_spotlight.route.domain.models.Graph
 import com.example.bmstu_spotlight.route.domain.repository.GraphRepository
 import com.example.bmstu_spotlight.route.utils.mapToRange
 import kotlinx.coroutines.Dispatchers

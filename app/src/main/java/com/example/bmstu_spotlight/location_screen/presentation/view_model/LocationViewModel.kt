@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bmstu_spotlight.BuildConfig
 import com.example.bmstu_spotlight.menu_screen.domain.models.Node
 import com.example.bmstu_spotlight.domain.mappers.toDomain
 import com.example.bmstu_spotlight.DataHolder
@@ -23,7 +24,7 @@ data class LocationState(
     val offsetX: Float = 0f,
     val offsetY: Float = 0f,
     val showNewTopSection: Boolean = DataHolder.showNewTopSection,
-    val defaultLink: String = "https://api.maptiler.com/maps/01969592-b55a-7cf6-a450-cda9af40bac7/?key=PHHZ2OozEcXHfqqJCqIr#18.31/55.766431/37.685916",
+    val defaultLink: String = "https://api.maptiler.com/maps/01969592-b55a-7cf6-a450-cda9af40bac7/?key=${BuildConfig.API_KEY_3}#18.31/55.766431/37.685916",
     val messageLocation1: String = "",
     val messageLocation2: String = "",
     val currentMapLink: String = defaultLink,

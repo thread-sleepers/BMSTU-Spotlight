@@ -5,7 +5,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.compose.runtime.*
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.example.bmstu_spotlight.menu_screen.presentation.screen.MenuScreen
