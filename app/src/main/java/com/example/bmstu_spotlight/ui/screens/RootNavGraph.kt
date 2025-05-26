@@ -43,7 +43,7 @@ fun RootNavGraph(
             )
         }
         composable(RootScreen.MainApp.route) {
-            BMSTUSpotlightApp()
+            BMSTUSpotlightApp(rootNavController = navController)
         }
     }
 }
