@@ -65,7 +65,6 @@ import com.example.bmstu_spotlight.ui.helper_functions.findLocationName
 import com.example.bmstu_spotlight.ui.helper_functions.findRoute
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 import com.example.bmstu_spotlight.ui.helper_functions.find2Locations
-import com.example.bmstu_spotlight.ui.helper_functions.findLinkLocation
 import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightAppNewTheme
 import com.example.bmstu_spotlight.ui.helper_functions.findLocationFloor
 import kotlin.math.floor

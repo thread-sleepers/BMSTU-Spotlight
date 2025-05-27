@@ -23,8 +23,9 @@ data class LocationState(
     val offsetX: Float = 0f,
     val offsetY: Float = 0f,
     val showNewTopSection: Boolean = DataHolder.showNewTopSection,
-    val defaultLink3: String = "https://api.maptiler.com/maps/01969592-b55a-7cf6-a450-cda9af40bac7/?key=PHHZ2OozEcXHfqqJCqIr#18.31/55.766431/37.685916",
-    val defaultLink4: String = "https://api.maptiler.com/maps/0196bb8a-6a2d-70a0-babe-6b793c074544/?key=pEC9gVZBA06hIDiYD3bk#16.5/55.76659/37.68624",
+    val defaultLink2: String = "https://api.maptiler.com/maps/019711d7-efab-77f0-ac8d-eda6e16f7e21/?key=MyhK9LG5Sf1nMCLXhT8v#18/55.76643/37.68636",
+    val defaultLink3: String = "https://api.maptiler.com/maps/01969592-b55a-7cf6-a450-cda9af40bac7/?key=PHHZ2OozEcXHfqqJCqIr#18/55.76643/37.68636",
+    val defaultLink4: String = "https://api.maptiler.com/maps/0196bb8a-6a2d-70a0-babe-6b793c074544/?key=pEC9gVZBA06hIDiYD3bk#18/55.76643/37.68636",
     val defaultFloor: Int = 3,
     var messageLocation1: String = "",
     var messageLocation2: String = "",
@@ -54,6 +55,7 @@ class LocationViewModel(
     fun updateMapLink(link: String?, floor: Int?) {
         _uiState.update { state ->
             val newLink = when(floor) {
+                2 -> link ?: state.defaultLink2
                 3 -> link ?: state.defaultLink3
                 4 -> link ?: state.defaultLink4
                 else -> link ?: state.defaultLink4}
