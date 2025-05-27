@@ -32,7 +32,7 @@ fun LocationList(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = modifier.clickable{
-                    onReferenceClick(it.mapLink)
+                    onReferenceClick(it.locationName)
                 }
             ) {
                 Icon(

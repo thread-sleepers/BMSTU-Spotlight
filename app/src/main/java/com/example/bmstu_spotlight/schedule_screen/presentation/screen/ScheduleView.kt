@@ -19,7 +19,8 @@ fun ScheduleView(
     isLoading: Boolean = false,
     isSuccess: Boolean = false,
     isError: Boolean = false,
-    onRetry: () -> Unit
+    onRetry: () -> Unit,
+    onNameClick: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -39,7 +40,7 @@ fun ScheduleView(
                         "Суббота"
                     )
                 }
-            ScheduleWeekDayList(weekDays, schedule, modifier = Modifier)
+            ScheduleWeekDayList(weekDays, schedule, onNameClick = {clickedName -> onNameClick(clickedName)}, modifier = Modifier)
         }
         if (isLoading) {
             LoadingView()

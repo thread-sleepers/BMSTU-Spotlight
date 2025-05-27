@@ -24,6 +24,7 @@ import com.example.bmstu_spotlight.schedule_screen.presentation.model.LessonUi
 @Composable
 fun ScheduleList(
     items: List<LessonUi>,
+    onNameClick: (String) -> Unit,
     modifier: Modifier
 ) {
     Column(
@@ -43,12 +44,13 @@ fun ScheduleList(
                         modifier = modifier.weight(2.0f)
                     )
                     Button(
-                        onClick = {},
+                        onClick = {onNameClick(lesson.location)},
                         modifier = modifier.weight(1.0f),
                         colors = ButtonColors(MaterialTheme.colorScheme.tertiary, Color.White, MaterialTheme.colorScheme.tertiary, MaterialTheme.colorScheme.tertiary)
                     ) {
                         val scheduleClassroom = remember(lesson) { lesson.location }
                         Text(text = scheduleClassroom)
+
                     }
                 }
             }
