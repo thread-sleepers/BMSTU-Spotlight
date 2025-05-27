@@ -1,5 +1,7 @@
-package com.example.bmstu_spotlight.saved_locations_screen.presentation.components
+package com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,19 +17,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bmstu_spotlight.saved_locations_screen.data.repository.LocationDetails
 
 @Composable
 fun LocationList(
-    items: Map<String, String>,
+    items: List<LocationDetails>,
     icon: ImageVector,
     iconContentDescription: String,
-    modifier: Modifier
+    modifier: Modifier,
+    onReferenceClick: (String) -> Unit
 ) {
-    LazyColumn {
-        items(items.entries.toList()) { (location, time) ->
+    LazyColumn(modifier = modifier.background(MaterialTheme.colorScheme.surfaceVariant)) {
+        items(items) { it ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = modifier
+                modifier = modifier.clickable{
+                    onReferenceClick(it.mapLink)
+                }
             ) {
                 Icon(
                     imageVector = icon,
@@ -36,9 +42,9 @@ fun LocationList(
                     modifier = Modifier.padding(end = 16.dp)
                 )
                 Text(
-                    text = location,
+                    text = it.locationName,
                     fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.weight(1f)
                 )
                 Icon(
@@ -48,9 +54,9 @@ fun LocationList(
                     modifier = Modifier.padding(end = 8.dp)
                 )
                 Text(
-                    text = time,
+                    text = it.time,
                     fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

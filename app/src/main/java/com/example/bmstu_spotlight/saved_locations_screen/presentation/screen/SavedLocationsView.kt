@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -14,68 +15,67 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bmstu_spotlight.saved_locations_screen.presentation.components.LocationList
+import com.example.bmstu_spotlight.R
+import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
+import com.example.bmstu_spotlight.saved_locations_screen.data.repository.LocationDetails
 import com.example.bmstu_spotlight.saved_locations_screen.presentation.components.SectionHeader
+import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.components.LocationList
 
 @Composable
-fun SavedLocationsView(state1: Map<String, String>, state2: Map<String, String>) {
+fun SavedLocationsView(
+    recentState: List<LocationDetails>,
+    favoritesState: List<LocationDetails>,
+    onLinkClick: (String) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.LightGray)
+            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .padding(8.dp)
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.White),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "Локации",
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(top = 40.dp, bottom = 16.dp),
-            )
-        }
+        CustomTopBar(stringResource(R.string.locations))
 
         SectionHeader(
             modifier = Modifier.fillMaxWidth(),
-            title = "Недавние"
+            title = stringResource(R.string.recents)
         )
         LocationList(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    start = 32.dp,
+                    start = 16.dp,
                     end = 16.dp,
                     top = 8.dp,
                     bottom = 8.dp
                 ),
-            items = state1,
+            items = recentState,
             icon = Icons.Default.FavoriteBorder,
-            iconContentDescription = "Recent Location"
+            iconContentDescription = "Recent Location",
+            onReferenceClick = onLinkClick
         )
 
         SectionHeader(
             modifier = Modifier.fillMaxWidth(),
-            title = "Сохранённые"
+            title = stringResource(R.string.saved)
         )
         LocationList(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    start = 32.dp,
+                    start = 16.dp,
                     end = 16.dp,
                     top = 8.dp,
                     bottom = 8.dp
-                ),
-            items = state2,
+                )
+                .background(MaterialTheme.colorScheme.surfaceVariant),
+            items = favoritesState,
             icon = Icons.Default.Favorite,
-            iconContentDescription = "Saved Location"
+            iconContentDescription = "Saved Location",
+            onReferenceClick = onLinkClick
         )
     }
 }
-

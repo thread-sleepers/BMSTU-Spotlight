@@ -1,6 +1,5 @@
 package com.example.bmstu_spotlight.profile.presentation.screen
 
-import com.example.bmstu_spotlight.ui.theme.ColorBack3
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +11,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.bmstu_spotlight.R
+import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 import com.example.bmstu_spotlight.profile.domain.model.UserProfile
 import com.example.bmstu_spotlight.profile.presentation.view_model.ProfileViewModel
 import com.example.bmstu_spotlight.profile.presentation.components.ProfileField
@@ -26,19 +28,17 @@ fun ProfileView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(ColorBack3)
-            .padding(16.dp),
+            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Профиль",
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(vertical = 16.dp)
-        )
+        CustomTopBar(stringResource(R.string.profile))
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         Card(shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = Color.White)
+            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             ProfileHeader(state.name, state.email, state.avatarUrl)
         }
@@ -46,10 +46,10 @@ fun ProfileView(
         Spacer(modifier = Modifier.height(16.dp))
 
         Card(shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = Color.White)
+            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
-            ProfileField("МГТУ Аккаунт", state.accountType) {
+            ProfileField(stringResource(R.string.MGTU_account), state.accountType) {
                 Icon(imageVector = Icons.Default.Public, contentDescription = null)
             }
         }
@@ -57,10 +57,10 @@ fun ProfileView(
         Spacer(modifier = Modifier.height(16.dp))
 
         Card(shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = Color.White)
+            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
-            ProfileField("Язык", state.language) {
+            ProfileField(stringResource(R.string.language), state.language) {
                 Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
             }
         }
@@ -69,11 +69,11 @@ fun ProfileView(
 
         Button(
             onClick = onSignOut,
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
             shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(8.dp)
         ) {
-            Text("Выйти", color = Color.Red)
+            Text(stringResource(R.string.go_down), color = MaterialTheme.colorScheme.tertiary)
         }
     }
 

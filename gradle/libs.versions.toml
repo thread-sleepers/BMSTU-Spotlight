@@ -1,5 +1,6 @@
 [versions]
 agp = "8.7.3"
+datastore = "1.1.6"
 koinAndroid = "4.0.3"
 koinAndroidxCompose = "4.0.3"
 coilCompose = "3.1.0"
@@ -8,6 +9,8 @@ coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+kotlinxCoroutinesCore = "1.10.1"
+kotlinxSerializationJson = "1.8.0"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
 composeBom = "2024.04.01"
@@ -15,6 +18,8 @@ material = "1.7.8"
 material3AdaptiveNavigationSuite = "1.4.0-alpha11"
 mockitoCore = "4.8.0"
 mockitoKotlin = "4.1.0"
+retrofit = "2.9.0"
+retrofit2KotlinxSerializationConverter = "1.0.0"
 roomCommon = "2.6.1"
 roomCommonJvm = "2.7.0-rc02"
 roomCompiler = "2.6.1"
@@ -24,8 +29,10 @@ roomRxjava2 = "2.6.1"
 roomTesting = "2.6.1"
 ksp = "2.0.21-1.0.27"
 koin-bom = "4.0.3"
+kotlinSerialization = "2.1.10"
 
-androidxNavigation = "2.4.0-alpha10"
+
+androidxNavigation = "2.8.9"
 composeUi = "1.0.0"
 lifecycleViewModelKtx = "2.6.0"
 composeRuntimeLiveData = "1.5.0"
@@ -33,6 +40,8 @@ material3Android = "1.3.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material" }
 androidx-material3-adaptive-navigation-suite = { module = "androidx.compose.material3:material3-adaptive-navigation-suite", version.ref = "material3AdaptiveNavigationSuite" }
@@ -58,6 +67,8 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
@@ -70,9 +81,12 @@ androidx-material3-android = { group = "androidx.compose.material3", name = "mat
 navigation-compose = { module = "androidx.navigation:navigation-compose" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }

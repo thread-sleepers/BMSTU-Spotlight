@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.ContentAlpha
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Scaffold
@@ -26,11 +27,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.bmstu_spotlight.ui.screens.BottomBarScreen
 import com.example.bmstu_spotlight.ui.screens.BottomNavGraph
-import com.example.bmstu_spotlight.ui.theme.ColorBack1
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BMSTUSpotlightApp(navController: NavHostController = rememberNavController()) {
+fun BMSTUSpotlightApp(rootNavController: NavHostController, navController: NavHostController = rememberNavController()) {
     Scaffold(
         bottomBar = {
             BottomBar(
@@ -40,8 +40,9 @@ fun BMSTUSpotlightApp(navController: NavHostController = rememberNavController()
         }
     ) {
         BottomNavGraph(
+            rootNavController,
             navController = navController,
-            modifier = Modifier.systemBarsPadding()
+            modifier = Modifier.systemBarsPadding().background(MaterialTheme.colorScheme.background)
         )
     }
 }
@@ -62,7 +63,6 @@ fun BottomBar(
     val currentDestination = navBackStackEntry?.destination
 
     BottomNavigation(
-        backgroundColor = Color.Transparent,
         modifier = modifier
     ) {
         screens.forEach { screen ->
@@ -81,19 +81,19 @@ fun RowScope.AddItem(
     navController: NavHostController
 ) {
     BottomNavigationItem(
-        modifier = Modifier.background(ColorBack1, shape = RoundedCornerShape(18.dp)),
+        modifier = Modifier.background(MaterialTheme.colorScheme.primary),
         icon = {
             Icon(
                 imageVector = screen.icon,
                 contentDescription = "Navigation Icon",
                 modifier = Modifier.size(40.dp),
-                tint = if (currentDestination?.hierarchy?.any { it.route == screen.route } == true) Color.White else Color.Unspecified)
+                tint = if (currentDestination?.hierarchy?.any { it.route == screen.route || it.route == (screen.route + "?mapLink={mapLink}") } == true) Color.White else Color.Unspecified)
         },
         selected = currentDestination?.hierarchy?.any {
             it.route == screen.route
         } == true,
         unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.high),
-        selectedContentColor = Color.White,
+        selectedContentColor = MaterialTheme.colorScheme.onPrimary,
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
