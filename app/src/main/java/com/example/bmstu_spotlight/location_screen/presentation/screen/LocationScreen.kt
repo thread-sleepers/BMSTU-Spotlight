@@ -52,6 +52,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.bmstu_spotlight.location_screen.data.popularFrom
 import com.example.bmstu_spotlight.location_screen.data.popularTo
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationState
@@ -61,6 +62,7 @@ import com.example.bmstu_spotlight.ui.helper_functions.findLocationName
 import com.example.bmstu_spotlight.ui.helper_functions.findRoute
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
 import com.example.bmstu_spotlight.ui.helper_functions.find2Locations
+import com.example.bmstu_spotlight.ui.theme.BMSTUSpotlightAppNewTheme
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
