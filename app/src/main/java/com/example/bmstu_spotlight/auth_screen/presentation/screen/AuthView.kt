@@ -56,7 +56,7 @@ fun AuthView(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.surfaceContainer)
-            .padding(top = 40.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
+            .padding(top = 60.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val email = remember { mutableStateOf("") }
@@ -79,7 +79,6 @@ fun AuthView(
                 focusedTextColor = MaterialTheme.colorScheme.inverseSurface,
                 unfocusedTextColor = MaterialTheme.colorScheme.inverseSurface,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
@@ -100,7 +99,6 @@ fun AuthView(
                 focusedTextColor = MaterialTheme.colorScheme.inverseSurface,
                 unfocusedTextColor = MaterialTheme.colorScheme.inverseSurface,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
