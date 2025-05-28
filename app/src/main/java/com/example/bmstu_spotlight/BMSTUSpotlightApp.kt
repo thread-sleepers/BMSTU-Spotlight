@@ -87,7 +87,7 @@ fun RowScope.AddItem(
                 imageVector = screen.icon,
                 contentDescription = "Navigation Icon",
                 modifier = Modifier.size(40.dp),
-                tint = if (currentDestination?.hierarchy?.any { it.route == screen.route || it.route == (screen.route + "?mapLink={mapLink}") } == true) Color.White else Color.Unspecified)
+                tint = if (currentDestination?.hierarchy?.any { it.route == screen.route || it.route == (screen.route + "?locationName={locationName}") } == true) Color.White else Color.Unspecified)
         },
         selected = currentDestination?.hierarchy?.any {
             it.route == screen.route

@@ -22,39 +22,34 @@ class AuthViewModel(
     private val _authState = MutableStateFlow<AuthState>(AuthState.LOADING)
     val authState: StateFlow<AuthState> = _authState
 
-    private var authCheckJob: Job? = null
-
     init {
         checkAuthState()
     }
 
     fun checkAuthState() {
-        authCheckJob?.cancel()
-        authCheckJob = viewModelScope.launch {
-            appPreferences.authToken.map { token ->
+        viewModelScope.launch {
+            appPreferences.authToken.collect { token ->
                 if (!token.isNullOrEmpty()) {
-                    AuthState.AUTHENTICATED
+                   _authState.value = AuthState.AUTHENTICATED
                 } else {
-                    AuthState.UNAUTHENTICATED
+                    _authState.value =AuthState.UNAUTHENTICATED
                 }
-            }.distinctUntilChanged()
-                .collect { state ->
-                    _authState.value = state
-                }
+            }
         }
     }
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            try {
-                _authState.value = AuthState.LOADING
-                repository.login(email, password)
-                if (repository.badRequest) {
-                    _authState.value = AuthState.UNAUTHENTICATED
-                }
-            } catch(e: Exception) {
-                _authState.value = AuthState.UNAUTHENTICATED
-            }
+            _authState.value = AuthState.LOADING
+            repository.login(email, password)
+                .fold(
+                    onSuccess = {
+                        _authState.value = AuthState.AUTHENTICATED
+                    },
+                    onFailure = {
+                        _authState.value = AuthState.UNAUTHENTICATED
+                    }
+                )
         }
     }
 }

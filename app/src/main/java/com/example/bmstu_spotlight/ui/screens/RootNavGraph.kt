@@ -1,13 +1,16 @@
 package com.example.bmstu_spotlight.ui.screens
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.compose.NavHost
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.bmstu_spotlight.BMSTUSpotlightApp
+import com.example.bmstu_spotlight.R
 import com.example.bmstu_spotlight.auth_screen.presentation.screen.AuthScreen
 import com.example.bmstu_spotlight.auth_screen.presentation.view_model.AuthState
 import com.example.bmstu_spotlight.auth_screen.presentation.view_model.AuthViewModel
@@ -25,6 +28,7 @@ fun RootNavGraph(
     } else {
         RootScreen.Auth.route
     }
+    val context = LocalContext.current
 
     NavHost(
         navController = navController,
@@ -39,6 +43,11 @@ fun RootNavGraph(
                             inclusive = true
                         }
                     }
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.log_in_is_successful),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             )
         }

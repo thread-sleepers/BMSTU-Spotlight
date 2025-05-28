@@ -46,7 +46,7 @@ fun ScheduleView(
             LoadingView()
         }
         if (isError) {
-            ErrorView { onRetry }
+            ErrorView { onRetry() }
         }
     }
 }
