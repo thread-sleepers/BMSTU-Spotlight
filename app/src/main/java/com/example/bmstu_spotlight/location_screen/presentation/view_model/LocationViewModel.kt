@@ -35,7 +35,7 @@ data class LocationState(
     var needFloor1: Int = 6,
     var needFloor2: Int = 6,
     val routePath: List<String> = emptyList(),
-    val routeTimeMinutes: Int? = null,
+    val routeTimeMinutes: Double? = null,
     val isRouteLoading: Boolean = false
 )
 
@@ -106,7 +106,7 @@ class LocationViewModel(
                 _uiState.update {
                     it.copy(
                         routePath = result.path,
-                        routeTimeMinutes = result.time.toInt(),
+                        routeTimeMinutes = result.time,
                         isRouteLoading = false
                     )
                 }

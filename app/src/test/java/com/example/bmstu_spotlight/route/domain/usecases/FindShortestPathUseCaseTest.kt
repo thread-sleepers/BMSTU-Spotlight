@@ -30,7 +30,9 @@ class FindShortestPathUseCaseTest {
         testGraph.addEdge("350", "395", 158.11)
         testGraph.addEdge("395", "350", 158.11)
 
-        testGraph.addEdge("384", "389", 28.28)
+        testGraph.addEdge("384", "389", 5.90)
+
+        testGraph.addEdge("404", "430", 47.18)
 
         val testRepository = TestGraphRepository(testGraph)
         findShortestPathUseCase = FindShortestPathUseCaseImpl(testRepository)
@@ -43,7 +45,7 @@ class FindShortestPathUseCaseTest {
         println("Computed path: ${result.path.joinToString(" → ")}")
         println("Computed time: ${result.time}")
 
-        assertEquals(2.0, result.time, 0.001)
+        assertEquals(0.5, result.time, 0.001)
     }
 
     @Test
@@ -53,7 +55,7 @@ class FindShortestPathUseCaseTest {
         println("Computed path: ${result.path.joinToString(" → ")}")
         println("Computed time: ${result.time}")
 
-        assertEquals(5.0, result.time, 0.001)
+        assertEquals(4.5, result.time, 0.001)
     }
 
     @Test
@@ -73,7 +75,7 @@ class FindShortestPathUseCaseTest {
         println("Computed path: ${result.path.joinToString(" → ")}")
         println("Computed time: ${result.time}")
 
-        assertEquals(5.0, result.time, 0.001)
+        assertEquals(4.5, result.time, 0.001)
     }
 
     @Test
@@ -81,6 +83,16 @@ class FindShortestPathUseCaseTest {
         val result = findShortestPathUseCase.execute("351", "wc")
 
         assertEquals(5.0, result.time, 0.001)
+    }
+
+    @Test
+    fun `shortest time from 404 to 430`() = runBlocking {
+        val result = findShortestPathUseCase.execute("404", "430")
+
+        println("Computed path: ${result.path.joinToString(" → ")}")
+        println("Computed time: ${result.time}")
+
+        assertEquals(2.25, result.time, 0.001)
     }
 
     @Test

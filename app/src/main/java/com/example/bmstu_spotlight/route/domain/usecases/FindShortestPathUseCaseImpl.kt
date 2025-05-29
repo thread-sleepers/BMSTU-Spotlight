@@ -60,11 +60,13 @@ class FindShortestPathUseCaseImpl(
             val normalizedTime = rawTime.mapToRange(
                 oldMin = 0.0,
                 oldMax = 230.0, // верхняя граница графа
-                newMin = 1.0,
+                newMin = 0.25,
                 newMax = 10.0
-            ).roundToInt().toDouble()
+            )
+            val quarteredTime = (normalizedTime * 4).roundToInt() / 4.0
 
-            return@withContext FindShortestPathUseCase.Result(normalizedTime, path)
+
+            return@withContext FindShortestPathUseCase.Result(quarteredTime, path)
         }
     }
 }
