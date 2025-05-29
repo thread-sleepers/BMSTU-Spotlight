@@ -8,21 +8,20 @@ class AuthRepository(
     val networkService: NetworkService,
     val appPreferences: AppPreferencesManager
 ) {
-    var badRequest = true
-     suspend fun login(email: String, password: String) {
-        val noToken = ""
-        try {
+     suspend fun login(email: String, password: String): Result<Unit> {
+        return try {
             val response = networkService.login(LoginRequest(email, password))
             if (response.isSuccessful) {
-                badRequest = false
                 response.body()?.let {
                     appPreferences.saveAuthToken(it.token)
-                } ?: appPreferences.saveAuthToken(noToken)
+                    Result.success(Unit)
+                } ?: Result.failure(Exception("Empty token!"))
             } else {
-                throw Exception("Login failed: ${response.errorBody().toString()}")
+                Result.failure(Exception("HTTP ${response.code()}: ${response.errorBody()?.string()}"))
             }
         } catch(e: Exception) {
             print("Request threw an exception: $e")
+            Result.failure(e)
         }
     }
 }

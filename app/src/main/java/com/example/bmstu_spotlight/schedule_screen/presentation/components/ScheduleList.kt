@@ -3,7 +3,6 @@ package com.example.bmstu_spotlight.schedule_screen.presentation.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.bmstu_spotlight.schedule_screen.presentation.model.LessonUi
 
@@ -24,11 +24,13 @@ import com.example.bmstu_spotlight.schedule_screen.presentation.model.LessonUi
 @Composable
 fun ScheduleList(
     items: List<LessonUi>,
+    onNameClick: (String) -> Unit,
     modifier: Modifier
 ) {
     Column(
         modifier = modifier
-            .clip(shape = RoundedCornerShape(25.dp)).background(MaterialTheme.colorScheme.outlineVariant)
+            .clip(shape = RoundedCornerShape(25.dp))
+            .background(MaterialTheme.colorScheme.outlineVariant)
     ) {
         if (items.isNotEmpty()) {
             items.forEach { lesson ->
@@ -43,12 +45,17 @@ fun ScheduleList(
                         modifier = modifier.weight(2.0f)
                     )
                     Button(
-                        onClick = {},
+                        onClick = { onNameClick(lesson.location) },
                         modifier = modifier.weight(1.0f),
-                        colors = ButtonColors(MaterialTheme.colorScheme.tertiary, Color.White, MaterialTheme.colorScheme.tertiary, MaterialTheme.colorScheme.tertiary)
+                        colors = ButtonColors(
+                            MaterialTheme.colorScheme.tertiary,
+                            Color.White,
+                            MaterialTheme.colorScheme.tertiary,
+                            MaterialTheme.colorScheme.tertiary
+                        )
                     ) {
                         val scheduleClassroom = remember(lesson) { lesson.location }
-                        Text(text = scheduleClassroom)
+                        Text(text = scheduleClassroom, softWrap = false)
                     }
                 }
             }

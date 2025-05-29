@@ -1,3 +1,19 @@
+import java.io.FileInputStream
+import java.util.Properties
+
+
+val localProperties = Properties().apply {
+    val file = File(rootProject.projectDir, "local.properties")
+    if (file.exists()) {
+        load(FileInputStream(file))
+    }
+}
+val apiKey4: String = localProperties.getProperty("API_KEY_4", "").takeIf {it.isNotEmpty()} ?:
+throw GradleException("Missing API_KEY_4 in local.properties")
+val apiKey3: String = localProperties.getProperty("API_KEY_3", "").takeIf {it.isNotEmpty()} ?:
+throw GradleException("Missing API_KEY_3 in local.properties")
+val apiKey2: String = localProperties.getProperty("API_KEY_2", "").takeIf {it.isNotEmpty()} ?:
+throw GradleException("Missing API_KEY_2 in local.properties")
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,6 +34,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField ("String", "API_KEY_4", apiKey4)
+        buildConfigField ("String", "API_KEY_3", apiKey3)
+        buildConfigField ("String", "API_KEY_2", apiKey2)
     }
 
     buildTypes {
@@ -38,6 +58,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

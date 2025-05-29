@@ -17,32 +17,25 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bmstu_spotlight.DataHolder
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.bmstu_spotlight.R
 import androidx.compose.runtime.*
 import androidx.compose.ui.draw.clip
-import com.example.bmstu_spotlight.menu_screen.presentation.view_model.MenuViewModel.*
 import com.example.bmstu_spotlight.data.datasource.local.entities.NodeType
 import com.example.bmstu_spotlight.menu_screen.domain.models.Node
 import com.example.bmstu_spotlight.menu_screen.presentation.components.CustomTopBar
@@ -266,7 +259,6 @@ fun SecondMenuSection(
                         .clip(shape = RoundedCornerShape(15.dp))
                         .fillMaxWidth()
                         .height(80.dp)
-                        //.background(ColorBack2)
                         .clickable {
                             DataHolder.selectedNodeId = node.id
                             navController.navigate(BottomBarScreen.Location.route + "?mapLink=${node.reference}")
@@ -274,7 +266,6 @@ fun SecondMenuSection(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(node.name, fontSize = 24.sp, textAlign = TextAlign.Center,
-                        //color = ColorText1
                     )
                 }
             }
@@ -287,7 +278,6 @@ fun SecondMenuSection(
                 .height(64.dp)
                 .padding(8.dp)
                 .shadow(3.dp, shape = CircleShape),
-            //colors = ButtonDefaults.buttonColors(containerColor = ColorButton1, contentColor = Color.Black),
             shape = RoundedCornerShape(28.dp),
         ) {
             Text(stringResource(id = R.string.back_button), fontSize = 20.sp//, color = ColorText2

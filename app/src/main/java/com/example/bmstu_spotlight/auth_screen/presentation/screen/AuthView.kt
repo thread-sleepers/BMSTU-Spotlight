@@ -45,12 +45,6 @@ fun AuthView(
     onLoginSuccessful: () -> Unit
 ) {
     val isSigningIn = remember { mutableStateOf(false) }
-    val enabled = remember { mutableStateOf(true) }
-    LaunchedEffect(enabled) {
-        if (enabled.value) return@LaunchedEffect
-        else delay(1000L)
-        enabled.value = true
-    }
     LocalContext.current
     Column(
         modifier = Modifier
@@ -111,33 +105,31 @@ fun AuthView(
         Button(
             onClick = {
                 isSigningIn.value = true
-                enabled.value = false
-                if (email.value.isEmpty() and password.value.isNotEmpty()) {
+                if (email.value.isEmpty() && password.value.isNotEmpty()) {
                     Toast.makeText(
                         context,
                         context.getString(R.string.empty_email),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                if (password.value.isEmpty() and email.value.isNotEmpty()) {
+                if (password.value.isEmpty() && email.value.isNotEmpty()) {
                     Toast.makeText(
                         context,
                         context.getString(R.string.empty_password),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                if (email.value.isEmpty() and password.value.isEmpty()) {
+                if (email.value.isEmpty() && password.value.isEmpty()) {
                     Toast.makeText(
                         context,
                         context.getString(R.string.empty_email_and_pass),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                if (email.value.isNotEmpty() and password.value.isNotEmpty()) {
+                if (email.value.isNotEmpty() && password.value.isNotEmpty()) {
                     onLogin(email.value, password.value)
                 }
             },
-            enabled = enabled.value,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -173,9 +165,10 @@ fun AuthView(
                         Toast.makeText(
                             context,
                             context.getString(R.string.invalid_credentials),
-                            Toast.LENGTH_LONG
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
+                    isSigningIn.value = false
                 }
             }
         }

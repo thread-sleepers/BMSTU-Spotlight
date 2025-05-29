@@ -17,7 +17,7 @@ fun SavedLocationsScreen(
     SavedLocationsView(
         recentState = recent,
         favoritesState = favorites,
-        onLinkClick = onNavigate
+        onNameClick = onNavigate
     )
 }
 
