@@ -44,8 +44,8 @@ fun PopularDestinationsList(
                     .clickable {
                         onDestinationSelected(destination.name)
                     }
-                    .padding(12.dp)
-                    .background(MaterialTheme.colorScheme.inverseOnSurface),
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
+                    .padding(12.dp),
                 color = MaterialTheme.colorScheme.inverseSurface,
                 fontSize = 16.sp,
             )
