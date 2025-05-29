@@ -23,7 +23,7 @@ import com.example.bmstu_spotlight.saved_locations_screen.presentation.screen.co
 fun SavedLocationsView(
     recentState: List<LocationDetails>,
     favoritesState: List<LocationDetails>,
-    onLinkClick: (String) -> Unit
+    onNameClick: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -49,7 +49,7 @@ fun SavedLocationsView(
             items = recentState,
             icon = Icons.Default.FavoriteBorder,
             iconContentDescription = "Recent Location",
-            onReferenceClick = onLinkClick
+            onReferenceClick = onNameClick
         )
 
         SectionHeader(
@@ -69,7 +69,7 @@ fun SavedLocationsView(
             items = favoritesState,
             icon = Icons.Default.Favorite,
             iconContentDescription = "Saved Location",
-            onReferenceClick = onLinkClick
+            onReferenceClick = onNameClick
         )
     }
 }

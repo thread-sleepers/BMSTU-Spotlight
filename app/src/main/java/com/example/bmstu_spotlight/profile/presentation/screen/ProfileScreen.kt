@@ -5,19 +5,33 @@ import androidx.compose.runtime.collectAsState
 import com.example.bmstu_spotlight.profile.presentation.view_model.ProfileViewModel
 import org.koin.androidx.compose.koinViewModel
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.bmstu_spotlight.profile.domain.model.UserProfile
 
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = koinViewModel(),
+    navController: NavHostController
 ) {
-    val userProfile by viewModel.userProfile.collectAsState()
+    val userProfileState by viewModel.userProfile.collectAsState()
 
-    userProfile?.let { profile ->
-        ProfileView(
-            state = profile,
-            onSignOut = {
-                viewModel.signOut()
-            }
-        )
+    when {
+        userProfileState.isLoading -> {
+            LoadingView()
+        }
+        userProfileState.data != null -> {
+            ProfileView(
+                state = userProfileState.data!!,
+                onSignOut = {
+                    viewModel.signOut(navController)
+                }
+            )
+        }
+        userProfileState.error != null -> {
+            ErrorView(onRetry = {
+                viewModel.loadUserProfile()
+            })
+        }
     }
 }
