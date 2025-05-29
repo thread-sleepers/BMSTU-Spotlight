@@ -9,12 +9,12 @@
 1) Следует запустить сервер команды thread.sleepers в localhost: https://github.com/thread-sleepers/Spotlight-Backend.
 Сервер запускается посредством консольной команды java -jar bmstu_spotlight_backend-all.jar в директории, в которой расположен сгенерируемый (посредством shadow) файл bmstu_spotlight_backend-all.jar
 2) Для авторизации валидны следующие данные (они хранятся в базе данных пользователей):
-       user1 123
-ilya@mail.ru ilya
-anya@mail.ru anya
-vlad@mail.ru vlad
-sasha@mail.ru sasha ,
-где значения левого столбца - пользовательские e-mail'ы для авторизации, правого столбца - пользовательские пароли.
+       user1 123, 
+ilya@mail.ru ilya,
+anya@mail.ru anya,
+vlad@mail.ru vlad,
+sasha@mail.ru sasha,
+где первое значение - e-mail для авторизации, следующее значение в паре - пользовательский пароль.
 3) Для сборки приложения необходимо в local.properties добавить следующие апи-ключи (после строки sdk.dir):
 API_KEY_4 = "pEC9gVZBA06hIDiYD3bk"
 API_KEY_3 = "PHHZ2OozEcXHfqqJCqIr"
