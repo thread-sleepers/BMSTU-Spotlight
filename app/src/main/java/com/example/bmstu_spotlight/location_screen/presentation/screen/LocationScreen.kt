@@ -92,6 +92,7 @@ fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), locationName:
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
             .padding(8.dp)
 
     ) {
@@ -247,7 +248,7 @@ fun TopSection1(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(18.dp))
+            .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(18.dp))
             .padding(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -257,7 +258,7 @@ fun TopSection1(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
-                .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(28.dp)),
+                .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(28.dp)),
             trailingIcon = {
                 IconButton(onClick = {
                     showSuggestionsFrom.value = !showSuggestionsFrom.value
@@ -270,7 +271,7 @@ fun TopSection1(
                 }
             },
             textStyle = TextStyle(fontSize = 20.sp),
-            placeholder = { Text(stringResource(id = R.string.enter_the_starting_point), fontSize = 20.sp) },
+            placeholder = { Text(stringResource(id = R.string.enter_the_starting_point), color = MaterialTheme.colorScheme.onSecondaryContainer, fontSize = 20.sp) },
             singleLine = true,
             shape = RoundedCornerShape(28.dp),
         )
@@ -295,7 +296,7 @@ fun TopSection1(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
-                .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(28.dp)),
+                .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(28.dp)),
             trailingIcon = {
                 IconButton(onClick = {
                     showSuggestionsTo.value = !showSuggestionsTo.value
@@ -308,7 +309,7 @@ fun TopSection1(
                 }
             },
             textStyle = TextStyle(fontSize = 20.sp),
-            placeholder = { Text(stringResource(id = R.string.enter_the_ending_point), fontSize = 20.sp) },
+            placeholder = { Text(stringResource(id = R.string.enter_the_ending_point), color=MaterialTheme.colorScheme.onSecondaryContainer, fontSize = 20.sp) },
             singleLine = true,
             shape = RoundedCornerShape(28.dp),
         )
@@ -369,7 +370,7 @@ fun TopSection2(onButtonClick: () -> Unit) { //Окошко отмены мар�
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(18.dp))
+            .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(18.dp))
             .padding(top = 16.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
