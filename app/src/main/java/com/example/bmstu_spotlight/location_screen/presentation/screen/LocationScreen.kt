@@ -59,6 +59,7 @@ import com.example.bmstu_spotlight.location_screen.data.popularFrom
 import com.example.bmstu_spotlight.location_screen.data.popularTo
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationState
 import com.example.bmstu_spotlight.location_screen.presentation.view_model.LocationViewModel
+import com.example.bmstu_spotlight.location_screen.utils.formatTime
 import com.example.bmstu_spotlight.ui.helper_functions.findLocationLink
 import com.example.bmstu_spotlight.ui.helper_functions.findLocationName
 import com.example.bmstu_spotlight.ui.helper_functions.findRoute
@@ -403,10 +404,10 @@ fun RouteToast(uiState: LocationState) {
             uiState.isRouteLoading -> {
                 Toast.makeText(context, "Поиск маршрута...", Toast.LENGTH_SHORT).show()
             }
-            uiState.routeTimeMinutes != null && uiState.routeTimeMinutes != -1 -> {
+            uiState.routeTimeMinutes != null && uiState.routeTimeMinutes != -1.0 -> {
                 Toast.makeText(
                     context,
-                    "Пройдите вдоль коридора — ${uiState.routeTimeMinutes} мин.",
+                    "Пройдите вдоль коридора — ${formatTime(uiState.routeTimeMinutes)}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
