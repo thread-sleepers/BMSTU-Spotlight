@@ -1,5 +1,7 @@
 package com.example.bmstu_spotlight.location_screen.data
 
+import com.example.bmstu_spotlight.BuildConfig
+
 data class PopularDestinations(
     val name: String,
     val reference: String,

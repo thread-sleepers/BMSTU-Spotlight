@@ -1,5 +1,6 @@
 package com.example.bmstu_spotlight.location_screen.presentation.screen
 
+import android.graphics.Bitmap
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -9,7 +10,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,7 +50,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.lifecycle.Lifecycle
@@ -103,7 +102,13 @@ fun LocationScreen(viewModel: LocationViewModel = koinViewModel(), locationName:
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
-                    webViewClient = WebViewClient()
+                    webViewClient = object : WebViewClient() {
+                        @Override
+                        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                            super.onPageStarted(view, url, favicon)
+                            Toast.makeText(context, "Загрузка", Toast.LENGTH_SHORT).show()
+                        }
+                        }
                     webChromeClient = WebChromeClient()
                     settings.javaScriptEnabled = true
                     loadUrl(uiState.currentMapLink)

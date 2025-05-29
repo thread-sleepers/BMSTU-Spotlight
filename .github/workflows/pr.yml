@@ -17,6 +17,10 @@ jobs:
           java-version: '17'
       - name: 🔐 Set up permission
         run: chmod +x gradlew
+      - name: Create local.properties with secrets
+        env:
+          API_KEY_3: ${{ secrets.API_KEY_3 }}
+        run: echo "API_KEY_3=$API_KEY_3" > ./local.properties
       - name: 🔨 Build debug
         run: ./gradlew assembleDebug
       - name: 🛠️ Unit-test
@@ -53,6 +57,10 @@ jobs:
           java-version: '17'
       - name: 🔐 Set up permission
         run: chmod +x gradlew
+      - name: Create local.properties with secrets
+        env:
+          API_KEY_3: ${{ secrets.API_KEY_3 }}
+        run: echo "API_KEY_3=$API_KEY_3" > ./local.properties
       - name: 🔨 Build internal release
         run: ./gradlew assembleDebug
       - name: 🔄 Upload debug apk

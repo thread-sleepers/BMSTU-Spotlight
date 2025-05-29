@@ -1,7 +1,6 @@
 package com.example.bmstu_spotlight.schedule_screen.presentation.model
 
 import com.example.bmstu_spotlight.schedule_screen.domain.model.Lesson
-import com.example.bmstu_spotlight.schedule_screen.domain.response_state.ResponseState
 
 data class LessonUi(
     val classInfo: String,
