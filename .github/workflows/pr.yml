@@ -20,7 +20,11 @@ jobs:
       - name: Create local.properties with secrets
         env:
           API_KEY_3: ${{ secrets.API_KEY_3 }}
-        run: echo "API_KEY_3=$API_KEY_3" > ./local.properties
+          API_KEY_2: ${{ secrets.API_KEY_2 }}
+          API_KEY_4: ${{ secrets.API_KEY_4 }}
+        run: echo "API_KEY_3=$API_KEY_3" > ./local.properties;
+             echo "API_KEY_4=$API_KEY_4" > ./local.properties;
+             echo "API_KEY_2=$API_KEY_2" > ./local.properties
       - name: 🔨 Build debug
         run: ./gradlew assembleDebug
       - name: 🛠️ Unit-test
@@ -60,7 +64,11 @@ jobs:
       - name: Create local.properties with secrets
         env:
           API_KEY_3: ${{ secrets.API_KEY_3 }}
-        run: echo "API_KEY_3=$API_KEY_3" > ./local.properties
+          API_KEY_2: ${{ secrets.API_KEY_2 }}
+          API_KEY_4: ${{ secrets.API_KEY_4 }}
+        run: echo "API_KEY_3=$API_KEY_3" > ./local.properties;
+             echo "API_KEY_4=$API_KEY_4" > ./local.properties;
+             echo "API_KEY_2=$API_KEY_2" > ./local.properties
       - name: 🔨 Build internal release
         run: ./gradlew assembleDebug
       - name: 🔄 Upload debug apk
